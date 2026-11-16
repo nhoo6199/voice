@@ -1,0 +1,2637 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>VoiceCraft — English Narrator Studio</title>
+
+<style>
+
+:root{
+    --bg:#070912;
+    --panel:#101421;
+    --panel2:#0c101b;
+    --border:#252b3d;
+    --text:#f5f7fb;
+    --muted:#7d8499;
+    --accent:#7165ff;
+    --accent2:#4b8cff;
+    --danger:#ff5f6d;
+    --success:#54d69a;
+}
+
+*{
+    box-sizing:border-box;
+}
+
+body{
+    margin:0;
+    min-height:100vh;
+    color:var(--text);
+    font-family:
+        Inter,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Arial,
+        sans-serif;
+
+    background:
+        radial-gradient(
+            circle at 10% 0%,
+            rgba(113,101,255,.20),
+            transparent 30%
+        ),
+        radial-gradient(
+            circle at 90% 90%,
+            rgba(75,140,255,.13),
+            transparent 30%
+        ),
+        var(--bg);
+}
+
+/* =========================
+   APP
+========================= */
+
+.app{
+    width:min(1400px,94%);
+    margin:auto;
+    padding:28px 0 60px;
+}
+
+/* =========================
+   HEADER
+========================= */
+
+header{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin-bottom:25px;
+}
+
+.brand{
+    display:flex;
+    align-items:center;
+    gap:13px;
+}
+
+.logo{
+    width:48px;
+    height:48px;
+    display:grid;
+    place-items:center;
+
+    border-radius:15px;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--accent),
+            var(--accent2)
+        );
+
+    box-shadow:
+        0 10px 35px rgba(90,80,255,.25);
+
+    font-size:23px;
+}
+
+.brand h1{
+    margin:0;
+    font-size:21px;
+    letter-spacing:-.4px;
+}
+
+.brand p{
+    margin:3px 0 0;
+    color:var(--muted);
+    font-size:12px;
+}
+
+.header-badge{
+    padding:8px 12px;
+    border:1px solid var(--border);
+    border-radius:10px;
+    color:#aeb4c6;
+    background:rgba(15,18,30,.7);
+    font-size:12px;
+}
+
+/* =========================
+   LAYOUT
+========================= */
+
+.layout{
+    display:grid;
+    grid-template-columns:
+        minmax(0,1.45fr)
+        minmax(360px,.75fr);
+
+    gap:20px;
+}
+
+/* =========================
+   CARD
+========================= */
+
+.card{
+    background:
+        linear-gradient(
+            180deg,
+            rgba(17,21,34,.96),
+            rgba(12,16,27,.96)
+        );
+
+    border:1px solid var(--border);
+    border-radius:21px;
+
+    box-shadow:
+        0 20px 70px rgba(0,0,0,.25);
+
+    padding:20px;
+}
+
+.card + .card{
+    margin-top:18px;
+}
+
+.card-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:15px;
+}
+
+.card-title{
+    margin:0;
+    font-size:15px;
+    font-weight:700;
+}
+
+.card-subtitle{
+    color:var(--muted);
+    font-size:11px;
+}
+
+/* =========================
+   SCRIPT
+========================= */
+
+textarea{
+    width:100%;
+    height:500px;
+
+    resize:vertical;
+
+    border:1px solid #292f43;
+    border-radius:17px;
+
+    background:#090c14;
+
+    color:#f3f5fa;
+
+    padding:20px;
+
+    outline:none;
+
+    font-size:16px;
+    line-height:1.8;
+
+    transition:.2s;
+}
+
+textarea:focus{
+    border-color:var(--accent);
+
+    box-shadow:
+        0 0 0 3px rgba(113,101,255,.12);
+}
+
+.script-bottom{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    margin-top:9px;
+
+    color:var(--muted);
+    font-size:11px;
+}
+
+/* =========================
+   QUICK PRESETS
+========================= */
+
+.quick-presets{
+    display:flex;
+    gap:8px;
+    flex-wrap:wrap;
+}
+
+.quick{
+    border:1px solid var(--border);
+    background:#151a29;
+
+    color:#aeb5c8;
+
+    border-radius:10px;
+
+    padding:8px 11px;
+
+    cursor:pointer;
+
+    font-size:11px;
+
+    transition:.18s;
+}
+
+.quick:hover{
+    border-color:var(--accent);
+    color:white;
+    transform:translateY(-1px);
+}
+
+/* =========================
+   VOICE SEARCH
+========================= */
+
+.search{
+    width:100%;
+
+    background:#0a0e17;
+
+    border:1px solid var(--border);
+
+    border-radius:12px;
+
+    color:white;
+
+    padding:12px 14px;
+
+    outline:none;
+
+    margin-bottom:12px;
+}
+
+.search:focus{
+    border-color:var(--accent);
+}
+
+/* =========================
+   FILTERS
+========================= */
+
+.filters{
+    display:flex;
+    gap:7px;
+    flex-wrap:wrap;
+
+    margin-bottom:13px;
+}
+
+.filter{
+    border:1px solid var(--border);
+    background:#121724;
+
+    color:#949caf;
+
+    padding:7px 10px;
+
+    border-radius:9px;
+
+    cursor:pointer;
+
+    font-size:11px;
+}
+
+.filter.active{
+    background:var(--accent);
+    color:white;
+    border-color:var(--accent);
+}
+
+/* =========================
+   VOICE LIST
+========================= */
+
+.voice-list{
+    max-height:340px;
+    overflow:auto;
+
+    padding-right:3px;
+}
+
+.voice{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    padding:12px;
+
+    border:1px solid transparent;
+
+    background:#0e131f;
+
+    border-radius:13px;
+
+    margin-bottom:7px;
+
+    cursor:pointer;
+
+    transition:.18s;
+}
+
+.voice:hover{
+    border-color:#343b52;
+}
+
+.voice.selected{
+    border-color:var(--accent);
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(113,101,255,.15),
+            rgba(113,101,255,.04)
+        );
+}
+
+.voice-main{
+    display:flex;
+    align-items:center;
+    gap:11px;
+}
+
+.avatar{
+    width:39px;
+    height:39px;
+
+    border-radius:50%;
+
+    display:grid;
+    place-items:center;
+
+    background:#20263a;
+
+    font-size:17px;
+}
+
+.voice-name{
+    font-size:12px;
+    font-weight:700;
+}
+
+.voice-meta{
+    margin-top:3px;
+    color:var(--muted);
+    font-size:10px;
+}
+
+.voice-tag{
+    font-size:9px;
+
+    padding:4px 7px;
+
+    background:#1d2333;
+
+    color:#8f97ac;
+
+    border-radius:6px;
+}
+
+/* =========================
+   STYLE GRID
+========================= */
+
+.style-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:8px;
+}
+
+.style{
+    border:1px solid var(--border);
+
+    background:#0e131f;
+
+    padding:12px;
+
+    border-radius:12px;
+
+    cursor:pointer;
+
+    transition:.18s;
+}
+
+.style:hover{
+    border-color:#404860;
+}
+
+.style.active{
+    border-color:var(--accent);
+
+    background:
+        rgba(113,101,255,.12);
+}
+
+.style-icon{
+    font-size:18px;
+    margin-bottom:6px;
+}
+
+.style-title{
+    font-size:12px;
+    font-weight:700;
+}
+
+.style-description{
+    color:var(--muted);
+    font-size:10px;
+    margin-top:3px;
+}
+
+/* =========================
+   CONTROLS
+========================= */
+
+.control{
+    margin-top:18px;
+}
+
+.control-head{
+    display:flex;
+    justify-content:space-between;
+
+    margin-bottom:7px;
+
+    color:#aab1c1;
+
+    font-size:11px;
+}
+
+.control-value{
+    color:#8c82ff;
+}
+
+input[type=range]{
+    width:100%;
+    accent-color:var(--accent);
+}
+
+/* =========================
+   TWO CONTROLS
+========================= */
+
+.control-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:14px;
+}
+
+/* =========================
+   BUTTONS
+========================= */
+
+.button-grid{
+    display:grid;
+    grid-template-columns:
+        1.4fr 1fr;
+
+    gap:8px;
+
+    margin-top:19px;
+}
+
+button{
+    border:none;
+
+    border-radius:12px;
+
+    padding:13px 12px;
+
+    color:white;
+
+    font-weight:700;
+
+    font-size:12px;
+
+    cursor:pointer;
+
+    transition:.18s;
+}
+
+button:hover{
+    filter:brightness(1.12);
+    transform:translateY(-1px);
+}
+
+.primary{
+    background:
+        linear-gradient(
+            135deg,
+            #7165ff,
+            #4b8cff
+        );
+}
+
+.secondary{
+    background:#202638;
+}
+
+.stop{
+    background:#321d27;
+    color:#ff9ba7;
+}
+
+/* =========================
+   STATUS
+========================= */
+
+.status{
+    display:flex;
+    align-items:center;
+    gap:8px;
+
+    margin-top:12px;
+
+    padding:11px 12px;
+
+    border:1px solid var(--border);
+
+    background:#090d16;
+
+    border-radius:11px;
+
+    font-size:10px;
+
+    color:var(--muted);
+}
+
+.status-dot{
+    width:7px;
+    height:7px;
+
+    border-radius:50%;
+
+    background:#777;
+
+    box-shadow:0 0 8px rgba(255,255,255,.1);
+}
+
+.status-dot.active{
+    background:var(--success);
+    box-shadow:0 0 10px rgba(84,214,154,.5);
+}
+
+/* =========================
+   PLAYER
+========================= */
+
+.player{
+    margin-top:18px;
+
+    padding:15px;
+
+    border:1px solid var(--border);
+
+    background:#0b0f19;
+
+    border-radius:15px;
+}
+
+.player-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.player-title{
+    font-size:11px;
+    font-weight:700;
+}
+
+.player-time{
+    font-size:10px;
+    color:var(--muted);
+}
+
+.progress{
+    width:100%;
+    height:5px;
+
+    background:#202638;
+
+    border-radius:10px;
+
+    overflow:hidden;
+
+    margin-top:12px;
+}
+
+.progress-bar{
+    width:0%;
+    height:100%;
+
+    background:
+        linear-gradient(
+            90deg,
+            var(--accent),
+            var(--accent2)
+        );
+
+    transition:.15s;
+}
+
+/* =========================
+   INFO
+========================= */
+
+.info{
+    margin-top:18px;
+
+    padding:13px;
+
+    border-radius:12px;
+
+    background:#0d121d;
+
+    border:1px solid var(--border);
+
+    color:#777f94;
+
+    font-size:10px;
+
+    line-height:1.6;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media(max-width:950px){
+
+    .layout{
+        grid-template-columns:1fr;
+    }
+
+}
+
+@media(max-width:600px){
+
+    .app{
+        width:94%;
+        padding-top:18px;
+    }
+
+    header{
+        align-items:flex-start;
+    }
+
+    .header-badge{
+        display:none;
+    }
+
+    textarea{
+        height:350px;
+    }
+
+    .control-grid{
+        grid-template-columns:1fr;
+    }
+
+    .style-grid{
+        grid-template-columns:1fr 1fr;
+    }
+
+}
+
+</style>
+</head>
+
+
+<body>
+
+<div class="app">
+
+<header>
+
+    <div class="brand">
+
+        <div class="logo">
+            🎙️
+        </div>
+
+        <div>
+            <h1>VoiceCraft</h1>
+            <p>English Narrator & Storytelling Studio</p>
+        </div>
+
+    </div>
+
+    <div class="header-badge">
+        🇬🇧 UK &nbsp;·&nbsp; 🇺🇸 US
+    </div>
+
+</header>
+
+
+<div class="layout">
+
+
+<!-- =====================================================
+     LEFT SIDE
+===================================================== -->
+
+<div>
+
+
+    <!-- SCRIPT -->
+
+    <div class="card">
+
+        <div class="card-header">
+
+            <h2 class="card-title">
+                Your Script
+            </h2>
+
+            <span
+                class="card-subtitle"
+                id="characterCount"
+            >
+                0 characters
+            </span>
+
+        </div>
+
+
+        <textarea
+            id="script"
+            spellcheck="true"
+            placeholder="Paste your English script here...
+
+Example:
+
+There is something fascinating about intelligent people.
+
+They often enjoy spending time alone, not because they dislike other people, but because their minds are constantly exploring new ideas.
+
+And that's where the story gets interesting..."
+        ></textarea>
+
+
+        <div class="script-bottom">
+
+            <span>
+                English narration
+            </span>
+
+            <span id="wordCount">
+                0 words
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <!-- QUICK SCRIPT -->
+
+    <div class="card">
+
+        <div class="card-header">
+
+            <h2 class="card-title">
+                Quick Examples
+            </h2>
+
+            <span class="card-subtitle">
+                Try a style
+            </span>
+
+        </div>
+
+
+        <div class="quick-presets">
+
+            <button
+                class="quick"
+                onclick="loadExample('psychology')"
+            >
+                🧠 Psychology
+            </button>
+
+            <button
+                class="quick"
+                onclick="loadExample('review')"
+            >
+                ⭐ Product Review
+            </button>
+
+            <button
+                class="quick"
+                onclick="loadExample('story')"
+            >
+                📖 Storytelling
+            </button>
+
+            <button
+                class="quick"
+                onclick="loadExample('documentary')"
+            >
+                🎬 Documentary
+            </button>
+
+            <button
+                class="quick"
+                onclick="loadExample('youtube')"
+            >
+                ▶ YouTube Essay
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- PLAYER -->
+
+    <div class="card">
+
+        <div class="card-header">
+
+            <h2 class="card-title">
+                Voice Player
+            </h2>
+
+            <span
+                class="card-subtitle"
+                id="currentVoice"
+            >
+                No voice selected
+            </span>
+
+        </div>
+
+
+        <div class="player">
+
+            <div class="player-top">
+
+                <span
+                    class="player-title"
+                    id="playerStatus"
+                >
+                    Ready to speak
+                </span>
+
+                <span
+                    class="player-time"
+                    id="chunkStatus"
+                >
+                    —
+                </span>
+
+            </div>
+
+
+            <div class="progress">
+
+                <div
+                    class="progress-bar"
+                    id="progressBar"
+                ></div>
+
+            </div>
+
+        </div>
+
+
+        <div class="button-grid">
+
+            <button
+                class="primary"
+                onclick="speakScript()"
+            >
+                ▶ Play Script
+            </button>
+
+            <button
+                class="secondary"
+                onclick="previewVoice()"
+            >
+                🎧 Preview Voice
+            </button>
+
+            <button
+                class="secondary"
+                onclick="pauseSpeech()"
+            >
+                Ⅱ Pause / Resume
+            </button>
+
+            <button
+                class="stop"
+                onclick="stopSpeech()"
+            >
+                ■ Stop
+            </button>
+
+        </div>
+
+
+        <div class="status">
+
+            <div
+                class="status-dot"
+                id="statusDot"
+            ></div>
+
+            <span id="statusText">
+                Ready
+            </span>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     RIGHT SIDE
+===================================================== -->
+
+<div>
+
+
+    <!-- VOICES -->
+
+    <div class="card">
+
+        <div class="card-header">
+
+            <h2 class="card-title">
+                Voice Library
+            </h2>
+
+            <span
+                class="card-subtitle"
+                id="voiceCount"
+            >
+                0 voices
+            </span>
+
+        </div>
+
+
+        <input
+            class="search"
+            id="voiceSearch"
+            type="text"
+            placeholder="Search English voices..."
+        >
+
+
+        <div class="filters">
+
+            <button
+                class="filter active"
+                data-filter="all"
+            >
+                All
+            </button>
+
+            <button
+                class="filter"
+                data-filter="uk"
+            >
+                🇬🇧 UK
+            </button>
+
+            <button
+                class="filter"
+                data-filter="us"
+            >
+                🇺🇸 US
+            </button>
+
+            <button
+                class="filter"
+                data-filter="male"
+            >
+                ♂ Male
+            </button>
+
+            <button
+                class="filter"
+                data-filter="female"
+            >
+                ♀ Female
+            </button>
+
+        </div>
+
+
+        <div
+            class="voice-list"
+            id="voiceList"
+        ></div>
+
+
+        <div class="info">
+
+            The available voices depend on your
+            browser and operating system.
+            If Chrome exposes Microsoft,
+            Google or other English voices,
+            they will appear here automatically.
+
+        </div>
+
+    </div>
+
+
+    <!-- STYLE -->
+
+    <div class="card">
+
+        <div class="card-header">
+
+            <h2 class="card-title">
+                Narration Style
+            </h2>
+
+            <span class="card-subtitle">
+                Preset
+            </span>
+
+        </div>
+
+
+        <div class="style-grid">
+
+
+            <div
+                class="style active"
+                data-style="narrator"
+            >
+
+                <div class="style-icon">
+                    🎙️
+                </div>
+
+                <div class="style-title">
+                    Natural Narrator
+                </div>
+
+                <div class="style-description">
+                    Natural, warm & conversational
+                </div>
+
+            </div>
+
+
+            <div
+                class="style"
+                data-style="psychology"
+            >
+
+                <div class="style-icon">
+                    🧠
+                </div>
+
+                <div class="style-title">
+                    Psychology
+                </div>
+
+                <div class="style-description">
+                    Calm, thoughtful & deep
+                </div>
+
+            </div>
+
+
+            <div
+                class="style"
+                data-style="documentary"
+            >
+
+                <div class="style-icon">
+                    🎬
+                </div>
+
+                <div class="style-title">
+                    Documentary
+                </div>
+
+                <div class="style-description">
+                    Deep & cinematic
+                </div>
+
+            </div>
+
+
+            <div
+                class="style"
+                data-style="story"
+            >
+
+                <div class="style-icon">
+                    📖
+                </div>
+
+                <div class="style-title">
+                    Storytelling
+                </div>
+
+                <div class="style-description">
+                    Expressive & immersive
+                </div>
+
+            </div>
+
+
+            <div
+                class="style"
+                data-style="review"
+            >
+
+                <div class="style-icon">
+                    ⭐
+                </div>
+
+                <div class="style-title">
+                    Review
+                </div>
+
+                <div class="style-description">
+                    Confident & engaging
+                </div>
+
+            </div>
+
+
+            <div
+                class="style"
+                data-style="youtube"
+            >
+
+                <div class="style-icon">
+                    ▶
+                </div>
+
+                <div class="style-title">
+                    YouTube Essay
+                </div>
+
+                <div class="style-description">
+                    Energetic & modern
+                </div>
+
+            </div>
+
+
+            <div
+                class="style"
+                data-style="news"
+            >
+
+                <div class="style-icon">
+                    📰
+                </div>
+
+                <div class="style-title">
+                    News
+                </div>
+
+                <div class="style-description">
+                    Clear & professional
+                </div>
+
+            </div>
+
+
+            <div
+                class="style"
+                data-style="calm"
+            >
+
+                <div class="style-icon">
+                    🌙
+                </div>
+
+                <div class="style-title">
+                    Calm
+                </div>
+
+                <div class="style-description">
+                    Slow & relaxed
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- SPEED + PITCH -->
+
+        <div class="control-grid">
+
+
+            <div class="control">
+
+                <div class="control-head">
+
+                    <span>
+                        Speed
+                    </span>
+
+                    <span
+                        class="control-value"
+                        id="speedValue"
+                    >
+                        0.92×
+                    </span>
+
+                </div>
+
+
+                <input
+                    type="range"
+                    id="speed"
+                    min="0.50"
+                    max="1.60"
+                    step="0.01"
+                    value="0.92"
+                >
+
+            </div>
+
+
+            <div class="control">
+
+                <div class="control-head">
+
+                    <span>
+                        Pitch
+                    </span>
+
+                    <span
+                        class="control-value"
+                        id="pitchValue"
+                    >
+                        0.95
+                    </span>
+
+                </div>
+
+
+                <input
+                    type="range"
+                    id="pitch"
+                    min="0.50"
+                    max="1.50"
+                    step="0.01"
+                    value="0.95"
+                >
+
+            </div>
+
+
+        </div>
+
+
+        <!-- VOLUME -->
+
+        <div class="control">
+
+            <div class="control-head">
+
+                <span>
+                    Volume
+                </span>
+
+                <span
+                    class="control-value"
+                    id="volumeValue"
+                >
+                    100%
+                </span>
+
+            </div>
+
+
+            <input
+                type="range"
+                id="volume"
+                min="0"
+                max="1"
+                step="0.01"
+                value="1"
+            >
+
+        </div>
+
+    </div>
+
+
+</div>
+
+</div>
+
+</div>
+
+
+<script>
+
+/* =========================================================
+   VOICECRAFT ENGINE
+========================================================= */
+
+const synth =
+    window.speechSynthesis;
+
+let voices = [];
+
+let selectedVoice = null;
+
+let currentFilter = "all";
+
+let currentStyle = "narrator";
+
+let chunks = [];
+
+let currentChunk = 0;
+
+let isSpeaking = false;
+
+
+/* =========================================================
+   STYLE PRESETS
+========================================================= */
+
+const styles = {
+
+    narrator:{
+        speed:0.92,
+        pitch:0.97
+    },
+
+    psychology:{
+        speed:0.84,
+        pitch:0.90
+    },
+
+    documentary:{
+        speed:0.82,
+        pitch:0.86
+    },
+
+    story:{
+        speed:0.88,
+        pitch:0.98
+    },
+
+    review:{
+        speed:1.00,
+        pitch:1.02
+    },
+
+    youtube:{
+        speed:1.08,
+        pitch:1.04
+    },
+
+    news:{
+        speed:0.98,
+        pitch:0.94
+    },
+
+    calm:{
+        speed:0.76,
+        pitch:0.92
+    }
+
+};
+
+
+/* =========================================================
+   LOAD VOICES
+========================================================= */
+
+function loadVoices(){
+
+    voices =
+        synth.getVoices()
+        .filter(v =>
+            /^en/i.test(v.lang)
+        );
+
+    updateVoiceCount();
+
+    renderVoices();
+
+    if(!selectedVoice && voices.length){
+
+        const preferred =
+            voices.find(v =>
+                /en-US/i.test(v.lang)
+            ) ||
+            voices.find(v =>
+                /en-GB/i.test(v.lang)
+            ) ||
+            voices[0];
+
+        selectedVoice =
+            preferred;
+
+        updateSelectedVoice();
+
+    }
+
+}
+
+
+loadVoices();
+
+
+if("onvoiceschanged" in synth){
+
+    synth.onvoiceschanged =
+        loadVoices;
+
+}
+
+
+/* =========================================================
+   VOICE COUNT
+========================================================= */
+
+function updateVoiceCount(){
+
+    document.getElementById(
+        "voiceCount"
+    ).textContent =
+        voices.length +
+        " English voices";
+
+}
+
+
+/* =========================================================
+   VOICE FILTER
+========================================================= */
+
+document
+.querySelectorAll(".filter")
+.forEach(button => {
+
+    button.addEventListener(
+        "click",
+        () => {
+
+            document
+            .querySelectorAll(".filter")
+            .forEach(b =>
+                b.classList.remove("active")
+            );
+
+            button.classList.add("active");
+
+            currentFilter =
+                button.dataset.filter;
+
+            renderVoices();
+
+        }
+    );
+
+});
+
+
+/* =========================================================
+   SEARCH
+========================================================= */
+
+document
+.getElementById("voiceSearch")
+.addEventListener(
+    "input",
+    renderVoices
+);
+
+
+/* =========================================================
+   DETECT GENDER
+========================================================= */
+
+function isFemale(voice){
+
+    return /female|woman|girl|samantha|karen|zira|hazel|susan|victoria|aria|jenny|libby|sonia|sara|ava|emma|linda|heather/i
+        .test(
+            voice.name
+        );
+
+}
+
+
+function isMale(voice){
+
+    return /male|man|guy|david|daniel|george|ryan|mark|fred|james|thomas|alex|richard|william|oliver/i
+        .test(
+            voice.name
+        );
+
+}
+
+
+/* =========================================================
+   REGION
+========================================================= */
+
+function isUK(voice){
+
+    return /en-GB/i
+        .test(
+            voice.lang
+        );
+
+}
+
+
+function isUS(voice){
+
+    return /en-US/i
+        .test(
+            voice.lang
+        );
+
+}
+
+
+/* =========================================================
+   RENDER VOICES
+========================================================= */
+
+function renderVoices(){
+
+    const container =
+        document.getElementById(
+            "voiceList"
+        );
+
+    container.innerHTML = "";
+
+    const search =
+        document.getElementById(
+            "voiceSearch"
+        )
+        .value
+        .trim()
+        .toLowerCase();
+
+
+    const filtered =
+        voices.filter(voice => {
+
+            const name =
+                voice.name.toLowerCase();
+
+            const lang =
+                voice.lang.toLowerCase();
+
+
+            if(
+                search &&
+                !name.includes(search) &&
+                !lang.includes(search)
+            ){
+
+                return false;
+
+            }
+
+
+            if(
+                currentFilter === "uk" &&
+                !isUK(voice)
+            ){
+
+                return false;
+
+            }
+
+
+            if(
+                currentFilter === "us" &&
+                !isUS(voice)
+            ){
+
+                return false;
+
+            }
+
+
+            if(
+                currentFilter === "male" &&
+                !isMale(voice)
+            ){
+
+                return false;
+
+            }
+
+
+            if(
+                currentFilter === "female" &&
+                !isFemale(voice)
+            ){
+
+                return false;
+
+            }
+
+
+            return true;
+
+        });
+
+
+    if(!filtered.length){
+
+        container.innerHTML = `
+            <div style="
+                color:#747d92;
+                font-size:11px;
+                padding:20px;
+                text-align:center;
+            ">
+                No matching English voice found.
+            </div>
+        `;
+
+        return;
+
+    }
+
+
+    filtered.forEach(
+        voice => {
+
+            const item =
+                document.createElement(
+                    "div"
+                );
+
+            item.className =
+                "voice" +
+                (
+                    selectedVoice === voice
+                    ? " selected"
+                    : ""
+                );
+
+
+            const flag =
+                isUK(voice)
+                ? "🇬🇧"
+                : isUS(voice)
+                ? "🇺🇸"
+                : "🌎";
+
+
+            const genderIcon =
+                isFemale(voice)
+                ? "👩"
+                : "👨";
+
+
+            item.innerHTML = `
+
+                <div class="voice-main">
+
+                    <div class="avatar">
+                        ${genderIcon}
+                    </div>
+
+                    <div>
+
+                        <div class="voice-name">
+                            ${flag}
+                            ${escapeHTML(voice.name)}
+                        </div>
+
+                        <div class="voice-meta">
+                            ${escapeHTML(voice.lang)}
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="voice-tag">
+                    ${
+                        voice.localService
+                        ? "LOCAL"
+                        : "ONLINE"
+                    }
+                </div>
+
+            `;
+
+
+            item.addEventListener(
+                "click",
+                () => {
+
+                    selectedVoice =
+                        voice;
+
+                    updateSelectedVoice();
+
+                    renderVoices();
+
+                    setStatus(
+                        "Selected " +
+                        voice.name
+                    );
+
+                }
+            );
+
+
+            container.appendChild(
+                item
+            );
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   SELECTED VOICE
+========================================================= */
+
+function updateSelectedVoice(){
+
+    const label =
+        document.getElementById(
+            "currentVoice"
+        );
+
+    if(!selectedVoice){
+
+        label.textContent =
+            "No voice selected";
+
+        return;
+
+    }
+
+    label.textContent =
+        selectedVoice.name +
+        " · " +
+        selectedVoice.lang;
+
+}
+
+
+/* =========================================================
+   STYLE SELECTION
+========================================================= */
+
+document
+.querySelectorAll(".style")
+.forEach(style => {
+
+    style.addEventListener(
+        "click",
+        () => {
+
+            document
+            .querySelectorAll(".style")
+            .forEach(
+                s =>
+                s.classList.remove(
+                    "active"
+                )
+            );
+
+            style.classList.add(
+                "active"
+            );
+
+            currentStyle =
+                style.dataset.style;
+
+            applyStyle(
+                currentStyle
+            );
+
+        }
+    );
+
+});
+
+
+/* =========================================================
+   APPLY STYLE
+========================================================= */
+
+function applyStyle(style){
+
+    const preset =
+        styles[style];
+
+    if(!preset){
+        return;
+    }
+
+    document.getElementById(
+        "speed"
+    ).value =
+        preset.speed;
+
+    document.getElementById(
+        "pitch"
+    ).value =
+        preset.pitch;
+
+    updateControls();
+
+    setStatus(
+        "Style: " +
+        style
+    );
+
+}
+
+
+/* =========================================================
+   RANGE CONTROLS
+========================================================= */
+
+document
+.getElementById("speed")
+.addEventListener(
+    "input",
+    updateControls
+);
+
+document
+.getElementById("pitch")
+.addEventListener(
+    "input",
+    updateControls
+);
+
+document
+.getElementById("volume")
+.addEventListener(
+    "input",
+    updateControls
+);
+
+
+function updateControls(){
+
+    const speed =
+        parseFloat(
+            document.getElementById(
+                "speed"
+            ).value
+        );
+
+    const pitch =
+        parseFloat(
+            document.getElementById(
+                "pitch"
+            ).value
+        );
+
+    const volume =
+        parseFloat(
+            document.getElementById(
+                "volume"
+            ).value
+        );
+
+
+    document.getElementById(
+        "speedValue"
+    ).textContent =
+        speed.toFixed(2) +
+        "×";
+
+
+    document.getElementById(
+        "pitchValue"
+    ).textContent =
+        pitch.toFixed(2);
+
+
+    document.getElementById(
+        "volumeValue"
+    ).textContent =
+        Math.round(
+            volume * 100
+        ) +
+        "%";
+
+}
+
+
+updateControls();
+
+
+/* =========================================================
+   SCRIPT COUNTERS
+========================================================= */
+
+document
+.getElementById("script")
+.addEventListener(
+    "input",
+    updateCounters
+);
+
+
+function updateCounters(){
+
+    const text =
+        document.getElementById(
+            "script"
+        ).value;
+
+
+    const words =
+        text.trim()
+        ? text.trim().split(/\s+/).length
+        : 0;
+
+
+    document.getElementById(
+        "characterCount"
+    ).textContent =
+        text.length +
+        " characters";
+
+
+    document.getElementById(
+        "wordCount"
+    ).textContent =
+        words +
+        " words";
+
+}
+
+
+/* =========================================================
+   TEXT CHUNKING
+========================================================= */
+
+function splitText(text){
+
+    const max =
+        2500;
+
+    const sentences =
+        text.match(
+            /[^.!?]+[.!?]+|[^.!?]+$/g
+        ) || [];
+
+
+    const result = [];
+
+    let current = "";
+
+
+    sentences.forEach(
+        sentence => {
+
+            if(
+                current.length +
+                sentence.length >
+                max
+            ){
+
+                if(
+                    current.trim()
+                ){
+
+                    result.push(
+                        current.trim()
+                    );
+
+                }
+
+                current =
+                    sentence;
+
+            }
+            else{
+
+                current +=
+                    " " +
+                    sentence;
+
+            }
+
+        }
+    );
+
+
+    if(current.trim()){
+
+        result.push(
+            current.trim()
+        );
+
+    }
+
+
+    return result;
+
+}
+
+
+/* =========================================================
+   SPEAK SCRIPT
+========================================================= */
+
+function speakScript(){
+
+    const text =
+        document.getElementById(
+            "script"
+        )
+        .value
+        .trim();
+
+
+    if(!text){
+
+        setStatus(
+            "Please enter your script first."
+        );
+
+        return;
+
+    }
+
+
+    synth.cancel();
+
+
+    chunks =
+        splitText(text);
+
+
+    currentChunk =
+        0;
+
+    isSpeaking =
+        true;
+
+
+    speakNextChunk();
+
+}
+
+
+/* =========================================================
+   SPEAK NEXT
+========================================================= */
+
+function speakNextChunk(){
+
+    if(
+        currentChunk >=
+        chunks.length
+    ){
+
+        isSpeaking =
+            false;
+
+        updateProgress(
+            100
+        );
+
+        setStatus(
+            "Finished"
+        );
+
+        document.getElementById(
+            "playerStatus"
+        ).textContent =
+            "Finished";
+
+        return;
+
+    }
+
+
+    const utterance =
+        new SpeechSynthesisUtterance(
+            chunks[currentChunk]
+        );
+
+
+    if(selectedVoice){
+
+        utterance.voice =
+            selectedVoice;
+
+        utterance.lang =
+            selectedVoice.lang;
+
+    }
+    else{
+
+        utterance.lang =
+            "en-US";
+
+    }
+
+
+    utterance.rate =
+        parseFloat(
+            document.getElementById(
+                "speed"
+            ).value
+        );
+
+
+    utterance.pitch =
+        parseFloat(
+            document.getElementById(
+                "pitch"
+            ).value
+        );
+
+
+    utterance.volume =
+        parseFloat(
+            document.getElementById(
+                "volume"
+            ).value
+        );
+
+
+    utterance.onstart =
+        () => {
+
+            setStatus(
+                "Speaking..."
+            );
+
+            document.getElementById(
+                "playerStatus"
+            ).textContent =
+                "Speaking";
+
+            document.getElementById(
+                "chunkStatus"
+            ).textContent =
+                "Part " +
+                (currentChunk + 1) +
+                " / " +
+                chunks.length;
+
+            updateProgress(
+                (
+                    currentChunk /
+                    chunks.length
+                ) * 100
+            );
+
+        };
+
+
+    utterance.onend =
+        () => {
+
+            currentChunk++;
+
+            speakNextChunk();
+
+        };
+
+
+    utterance.onerror =
+        event => {
+
+            isSpeaking =
+                false;
+
+            setStatus(
+                "Speech error: " +
+                event.error
+            );
+
+        };
+
+
+    synth.speak(
+        utterance
+    );
+
+}
+
+
+/* =========================================================
+   PREVIEW VOICE
+========================================================= */
+
+function previewVoice(){
+
+    synth.cancel();
+
+
+    const preview =
+        `Hello, and welcome.
+
+Today, we're going to take a closer look at something fascinating.
+
+But before we get into it, there's one thing you need to understand.`;
+
+
+    const utterance =
+        new SpeechSynthesisUtterance(
+            preview
+        );
+
+
+    if(selectedVoice){
+
+        utterance.voice =
+            selectedVoice;
+
+        utterance.lang =
+            selectedVoice.lang;
+
+    }
+    else{
+
+        utterance.lang =
+            "en-US";
+
+    }
+
+
+    utterance.rate =
+        parseFloat(
+            document.getElementById(
+                "speed"
+            ).value
+        );
+
+
+    utterance.pitch =
+        parseFloat(
+            document.getElementById(
+                "pitch"
+            ).value
+        );
+
+
+    utterance.volume =
+        parseFloat(
+            document.getElementById(
+                "volume"
+            ).value
+        );
+
+
+    utterance.onstart =
+        () => {
+
+            setStatus(
+                "Previewing voice..."
+            );
+
+            document.getElementById(
+                "playerStatus"
+            ).textContent =
+                "Voice Preview";
+
+        };
+
+
+    utterance.onend =
+        () => {
+
+            setStatus(
+                "Ready"
+            );
+
+        };
+
+
+    synth.speak(
+        utterance
+    );
+
+}
+
+
+/* =========================================================
+   PAUSE / RESUME
+========================================================= */
+
+function pauseSpeech(){
+
+    if(
+        synth.speaking &&
+        !synth.paused
+    ){
+
+        synth.pause();
+
+        setStatus(
+            "Paused"
+        );
+
+        document.getElementById(
+            "playerStatus"
+        ).textContent =
+            "Paused";
+
+    }
+    else if(
+        synth.paused
+    ){
+
+        synth.resume();
+
+        setStatus(
+            "Speaking..."
+        );
+
+        document.getElementById(
+            "playerStatus"
+        ).textContent =
+            "Speaking";
+
+    }
+
+}
+
+
+/* =========================================================
+   STOP
+========================================================= */
+
+function stopSpeech(){
+
+    synth.cancel();
+
+    isSpeaking =
+        false;
+
+    setStatus(
+        "Stopped"
+    );
+
+    document.getElementById(
+        "playerStatus"
+    ).textContent =
+        "Stopped";
+
+    document.getElementById(
+        "chunkStatus"
+    ).textContent =
+        "—";
+
+    updateProgress(
+        0
+    );
+
+}
+
+
+/* =========================================================
+   STATUS
+========================================================= */
+
+function setStatus(message){
+
+    document.getElementById(
+        "statusText"
+    ).textContent =
+        message;
+
+
+    const dot =
+        document.getElementById(
+            "statusDot"
+        );
+
+
+    if(
+        message.includes(
+            "Speaking"
+        ) ||
+        message.includes(
+            "Previewing"
+        )
+    ){
+
+        dot.classList.add(
+            "active"
+        );
+
+    }
+    else{
+
+        dot.classList.remove(
+            "active"
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   PROGRESS
+========================================================= */
+
+function updateProgress(percent){
+
+    document.getElementById(
+        "progressBar"
+    ).style.width =
+        Math.max(
+            0,
+            Math.min(
+                100,
+                percent
+            )
+        ) + "%";
+
+}
+
+
+/* =========================================================
+   EXAMPLES
+========================================================= */
+
+const examples = {
+
+    psychology:
+`There is something fascinating about intelligent people.
+
+They often enjoy spending time alone, not because they dislike other people, but because their minds are constantly exploring new ideas.
+
+And this is where things become interesting.
+
+The more deeply someone thinks, the more they may begin to question the world around them.`,
+
+    review:
+`Today, we're taking a closer look at a product that has received a lot of attention recently.
+
+After spending several days using it, I found that there are a few things that really stand out.
+
+The design is impressive, the experience feels surprisingly smooth, but there are also a couple of problems you should know about.
+
+So, is it actually worth your money?
+
+Let's find out.`,
+
+    story:
+`It was a quiet evening when everything suddenly changed.
+
+The streets were almost empty.
+
+There was barely any sound in the distance, and the city seemed to be slowing down.
+
+Then he noticed something unusual.
+
+A light was still on inside a building that had been abandoned for years.`,
+
+    documentary:
+`For decades, scientists have been trying to understand one of the most fascinating questions in modern science.
+
+How does the human mind actually work?
+
+The answer is far more complicated than most people imagine.
+
+And some of the discoveries have completely changed the way we understand intelligence.`,
+
+    youtube:
+`What if I told you that one simple habit could completely change the way you learn English?
+
+Most people try to translate every sentence in their head.
+
+But there's a problem with that.
+
+Your brain isn't designed to translate everything before you speak.
+
+So today, we're going to look at a much better way to think in English.`
+
+};
+
+
+/* =========================================================
+   LOAD EXAMPLE
+========================================================= */
+
+function loadExample(type){
+
+    document.getElementById(
+        "script"
+    ).value =
+        examples[type] ||
+        "";
+
+    updateCounters();
+
+    setStatus(
+        "Example loaded"
+    );
+
+}
+
+
+/* =========================================================
+   ESCAPE HTML
+========================================================= */
+
+function escapeHTML(text){
+
+    return text
+        .replaceAll(
+            "&",
+            "&amp;"
+        )
+        .replaceAll(
+            "<",
+            "&lt;"
+        )
+        .replaceAll(
+            ">",
+            "&gt;"
+        )
+        .replaceAll(
+            '"',
+            "&quot;"
+        )
+        .replaceAll(
+            "'",
+            "&#039;"
+        );
+
+}
+
+
+/* =========================================================
+   KEYBOARD SHORTCUTS
+========================================================= */
+
+document.addEventListener(
+    "keydown",
+    event => {
+
+        if(
+            event.ctrlKey &&
+            event.key === "Enter"
+        ){
+
+            speakScript();
+
+        }
+
+
+        if(
+            event.key === "Escape"
+        ){
+
+            stopSpeech();
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   INITIALIZATION
+========================================================= */
+
+updateCounters();
+
+applyStyle(
+    "narrator"
+);
+
+</script>
+
+</body>
+</html>
