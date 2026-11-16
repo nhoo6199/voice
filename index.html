@@ -1,13 +1,13 @@
 
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>VoiceCraft — English Narrator Studio</title>
+<title>VoiceCraft — Narrator Studio</title>
 
 <style>
-:root {
+:root{
     --bg:#080b14;
     --panel:#111827;
     --panel2:#0c1220;
@@ -15,31 +15,31 @@
     --text:#edf2ff;
     --muted:#8d9bb3;
     --accent:#8b7cff;
-    --accent2:#5b9dff;
+    --blue:#5b9dff;
     --green:#39d9a5;
     --red:#ff657a;
 }
 
-* { box-sizing:border-box; }
+*{box-sizing:border-box}
 
-body {
+body{
     margin:0;
     min-height:100vh;
     background:
-        radial-gradient(ellipse at 15% 0%,#252052 0,transparent 38%),
-        radial-gradient(ellipse at 90% 20%,#102c49 0,transparent 35%),
-        var(--bg);
+    radial-gradient(ellipse at 15% 0%,#252052 0,transparent 38%),
+    radial-gradient(ellipse at 90% 20%,#102c49 0,transparent 35%),
+    var(--bg);
     color:var(--text);
     font-family:Inter,Segoe UI,Arial,sans-serif;
 }
 
-.container {
+.container{
     width:min(1100px,94%);
     margin:auto;
     padding:35px 0 55px;
 }
 
-header {
+header{
     display:flex;
     align-items:center;
     justify-content:space-between;
@@ -47,13 +47,13 @@ header {
     gap:15px;
 }
 
-.brand {
+.brand{
     display:flex;
     align-items:center;
     gap:12px;
 }
 
-.logo {
+.logo{
     width:46px;
     height:46px;
     border-radius:14px;
@@ -61,22 +61,20 @@ header {
     place-items:center;
     font-size:23px;
     background:linear-gradient(135deg,#8b7cff,#4ca8ff);
-    box-shadow:0 5px 25px #7163ff55;
 }
 
-.brand h1 {
+.brand h1{
     font-size:22px;
     margin:0;
-    letter-spacing:-.5px;
 }
 
-.brand p {
+.brand p{
     margin:4px 0 0;
     color:var(--muted);
     font-size:12px;
 }
 
-.status {
+.status{
     border:1px solid var(--border);
     background:#111827aa;
     padding:9px 13px;
@@ -85,7 +83,7 @@ header {
     font-size:12px;
 }
 
-.status span {
+.status span{
     display:inline-block;
     width:7px;
     height:7px;
@@ -94,34 +92,32 @@ header {
     margin-right:7px;
 }
 
-.hero {
-    margin-bottom:25px;
-}
+.hero{margin-bottom:25px}
 
-.hero h2 {
+.hero h2{
     font-size:clamp(28px,5vw,42px);
     letter-spacing:-1.5px;
     margin:0 0 10px;
 }
 
-.hero h2 em {
+.hero h2 em{
     font-style:normal;
     color:#a89cff;
 }
 
-.hero p {
+.hero p{
     color:var(--muted);
     line-height:1.6;
     margin:0;
 }
 
-.layout {
+.layout{
     display:grid;
     grid-template-columns:1.25fr .75fr;
     gap:20px;
 }
 
-.panel {
+.panel{
     background:linear-gradient(145deg,#151e30ee,#0e1523ee);
     border:1px solid var(--border);
     border-radius:19px;
@@ -129,7 +125,7 @@ header {
     box-shadow:0 15px 50px #0003;
 }
 
-.panel-title {
+.panel-title{
     font-size:16px;
     font-weight:700;
     margin:0 0 19px;
@@ -138,14 +134,14 @@ header {
     gap:9px;
 }
 
-.panel-title small {
+.panel-title small{
     color:var(--muted);
     font-size:11px;
     font-weight:400;
     margin-left:auto;
 }
 
-label {
+label{
     display:block;
     color:#bdc9dc;
     font-size:12px;
@@ -153,7 +149,7 @@ label {
     margin-bottom:9px;
 }
 
-textarea,select,input {
+textarea,select{
     width:100%;
     background:var(--panel2);
     color:var(--text);
@@ -164,28 +160,26 @@ textarea,select,input {
     font:inherit;
 }
 
-textarea {
+textarea{
     min-height:230px;
     resize:vertical;
     line-height:1.7;
     font-size:14px;
 }
 
-textarea:focus,select:focus {
+textarea:focus,select:focus{
     border-color:var(--accent);
     box-shadow:0 0 0 3px #8b7cff20;
 }
 
-select {
+select{
     cursor:pointer;
     font-size:13px;
 }
 
-.field {
-    margin-bottom:20px;
-}
+.field{margin-bottom:20px}
 
-.char-info {
+.char-info{
     display:flex;
     justify-content:space-between;
     color:var(--muted);
@@ -193,13 +187,13 @@ select {
     margin-top:8px;
 }
 
-.grid2 {
+.grid2{
     display:grid;
     grid-template-columns:1fr 1fr;
     gap:14px;
 }
 
-.range-row {
+.range-row{
     display:flex;
     justify-content:space-between;
     color:var(--muted);
@@ -207,7 +201,8 @@ select {
     margin-bottom:9px;
 }
 
-input[type=range] {
+input[type=range]{
+    width:100%;
     padding:0;
     accent-color:var(--accent);
     cursor:pointer;
@@ -215,13 +210,13 @@ input[type=range] {
     background:transparent;
 }
 
-.preset-grid {
+.preset-grid{
     display:grid;
     grid-template-columns:repeat(3,1fr);
     gap:9px;
 }
 
-.preset {
+.preset{
     border:1px solid var(--border);
     border-radius:10px;
     background:#111a2a;
@@ -232,19 +227,51 @@ input[type=range] {
     transition:.2s;
 }
 
-.preset:hover,.preset.active {
+.preset:hover,.preset.active{
     border-color:var(--accent);
     color:white;
     background:#5145a633;
 }
 
-button {
-    border:0;
-    font:inherit;
-    cursor:pointer;
+.voice-select-row{
+    display:flex;
+    gap:9px;
+    align-items:stretch;
 }
 
-.generate {
+.voice-select-row select{
+    flex:1;
+    min-width:0;
+}
+
+.preview-btn{
+    background:#25204a;
+    border:1px solid #6254ae;
+    color:#c8beff;
+    border-radius:11px;
+    padding:0 15px;
+    font-size:12px;
+    font-weight:700;
+    white-space:nowrap;
+}
+
+.preview-btn:hover{
+    background:#392d70;
+}
+
+.preview-btn:disabled{
+    opacity:.5;
+    cursor:not-allowed;
+}
+
+.preview-note{
+    font-size:11px;
+    color:var(--muted);
+    margin-top:9px;
+    line-height:1.5;
+}
+
+.generate{
     width:100%;
     padding:16px;
     margin-top:7px;
@@ -257,10 +284,50 @@ button {
     transition:.2s;
 }
 
-.generate:hover { filter:brightness(1.12); }
-.generate:disabled { opacity:.5;cursor:not-allowed; }
+.generate:hover{filter:brightness(1.12)}
 
-.secondary {
+.generate:disabled{
+    opacity:.5;
+    cursor:not-allowed;
+}
+
+.progress-wrap{
+    display:none;
+    margin-top:18px;
+}
+
+.progress-info{
+    display:flex;
+    justify-content:space-between;
+    color:var(--muted);
+    font-size:11px;
+    margin-bottom:8px;
+}
+
+.progress{
+    height:6px;
+    border-radius:20px;
+    background:#263247;
+    overflow:hidden;
+}
+
+.progress-bar{
+    height:100%;
+    width:0%;
+    background:linear-gradient(90deg,#8b7cff,#4ca8ff);
+    transition:width .25s;
+}
+
+.status-message{
+    color:var(--muted);
+    font-size:12px;
+    line-height:1.6;
+    margin-top:12px;
+    min-height:18px;
+    overflow-wrap:anywhere;
+}
+
+.secondary{
     background:#202b40;
     border:1px solid var(--border);
     color:#dce5f5;
@@ -269,53 +336,15 @@ button {
     font-size:12px;
 }
 
-.progress-wrap {
-    display:none;
-    margin-top:18px;
-}
-
-.progress-info {
-    display:flex;
-    justify-content:space-between;
-    color:var(--muted);
-    font-size:11px;
-    margin-bottom:8px;
-}
-
-.progress {
-    height:6px;
-    border-radius:20px;
-    background:#263247;
-    overflow:hidden;
-}
-
-.progress-bar {
-    height:100%;
-    width:0%;
-    background:linear-gradient(90deg,#8b7cff,#4ca8ff);
-    transition:width .3s;
-}
-
-.status-message {
-    color:var(--muted);
-    font-size:12px;
-    line-height:1.6;
-    margin-top:12px;
-    min-height:18px;
-}
-
-.output-panel {
-    margin-top:20px;
-}
-
-.audio-box {
+.audio-box{
     background:#0a1120;
     border:1px solid var(--border);
     border-radius:13px;
     padding:17px;
+    margin-top:12px;
 }
 
-.audio-top {
+.audio-top{
     display:flex;
     justify-content:space-between;
     align-items:center;
@@ -323,16 +352,20 @@ button {
     gap:10px;
 }
 
-.audio-top strong { font-size:13px; }
-.audio-top span { color:var(--muted);font-size:11px; }
+.audio-top strong{font-size:13px}
 
-audio {
-    width:100%;
-    height:38px;
-    margin-bottom:14px;
+.audio-top span{
+    color:var(--muted);
+    font-size:11px;
 }
 
-.download {
+audio{
+    width:100%;
+    height:38px;
+    margin-bottom:12px;
+}
+
+.download{
     width:100%;
     padding:13px;
     background:#153b35;
@@ -343,12 +376,12 @@ audio {
     font-size:13px;
 }
 
-.download:disabled {
+.download:disabled{
     opacity:.35;
     cursor:not-allowed;
 }
 
-.tip {
+.tip{
     margin-top:17px;
     padding:13px;
     border:1px solid #35405a;
@@ -359,9 +392,22 @@ audio {
     line-height:1.7;
 }
 
-.tip b { color:#c5bcff; }
+.tip b{color:#c5bcff}
 
-footer {
+.model-status{
+    margin-top:14px;
+    padding:12px;
+    background:#0b1423;
+    border:1px solid var(--border);
+    border-radius:11px;
+    font-size:11px;
+    color:var(--muted);
+    line-height:1.6;
+}
+
+.model-status strong{color:#c5bcff}
+
+footer{
     text-align:center;
     color:#65738a;
     font-size:11px;
@@ -369,21 +415,24 @@ footer {
     line-height:1.8;
 }
 
-@media(max-width:760px) {
-    .layout { grid-template-columns:1fr; }
-    .container { padding-top:22px; }
-    .panel { padding:17px; }
-    header { margin-bottom:25px; }
+@media(max-width:760px){
+    .layout{grid-template-columns:1fr}
+    .container{padding-top:22px}
+    .panel{padding:17px}
+    header{margin-bottom:25px}
 }
 
-@media(max-width:420px) {
-    .grid2 { grid-template-columns:1fr; }
-    .preset-grid { grid-template-columns:repeat(2,1fr); }
+@media(max-width:420px){
+    .grid2{grid-template-columns:1fr}
+    .preset-grid{grid-template-columns:repeat(2,1fr)}
+    .voice-select-row{flex-direction:column}
+    .preview-btn{padding:12px}
 }
 </style>
 </head>
 
 <body>
+
 <div class="container">
 
 <header>
@@ -391,388 +440,500 @@ footer {
         <div class="logo">🎙</div>
         <div>
             <h1>VoiceCraft</h1>
-            <p>English Narrator Studio</p>
+            <p>English Narrator Studio · V2</p>
         </div>
     </div>
-    <div class="status"><span></span> Browser AI Engine</div>
+    <div class="status">
+        <span></span> Browser AI Engine
+    </div>
 </header>
 
 <section class="hero">
     <h2>Give your words a <em>voice.</em></h2>
-    <p>Transform English text into natural-sounding narration. Generate, preview and export your audio.</p>
+    <p>Choose a voice, listen to a preview, then generate your narration.</p>
 </section>
 
 <div class="layout">
 
-    <main class="panel">
-        <h3 class="panel-title">✍️ Script Editor <small>01 / CONTENT</small></h3>
+<main class="panel">
 
-        <div class="field">
-            <label for="textInput">YOUR TEXT</label>
-            <textarea id="textInput" placeholder="Paste your English script here...
+<h3 class="panel-title">
+    ✍️ Script Editor
+    <small>01 / CONTENT</small>
+</h3>
 
-For example:
+<div class="field">
+    <label for="textInput">YOUR TEXT</label>
+
+    <textarea id="textInput"
+    placeholder="Paste your English script here...
+
 The human mind is one of the most fascinating mysteries in the universe. Every thought, every emotion, and every decision begins with complex processes inside our brain."></textarea>
-            <div class="char-info">
-                <span id="wordCount">0 words</span>
-                <span id="charCount">0 characters</span>
-            </div>
-        </div>
 
-        <div class="field">
-            <label>NARRATION STYLE</label>
-            <div class="preset-grid" id="presets">
-                <button class="preset active" data-preset="documentary">🎬 Documentary</button>
-                <button class="preset" data-preset="psychology">🧠 Psychology</button>
-                <button class="preset" data-preset="story">📖 Storytelling</button>
-                <button class="preset" data-preset="youtube">▶ YouTube Essay</button>
-                <button class="preset" data-preset="review">⭐ Review</button>
-                <button class="preset" data-preset="neutral">🎙 Neutral</button>
-            </div>
-        </div>
+    <div class="char-info">
+        <span id="wordCount">0 words</span>
+        <span id="charCount">0 characters</span>
+    </div>
+</div>
 
-        <div class="field">
-            <label for="voiceSelect">VOICE</label>
-            <select id="voiceSelect">
-                <optgroup label="🇺🇸 American English — Female">
-                    <option value="af_heart">Heart — Female</option>
-                    <option value="af_bella">Bella — Female</option>
-                    <option value="af_nicole">Nicole — Female</option>
-                    <option value="af_sarah">Sarah — Female</option>
-                    <option value="af_sky">Sky — Female</option>
-                    <option value="af_nova">Nova — Female</option>
-                    <option value="af_jessica">Jessica — Female</option>
-                    <option value="af_kore">Kore — Female</option>
-                    <option value="af_aoede">Aoede — Female</option>
-                    <option value="af_alloy">Alloy — Female</option>
-                    <option value="af_river">River — Female</option>
-                </optgroup>
+<div class="field">
+    <label>NARRATION STYLE</label>
 
-                <optgroup label="🇺🇸 American English — Male">
-                    <option value="am_michael">Michael — Male</option>
-                    <option value="am_adam">Adam — Male</option>
-                    <option value="am_echo">Echo — Male</option>
-                    <option value="am_fenrir">Fenrir — Male</option>
-                    <option value="am_onyx">Onyx — Male</option>
-                    <option value="am_puck">Puck — Male</option>
-                    <option value="am_eric">Eric — Male</option>
-                    <option value="am_liam">Liam — Male</option>
-                    <option value="am_santa">Santa — Male</option>
-                </optgroup>
+    <div class="preset-grid" id="presets">
+        <button class="preset active" data-preset="documentary">🎬 Documentary</button>
+        <button class="preset" data-preset="psychology">🧠 Psychology</button>
+        <button class="preset" data-preset="story">📖 Storytelling</button>
+        <button class="preset" data-preset="youtube">▶ YouTube Essay</button>
+        <button class="preset" data-preset="review">⭐ Review</button>
+        <button class="preset" data-preset="neutral">🎙 Neutral</button>
+    </div>
+</div>
 
-                <optgroup label="🇬🇧 British English — Female">
-                    <option value="bf_emma">Emma — Female</option>
-                    <option value="bf_isabella">Isabella — Female</option>
-                    <option value="bf_alice">Alice — Female</option>
-                    <option value="bf_lily">Lily — Female</option>
-                </optgroup>
+<div class="field">
+    <label for="voiceSelect">SELECT VOICE</label>
 
-                <optgroup label="🇬🇧 British English — Male">
-                    <option value="bm_george">George — Male</option>
-                    <option value="bm_lewis">Lewis — Male</option>
-                    <option value="bm_fable">Fable — Male</option>
-                    <option value="bm_daniel">Daniel — Male</option>
-                </optgroup>
-            </select>
-        </div>
+    <div class="voice-select-row">
+        <select id="voiceSelect">
 
-        <button class="generate" id="generateBtn">
-            ✨ Generate Voice
+            <optgroup label="🇺🇸 American English — Female">
+                <option value="af_heart">Heart — Female</option>
+                <option value="af_bella">Bella — Female</option>
+                <option value="af_nicole">Nicole — Female</option>
+                <option value="af_sarah">Sarah — Female</option>
+                <option value="af_sky">Sky — Female</option>
+                <option value="af_nova">Nova — Female</option>
+            </optgroup>
+
+            <optgroup label="🇺🇸 American English — Male">
+                <option value="am_michael">Michael — Male</option>
+                <option value="am_adam">Adam — Male</option>
+                <option value="am_echo">Echo — Male</option>
+                <option value="am_fenrir">Fenrir — Male</option>
+                <option value="am_onyx">Onyx — Male</option>
+                <option value="am_puck">Puck — Male</option>
+            </optgroup>
+
+            <optgroup label="🇬🇧 British English — Female">
+                <option value="bf_emma">Emma — Female</option>
+                <option value="bf_isabella">Isabella — Female</option>
+                <option value="bf_alice">Alice — Female</option>
+                <option value="bf_lily">Lily — Female</option>
+            </optgroup>
+
+            <optgroup label="🇬🇧 British English — Male">
+                <option value="bm_george">George — Male</option>
+                <option value="bm_lewis">Lewis — Male</option>
+                <option value="bm_fable">Fable — Male</option>
+                <option value="bm_daniel">Daniel — Male</option>
+            </optgroup>
+
+        </select>
+
+        <button class="preview-btn" id="previewBtn">
+            ▶ Preview Voice
         </button>
+    </div>
 
-        <div class="progress-wrap" id="progressWrap">
-            <div class="progress-info">
-                <span id="progressText">Preparing model...</span>
-                <span id="progressPercent">0%</span>
-            </div>
-            <div class="progress">
-                <div class="progress-bar" id="progressBar"></div>
-            </div>
-        </div>
+    <div class="preview-note">
+        Listen to a short sample of the selected voice before generating your full script.
+    </div>
+</div>
 
-        <div class="status-message" id="statusMessage">
-            Ready. Enter your English text to begin.
-        </div>
-    </main>
+<div class="field">
+    <label>VOICE PREVIEW</label>
 
-    <aside>
-        <section class="panel">
-            <h3 class="panel-title">⚙️ Voice Settings <small>02 / CONTROL</small></h3>
+    <audio id="previewPlayer" controls style="display:none"></audio>
 
-            <div class="field">
-                <div class="range-row">
-                    <label for="speed">Speaking Speed</label>
-                    <span id="speedValue">1.0x</span>
-                </div>
-                <input type="range" id="speed" min="0.75" max="1.25" step="0.05" value="1">
-            </div>
+    <div class="status-message" id="previewStatus">
+        Select a voice and click Preview Voice.
+    </div>
+</div>
 
-            <div class="field">
-                <div class="range-row">
-                    <label for="volume">Volume</label>
-                    <span id="volumeValue">100%</span>
-                </div>
-                <input type="range" id="volume" min="0" max="1" step="0.05" value="1">
-            </div>
+<button class="generate" id="generateBtn">
+    ✨ Generate Full Narration
+</button>
 
-            <div class="tip">
-                <b>💡 VoiceCraft Tip</b><br>
-                Use shorter sentences and clear punctuation for more natural narration. Paragraph breaks can help create a better reading rhythm.
-            </div>
-        </section>
+<div class="progress-wrap" id="progressWrap">
+    <div class="progress-info">
+        <span id="progressText">Preparing...</span>
+        <span id="progressPercent">0%</span>
+    </div>
+    <div class="progress">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+</div>
 
-        <section class="panel output-panel">
-            <h3 class="panel-title">🎧 Audio Output <small>03 / EXPORT</small></h3>
+<div class="status-message" id="statusMessage">
+    Ready. Enter your text to begin.
+</div>
 
-            <div class="audio-box">
-                <div class="audio-top">
-                    <strong>Generated narration</strong>
-                    <span id="audioInfo">No audio yet</span>
-                </div>
+<div class="model-status" id="modelStatus">
+    <strong>AI Model:</strong> Not loaded yet.<br>
+    The model will be downloaded the first time you preview or generate speech.
+</div>
 
-                <audio id="audioPlayer" controls></audio>
+</main>
 
-                <button class="download" id="downloadBtn" disabled>
-                    ⬇ Download MP3
-                </button>
-            </div>
+<aside>
 
-            <div class="tip">
-                <b>📦 MP3 Export</b><br>
-                Generate your narration first. Once processing is complete, the MP3 download button will become available.
-            </div>
-        </section>
-    </aside>
+<section class="panel">
+
+<h3 class="panel-title">
+    ⚙️ Voice Settings
+    <small>02 / CONTROL</small>
+</h3>
+
+<div class="field">
+    <div class="range-row">
+        <label for="speed">Speaking Speed</label>
+        <span id="speedValue">1.00x</span>
+    </div>
+    <input type="range" id="speed"
+    min="0.75" max="1.25" step="0.05" value="1">
+</div>
+
+<div class="field">
+    <div class="range-row">
+        <label for="volume">Volume</label>
+        <span id="volumeValue">100%</span>
+    </div>
+    <input type="range" id="volume"
+    min="0" max="1" step="0.05" value="1">
+</div>
+
+<div class="tip">
+    <b>💡 Narration Tip</b><br>
+    Use punctuation and paragraph breaks to improve narration rhythm.
+    Preview different voices before generating the complete script.
+</div>
+
+</section>
+
+<section class="panel" style="margin-top:20px">
+
+<h3 class="panel-title">
+    🎧 Audio Output
+    <small>03 / EXPORT</small>
+</h3>
+
+<div class="audio-box">
+    <div class="audio-top">
+        <strong>Generated narration</strong>
+        <span id="audioInfo">No audio yet</span>
+    </div>
+
+    <audio id="audioPlayer" controls></audio>
+
+    <button class="download" id="downloadBtn" disabled>
+        ⬇ Download MP3
+    </button>
+</div>
+
+<div class="tip">
+    <b>📦 MP3 Export</b><br>
+    The download button becomes active after successful generation.
+</div>
+
+</section>
+
+</aside>
 </div>
 
 <footer>
-    VOICECRAFT — ENGLISH NARRATOR STUDIO<br>
-    Powered by Kokoro TTS · Runs in your browser
+VOICECRAFT — ENGLISH NARRATOR STUDIO<br>
+Powered by Kokoro TTS · Runs locally in your browser
 </footer>
 
 </div>
 
 <script type="module">
+
 import { KokoroTTS } from
 "https://cdn.jsdelivr.net/npm/kokoro-js@1.2.1/+esm";
 
 const $ = id => document.getElementById(id);
 
-let tts = null;
-let audioUrl = null;
-let mp3Blob = null;
-let isGenerating = false;
+const MODEL_ID =
+"onnx-community/Kokoro-82M-v1.0-ONNX";
 
-const MODEL_ID = "onnx-community/Kokoro-82M-v1.0-ONNX";
+const PREVIEW_TEXT =
+"Hello, and welcome to VoiceCraft. " +
+"This is a short preview of the selected voice. " +
+"You can choose your favorite narrator before generating your full audio.";
+
+let tts = null;
+let modelPromise = null;
+
+let audioUrl = null;
+let previewUrl = null;
+let mp3Blob = null;
+
+let busy = false;
 
 const presets = {
-    documentary: {
-        speed: 0.95,
-        description: "Documentary narration"
-    },
-    psychology: {
-        speed: 0.95,
-        description: "Psychology narration"
-    },
-    story: {
-        speed: 0.90,
-        description: "Storytelling narration"
-    },
-    youtube: {
-        speed: 1.05,
-        description: "YouTube essay narration"
-    },
-    review: {
-        speed: 1.0,
-        description: "Review narration"
-    },
-    neutral: {
-        speed: 1.0,
-        description: "Neutral narration"
-    }
+    documentary: 0.95,
+    psychology: 0.95,
+    story: 0.90,
+    youtube: 1.05,
+    review: 1.00,
+    neutral: 1.00
 };
 
-// Load the MP3 encoder only when needed.
-function loadLameJS() {
-    return new Promise((resolve, reject) => {
-        if (window.lamejs) {
-            resolve(window.lamejs);
-            return;
-        }
+// -----------------------------
+// STATUS
+// -----------------------------
 
-        const script = document.createElement("script");
-        script.src =
-        "https://cdnjs.cloudflare.com/ajax/libs/lamejs/1.2.1/lame.min.js";
-
-        script.onload = () => {
-            if (window.lamejs) resolve(window.lamejs);
-            else reject(new Error("MP3 encoder could not be loaded."));
-        };
-
-        script.onerror = () =>
-            reject(new Error("Could not download the MP3 encoder."));
-
-        document.head.appendChild(script);
-    });
-}
-
-function setStatus(message, error = false) {
+function setStatus(message,error=false){
     $("statusMessage").textContent = message;
     $("statusMessage").style.color =
         error ? "var(--red)" : "var(--muted)";
 }
 
-function setProgress(percent, message) {
+function setPreviewStatus(message,error=false){
+    $("previewStatus").textContent = message;
+    $("previewStatus").style.color =
+        error ? "var(--red)" : "var(--muted)";
+}
+
+function setProgress(percent,message){
     $("progressWrap").style.display = "block";
-    $("progressBar").style.width = percent + "%";
-    $("progressPercent").textContent = Math.round(percent) + "%";
+
+    const value = Math.max(0,Math.min(100,percent));
+
+    $("progressBar").style.width = value + "%";
+    $("progressPercent").textContent =
+        Math.round(value) + "%";
+
     $("progressText").textContent = message;
 }
 
-function updateCounts() {
+function updateModelStatus(message){
+    $("modelStatus").innerHTML =
+        "<strong>AI Model:</strong> " + message;
+}
+
+// -----------------------------
+// COUNTERS
+// -----------------------------
+
+function updateCounts(){
     const text = $("textInput").value.trim();
-    const words = text ? text.split(/\s+/).length : 0;
+
+    const words = text
+        ? text.split(/\s+/).length
+        : 0;
 
     $("wordCount").textContent = words + " words";
+
     $("charCount").textContent =
         $("textInput").value.length + " characters";
 }
 
-$("textInput").addEventListener("input", updateCounts);
+$("textInput").addEventListener("input",updateCounts);
 
-$("speed").addEventListener("input", () => {
+// -----------------------------
+// SETTINGS
+// -----------------------------
+
+$("speed").addEventListener("input",()=>{
+    const speed = Number($("speed").value);
+
     $("speedValue").textContent =
-        Number($("speed").value).toFixed(2) + "x";
+        speed.toFixed(2) + "x";
 
-    $("audioPlayer").playbackRate = Number($("speed").value);
+    $("audioPlayer").playbackRate = speed;
+    $("previewPlayer").playbackRate = speed;
 });
 
-$("volume").addEventListener("input", () => {
+$("volume").addEventListener("input",()=>{
     const volume = Number($("volume").value);
 
     $("volumeValue").textContent =
-        Math.round(volume * 100) + "%";
+        Math.round(volume*100) + "%";
 
     $("audioPlayer").volume = volume;
+    $("previewPlayer").volume = volume;
 });
 
-// Presets change the default playback speed.
-document.querySelectorAll(".preset").forEach(button => {
-    button.addEventListener("click", () => {
+// -----------------------------
+// PRESETS
+// -----------------------------
+
+document.querySelectorAll(".preset").forEach(button=>{
+
+    button.addEventListener("click",()=>{
+
         document.querySelectorAll(".preset")
-            .forEach(item => item.classList.remove("active"));
+            .forEach(item=>item.classList.remove("active"));
 
         button.classList.add("active");
 
-        const preset = presets[button.dataset.preset];
+        $("speed").value =
+            presets[button.dataset.preset];
 
-        $("speed").value = preset.speed;
         $("speed").dispatchEvent(new Event("input"));
 
-        setStatus("Selected style: " + preset.description);
+        setStatus(
+            "Narration style selected: " +
+            button.dataset.preset
+        );
     });
 });
 
-// Split long scripts into manageable pieces.
-function splitText(text, maxLength = 400) {
-    const sentences =
-        text.match(/[^.!?]+[.!?]+|[^.!?]+$/g) || [text];
+// -----------------------------
+// MODEL LOADING
+// -----------------------------
 
-    const chunks = [];
-    let current = "";
+async function loadModel(){
 
-    for (const sentence of sentences) {
-        const part = sentence.trim();
-        if (!part) continue;
+    if(tts) return tts;
 
-        if ((current + " " + part).trim().length > maxLength) {
-            if (current) chunks.push(current.trim());
+    if(modelPromise) return modelPromise;
 
-            // Split exceptionally long sentences by words.
-            if (part.length > maxLength) {
-                const words = part.split(/\s+/);
-                current = "";
+    modelPromise = (async()=>{
 
-                for (const word of words) {
-                    if ((current + " " + word).trim().length > maxLength) {
-                        if (current) chunks.push(current.trim());
-                        current = word;
-                    } else {
-                        current = (current + " " + word).trim();
-                    }
+        setProgress(0,"Downloading AI model...");
+        updateModelStatus("Downloading and initializing...");
+
+        const commonOptions = {
+            dtype:"q8",
+
+            progress_callback:(progress)=>{
+
+                const percent = Number(progress?.progress);
+
+                if(Number.isFinite(percent) && percent >= 0){
+
+                    setProgress(
+                        percent,
+                        "Downloading model files..."
+                    );
+
+                    updateModelStatus(
+                        "Downloading model: " +
+                        Math.round(percent) + "%"
+                    );
+
+                }else{
+
+                    const status =
+                        progress?.status || "Loading model...";
+
+                    updateModelStatus(status);
+                    $("progressText").textContent = status;
                 }
-            } else {
-                current = part;
             }
-        } else {
-            current = (current + " " + part).trim();
+        };
+
+        // Try WebGPU first when available.
+        if(navigator.gpu){
+
+            try{
+
+                setStatus("Initializing WebGPU engine...");
+
+                tts = await KokoroTTS.from_pretrained(
+                    MODEL_ID,
+                    {
+                        ...commonOptions,
+                        device:"webgpu"
+                    }
+                );
+
+            }catch(error){
+
+                console.warn(
+                    "WebGPU unavailable. Falling back to WASM.",
+                    error
+                );
+
+                tts = null;
+            }
         }
+
+        // Fallback for browsers without working WebGPU.
+        if(!tts){
+
+            setStatus("Using browser WASM engine...");
+
+            tts = await KokoroTTS.from_pretrained(
+                MODEL_ID,
+                {
+                    ...commonOptions,
+                    device:"wasm"
+                }
+            );
+        }
+
+        setProgress(100,"Model ready!");
+
+        updateModelStatus(
+            "Ready ✓ — model loaded and available for reuse."
+        );
+
+        return tts;
+
+    })();
+
+    try{
+
+        return await modelPromise;
+
+    }catch(error){
+
+        modelPromise = null;
+        tts = null;
+
+        updateModelStatus(
+            "Load failed. Check your connection and retry."
+        );
+
+        throw error;
     }
-
-    if (current.trim()) chunks.push(current.trim());
-
-    return chunks;
 }
 
-async function loadModel() {
-    if (tts) return tts;
+// -----------------------------
+// MP3 ENCODER
+// -----------------------------
 
-    setProgress(3, "Loading AI model...");
+function loadLameJS(){
 
-    tts = await KokoroTTS.from_pretrained(MODEL_ID, {
-        dtype: "q8"
+    return new Promise((resolve,reject)=>{
+
+        if(window.lamejs){
+            resolve(window.lamejs);
+            return;
+        }
+
+        const script = document.createElement("script");
+
+        script.src =
+        "https://cdnjs.cloudflare.com/ajax/libs/lamejs/1.2.1/lame.min.js";
+
+        script.onload = ()=>{
+            if(window.lamejs){
+                resolve(window.lamejs);
+            }else{
+                reject(new Error("MP3 encoder unavailable."));
+            }
+        };
+
+        script.onerror = ()=>{
+            reject(new Error("Could not load MP3 encoder."));
+        };
+
+        document.head.appendChild(script);
     });
-
-    return tts;
 }
 
-function mergeAudio(parts) {
-    const totalLength = parts.reduce(
-        (sum, part) => sum + part.length, 0
-    );
+function floatToInt16(data){
 
-    const merged = new Float32Array(totalLength);
-    let offset = 0;
+    const result = new Int16Array(data.length);
 
-    for (const part of parts) {
-        merged.set(part, offset);
-        offset += part.length;
-    }
-
-    return merged;
-}
-
-// Change speed and volume before MP3 encoding.
-function processAudio(input, speed, volume) {
-    const outputLength = Math.max(
-        1, Math.floor(input.length / speed)
-    );
-
-    const output = new Float32Array(outputLength);
-
-    for (let i = 0; i < outputLength; i++) {
-        const position = i * speed;
-        const left = Math.floor(position);
-        const right = Math.min(left + 1, input.length - 1);
-        const fraction = position - left;
+    for(let i=0;i<data.length;i++){
 
         const sample =
-            input[left] * (1 - fraction) +
-            input[right] * fraction;
-
-        output[i] = Math.max(
-            -1, Math.min(1, sample * volume)
-        );
-    }
-
-    return output;
-}
-
-function floatToInt16(floatArray) {
-    const result = new Int16Array(floatArray.length);
-
-    for (let i = 0; i < floatArray.length; i++) {
-        const sample = Math.max(-1, Math.min(1, floatArray[i]));
+            Math.max(-1,Math.min(1,data[i]));
 
         result[i] = sample < 0
             ? sample * 32768
@@ -782,7 +943,8 @@ function floatToInt16(floatArray) {
     return result;
 }
 
-async function encodeMp3(floatAudio, sampleRate) {
+async function encodeMp3(data,sampleRate){
+
     const lame = await loadLameJS();
 
     const encoder = new lame.Mp3Encoder(
@@ -791,118 +953,354 @@ async function encodeMp3(floatAudio, sampleRate) {
         128
     );
 
-    const pcm = floatToInt16(floatAudio);
-    const blockSize = 1152;
-    const mp3Parts = [];
+    const pcm = floatToInt16(data);
 
-    for (let i = 0; i < pcm.length; i += blockSize) {
-        const chunk = pcm.subarray(
-            i, Math.min(i + blockSize, pcm.length)
+    const blockSize = 1152;
+    const parts = [];
+
+    for(let i=0;i<pcm.length;i+=blockSize){
+
+        const block = pcm.subarray(
+            i,
+            Math.min(i+blockSize,pcm.length)
         );
 
-        const encoded = encoder.encodeBuffer(chunk);
+        const encoded = encoder.encodeBuffer(block);
 
-        if (encoded.length) {
-            mp3Parts.push(new Uint8Array(encoded));
+        if(encoded.length){
+            parts.push(new Uint8Array(encoded));
         }
     }
 
-    const finalChunk = encoder.flush();
+    const finalData = encoder.flush();
 
-    if (finalChunk.length) {
-        mp3Parts.push(new Uint8Array(finalChunk));
+    if(finalData.length){
+        parts.push(new Uint8Array(finalData));
     }
 
-    return new Blob(mp3Parts, { type: "audio/mpeg" });
+    return new Blob(parts,{
+        type:"audio/mpeg"
+    });
 }
 
-function releaseOldAudio() {
-    if (audioUrl) {
+// -----------------------------
+// TEXT SPLITTING
+// -----------------------------
+
+function splitText(text,maxLength=450){
+
+    const sentences =
+        text.match(/[^.!?]+[.!?]+|[^.!?]+$/g) || [text];
+
+    const chunks = [];
+
+    let current = "";
+
+    for(const sentence of sentences){
+
+        const part = sentence.trim();
+
+        if(!part) continue;
+
+        if((current+" "+part).trim().length > maxLength){
+
+            if(current){
+                chunks.push(current.trim());
+            }
+
+            if(part.length > maxLength){
+
+                const words = part.split(/\s+/);
+                current = "";
+
+                for(const word of words){
+
+                    if((current+" "+word).trim().length > maxLength){
+
+                        if(current){
+                            chunks.push(current.trim());
+                        }
+
+                        current = word;
+
+                    }else{
+
+                        current =
+                            (current+" "+word).trim();
+                    }
+                }
+
+            }else{
+
+                current = part;
+            }
+
+        }else{
+
+            current =
+                (current+" "+part).trim();
+        }
+    }
+
+    if(current.trim()){
+        chunks.push(current.trim());
+    }
+
+    return chunks;
+}
+
+function mergeAudio(parts){
+
+    const length = parts.reduce(
+        (sum,part)=>sum+part.length,
+        0
+    );
+
+    const merged = new Float32Array(length);
+
+    let offset = 0;
+
+    for(const part of parts){
+
+        merged.set(part,offset);
+        offset += part.length;
+    }
+
+    return merged;
+}
+
+// Apply volume without changing the pitch or duration.
+function applyVolume(data,volume){
+
+    const output = new Float32Array(data.length);
+
+    for(let i=0;i<data.length;i++){
+
+        output[i] = Math.max(
+            -1,
+            Math.min(1,data[i]*volume)
+        );
+    }
+
+    return output;
+}
+
+// -----------------------------
+// AUDIO CLEANUP
+// -----------------------------
+
+function clearOldMainAudio(){
+
+    if(audioUrl){
         URL.revokeObjectURL(audioUrl);
         audioUrl = null;
     }
 
     mp3Blob = null;
+
     $("audioPlayer").removeAttribute("src");
     $("audioPlayer").load();
+
     $("downloadBtn").disabled = true;
     $("audioInfo").textContent = "No audio yet";
 }
 
-async function generateSpeech() {
-    if (isGenerating) return;
+function clearOldPreview(){
+
+    if(previewUrl){
+        URL.revokeObjectURL(previewUrl);
+        previewUrl = null;
+    }
+
+    $("previewPlayer").pause();
+    $("previewPlayer").removeAttribute("src");
+    $("previewPlayer").load();
+
+    $("previewPlayer").style.display = "none";
+}
+
+// -----------------------------
+// VOICE PREVIEW
+// -----------------------------
+
+async function previewVoice(){
+
+    if(busy) return;
+
+    busy = true;
+
+    $("previewBtn").disabled = true;
+    $("previewBtn").textContent = "⏳ Loading...";
+
+    try{
+
+        clearOldPreview();
+
+        setPreviewStatus("Loading voice preview...");
+
+        const model = await loadModel();
+
+        const voice = $("voiceSelect").value;
+
+        setProgress(0,"Generating short voice preview...");
+
+        const result = await model.generate(
+            PREVIEW_TEXT,
+            {
+                voice:voice,
+                speed:Number($("speed").value)
+            }
+        );
+
+        const blob = result.toBlob();
+
+        previewUrl = URL.createObjectURL(blob);
+
+        $("previewPlayer").src = previewUrl;
+        $("previewPlayer").style.display = "block";
+
+        $("previewPlayer").volume =
+            Number($("volume").value);
+
+        $("previewPlayer").playbackRate =
+            Number($("speed").value);
+
+        setProgress(100,"Preview ready!");
+
+        setPreviewStatus(
+            "Preview ready: " + voice
+        );
+
+        await $("previewPlayer").play();
+
+    }catch(error){
+
+        console.error(error);
+
+        setPreviewStatus(
+            "Preview failed: " +
+            (error.message || "Unknown error"),
+            true
+        );
+
+    }finally{
+
+        busy = false;
+
+        $("previewBtn").disabled = false;
+        $("previewBtn").textContent = "▶ Preview Voice";
+    }
+}
+
+$("previewBtn").addEventListener(
+    "click",
+    previewVoice
+);
+
+// -----------------------------
+// FULL GENERATION
+// -----------------------------
+
+async function generateSpeech(){
+
+    if(busy) return;
 
     const text = $("textInput").value.trim();
 
-    if (!text) {
-        setStatus("Please enter some English text first.", true);
+    if(!text){
+
+        setStatus(
+            "Please enter your English text first.",
+            true
+        );
+
         $("textInput").focus();
         return;
     }
 
-    if (text.length > 12000) {
+    if(text.length > 8000){
+
         setStatus(
-            "Please keep the script under 12,000 characters.",
+            "Please keep your script under 8,000 characters for this version.",
             true
         );
+
         return;
     }
 
-    isGenerating = true;
+    busy = true;
+
     $("generateBtn").disabled = true;
-    $("generateBtn").textContent = "⏳ Generating...";
-    releaseOldAudio();
+    $("previewBtn").disabled = true;
 
-    try {
-        setStatus("Preparing your narration...");
+    $("generateBtn").textContent =
+        "⏳ Generating...";
 
-        // Model loading can take time on the first visit.
+    clearOldMainAudio();
+
+    try{
+
+        setStatus("Preparing narration...");
+
         const model = await loadModel();
 
         const chunks = splitText(text);
+
         const voice = $("voiceSelect").value;
+        const speed = Number($("speed").value);
+        const volume = Number($("volume").value);
+
         const audioParts = [];
 
         let sampleRate = 24000;
 
-        for (let i = 0; i < chunks.length; i++) {
+        for(let i=0;i<chunks.length;i++){
+
             const percent =
-                8 + ((i / chunks.length) * 75);
+                ((i+1)/chunks.length)*85;
 
             setProgress(
                 percent,
-                `Generating part ${i + 1} of ${chunks.length}...`
+                `Generating audio: ${i+1}/${chunks.length}`
             );
 
-            const result = await model.generate(chunks[i], {
-                voice: voice
-            });
+            setStatus(
+                `Processing section ${i+1} of ${chunks.length}...`
+            );
 
-            if (!result || !result.audio) {
+            const result = await model.generate(
+                chunks[i],
+                {
+                    voice:voice,
+                    speed:speed
+                }
+            );
+
+            if(!result || !result.audio){
+
                 throw new Error(
-                    "The speech model returned no audio."
+                    "The model did not return audio."
                 );
             }
 
             audioParts.push(result.audio);
-            sampleRate = result.sampling_rate || sampleRate;
+
+            sampleRate =
+                result.sampling_rate || sampleRate;
         }
 
-        setProgress(87, "Combining audio...");
+        setProgress(88,"Combining audio sections...");
+
         const merged = mergeAudio(audioParts);
 
-        setProgress(91, "Applying voice settings...");
+        setProgress(92,"Applying volume...");
 
-        const speed = Number($("speed").value);
-        const volume = Number($("volume").value);
-
-        const processed = processAudio(
+        const processed = applyVolume(
             merged,
-            speed,
             volume
         );
 
-        setProgress(94, "Encoding MP3...");
+        setProgress(95,"Encoding MP3...");
 
         mp3Blob = await encodeMp3(
             processed,
@@ -912,60 +1310,79 @@ async function generateSpeech() {
         audioUrl = URL.createObjectURL(mp3Blob);
 
         $("audioPlayer").src = audioUrl;
+
         $("audioPlayer").volume = volume;
         $("audioPlayer").playbackRate = speed;
 
         $("audioInfo").textContent =
-            (mp3Blob.size / 1024 / 1024).toFixed(2) + " MB";
+            (mp3Blob.size/1024/1024).toFixed(2) +
+            " MB";
 
         $("downloadBtn").disabled = false;
 
-        setProgress(100, "Completed!");
+        setProgress(100,"Completed!");
 
         setStatus(
-            "Your narration is ready. You can listen or download the MP3."
+            "Your narration is ready. Listen or download the MP3."
         );
 
-    } catch (error) {
+    }catch(error){
+
         console.error(error);
 
         setStatus(
             "Generation failed: " +
-            (error.message || "Unknown error") +
-            ". Check your internet connection and try again.",
+            (error.message || "Unknown error"),
             true
         );
 
-        $("progressText").textContent = "Generation failed";
+        $("progressText").textContent =
+            "Generation failed";
 
-    } finally {
-        isGenerating = false;
+    }finally{
+
+        busy = false;
+
         $("generateBtn").disabled = false;
-        $("generateBtn").textContent = "✨ Generate Voice";
+        $("previewBtn").disabled = false;
+
+        $("generateBtn").textContent =
+            "✨ Generate Full Narration";
     }
 }
 
-$("generateBtn").addEventListener("click", generateSpeech);
+$("generateBtn").addEventListener(
+    "click",
+    generateSpeech
+);
 
-$("downloadBtn").addEventListener("click", () => {
-    if (!mp3Blob || !audioUrl) return;
+// -----------------------------
+// DOWNLOAD MP3
+// -----------------------------
+
+$("downloadBtn").addEventListener("click",()=>{
+
+    if(!mp3Blob || !audioUrl) return;
 
     const link = document.createElement("a");
+
     link.href = audioUrl;
     link.download = "VoiceCraft-Narration.mp3";
 
     document.body.appendChild(link);
+
     link.click();
     link.remove();
 });
 
-// Clean up the old object URL when the page is closed.
-window.addEventListener("beforeunload", () => {
-    if (audioUrl) URL.revokeObjectURL(audioUrl);
-});
+// -----------------------------
+// INITIALIZATION
+// -----------------------------
+
+$("audioPlayer").volume = 1;
+$("previewPlayer").volume = 1;
 
 updateCounts();
-$("audioPlayer").volume = 1;
 
 </script>
 </body>
