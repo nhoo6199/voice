@@ -18,18 +18,31 @@
     --accent2:#00d4ff;
     --green:#2ee59d;
     --danger:#ff5577;
+    --warning:#ffbd5c;
 }
 
 *{
     box-sizing:border-box;
 }
 
+html{
+    scroll-behavior:smooth;
+}
+
 body{
     margin:0;
     min-height:100vh;
     background:
-        radial-gradient(circle at 20% 0%,rgba(124,92,255,.15),transparent 30%),
-        radial-gradient(circle at 90% 10%,rgba(0,212,255,.10),transparent 25%),
+        radial-gradient(
+            circle at 15% 0%,
+            rgba(124,92,255,.16),
+            transparent 30%
+        ),
+        radial-gradient(
+            circle at 90% 5%,
+            rgba(0,212,255,.11),
+            transparent 28%
+        ),
         var(--bg);
     color:var(--text);
     font-family:
@@ -42,8 +55,8 @@ body{
 }
 
 .container{
-    width:min(1180px,94%);
-    margin:35px auto 60px;
+    width:min(1200px,94%);
+    margin:34px auto 60px;
 }
 
 .header{
@@ -54,19 +67,25 @@ body{
     display:flex;
     align-items:center;
     gap:12px;
-    font-size:27px;
-    font-weight:800;
-    letter-spacing:-.5px;
+    font-size:28px;
+    font-weight:850;
+    letter-spacing:-.7px;
 }
 
 .logoIcon{
-    width:42px;
-    height:42px;
-    border-radius:13px;
+    width:44px;
+    height:44px;
     display:grid;
     place-items:center;
-    background:linear-gradient(135deg,var(--accent),var(--accent2));
-    box-shadow:0 10px 35px rgba(124,92,255,.3);
+    border-radius:14px;
+    background:
+        linear-gradient(
+            135deg,
+            var(--accent),
+            var(--accent2)
+        );
+    box-shadow:
+        0 12px 40px rgba(124,92,255,.30);
 }
 
 .subtitle{
@@ -77,27 +96,28 @@ body{
 
 .grid{
     display:grid;
-    grid-template-columns:1.35fr .65fr;
+    grid-template-columns:minmax(0,1.35fr) minmax(300px,.65fr);
     gap:20px;
 }
 
 .card{
-    background:rgba(16,20,33,.92);
+    background:rgba(16,20,33,.94);
     border:1px solid var(--border);
-    border-radius:20px;
+    border-radius:21px;
     padding:20px;
-    box-shadow:0 20px 60px rgba(0,0,0,.18);
+    box-shadow:
+        0 20px 60px rgba(0,0,0,.18);
 }
 
 .cardTitle{
     font-size:15px;
-    font-weight:750;
+    font-weight:800;
     margin-bottom:14px;
 }
 
 textarea{
     width:100%;
-    min-height:430px;
+    min-height:460px;
     resize:vertical;
     border:1px solid var(--border);
     border-radius:15px;
@@ -112,13 +132,15 @@ textarea{
 
 textarea:focus{
     border-color:rgba(124,92,255,.75);
-    box-shadow:0 0 0 3px rgba(124,92,255,.10);
+    box-shadow:
+        0 0 0 3px rgba(124,92,255,.10);
 }
 
 .counter{
     display:flex;
     justify-content:space-between;
     gap:10px;
+    flex-wrap:wrap;
     color:var(--muted);
     font-size:12px;
     margin-top:9px;
@@ -129,7 +151,7 @@ textarea:focus{
 }
 
 .counter.warning{
-    color:#ffbf5f;
+    color:var(--warning);
 }
 
 .counter.danger{
@@ -164,7 +186,10 @@ button{
     padding:0 17px;
     border-radius:12px;
     font-weight:750;
-    transition:.18s ease;
+    transition:
+        transform .18s ease,
+        opacity .18s ease,
+        border-color .18s ease;
 }
 
 .btn:hover{
@@ -179,7 +204,12 @@ button{
 
 .primary{
     color:white;
-    background:linear-gradient(135deg,var(--accent),#5c7cff);
+    background:
+        linear-gradient(
+            135deg,
+            var(--accent),
+            #5c7cff
+        );
 }
 
 .secondary{
@@ -193,12 +223,6 @@ button{
     background:var(--green);
 }
 
-.danger{
-    color:white;
-    background:#3a1722;
-    border:1px solid #572234;
-}
-
 .full{
     width:100%;
 }
@@ -210,6 +234,10 @@ label{
     margin-bottom:7px;
 }
 
+.control{
+    margin-bottom:18px;
+}
+
 select{
     width:100%;
     height:43px;
@@ -219,10 +247,6 @@ select{
     border:1px solid var(--border);
     border-radius:11px;
     outline:none;
-}
-
-.control{
-    margin-bottom:18px;
 }
 
 .rangeRow{
@@ -237,7 +261,7 @@ input[type="range"]{
 }
 
 .rangeValue{
-    min-width:48px;
+    min-width:50px;
     text-align:right;
     font-size:12px;
     color:#cbd3e4;
@@ -303,7 +327,12 @@ audio{
 .progressFill{
     width:0%;
     height:100%;
-    background:linear-gradient(90deg,var(--accent),var(--accent2));
+    background:
+        linear-gradient(
+            90deg,
+            var(--accent),
+            var(--accent2)
+        );
     border-radius:999px;
     transition:width .25s ease;
 }
@@ -313,6 +342,7 @@ audio{
     color:#9ca7bb;
     font-size:12px;
     line-height:1.5;
+    min-height:18px;
 }
 
 .output{
@@ -349,7 +379,22 @@ audio{
     border:1px solid rgba(0,212,255,.12);
     color:#9eabc0;
     font-size:12px;
-    line-height:1.55;
+    line-height:1.6;
+}
+
+.engine{
+    margin-top:10px;
+    padding:9px 11px;
+    border-radius:10px;
+    background:#080d16;
+    border:1px solid var(--border);
+    color:#8995aa;
+    font-size:11px;
+}
+
+.engine span{
+    color:var(--green);
+    font-weight:700;
 }
 
 .footer{
@@ -360,6 +405,7 @@ audio{
 }
 
 @media(max-width:850px){
+
     .grid{
         grid-template-columns:1fr;
     }
@@ -367,64 +413,122 @@ audio{
     textarea{
         min-height:350px;
     }
+
 }
 </style>
 </head>
+
 
 <body>
 
 <div class="container">
 
+    <!-- HEADER -->
     <div class="header">
+
         <div class="logo">
-            <div class="logoIcon">🎙️</div>
-            <div>VoiceCraft</div>
+
+            <div class="logoIcon">
+                🎙️
+            </div>
+
+            <div>
+                VoiceCraft
+            </div>
+
         </div>
 
         <div class="subtitle">
             English Narrator Studio — browser-based AI voice generation
         </div>
+
     </div>
+
 
     <div class="grid">
 
-        <!-- LEFT -->
+        <!-- =====================================================
+             LEFT PANEL
+        ====================================================== -->
+
         <div class="card">
 
             <div class="cardTitle">
                 Script
             </div>
 
+
             <textarea
                 id="script"
                 placeholder="Paste your English narration here..."
             ></textarea>
 
-            <div id="counter" class="counter">
+
+            <div
+                id="counter"
+                class="counter"
+            >
+
                 <span>
-                    <b id="wordCount">0</b> words
+
+                    <b id="wordCount">
+                        0
+                    </b>
+
+                    words
+
                     ·
-                    <b id="charCount">0</b> characters
+
+                    <b id="charCount">
+                        0
+                    </b>
+
+                    characters
+
                 </span>
+
 
                 <span class="limit">
-                    Maximum: 10,000 words
+
+                    Maximum:
+                    <b>
+                        10,000 words
+                    </b>
+
                 </span>
+
             </div>
 
-            <div class="rowWrap" style="margin-top:14px">
-                <button class="btn secondary" id="exampleBtn">
+
+            <div
+                class="rowWrap"
+                style="margin-top:14px"
+            >
+
+                <button
+                    class="btn secondary"
+                    id="exampleBtn"
+                >
                     Load Example
                 </button>
 
-                <button class="btn secondary" id="clearBtn">
+
+                <button
+                    class="btn secondary"
+                    id="clearBtn"
+                >
                     Clear
                 </button>
+
             </div>
+
+
+            <!-- PROGRESS -->
 
             <div class="progressWrap">
 
                 <div class="progressTop">
+
                     <span id="progressLabel">
                         Ready
                     </span>
@@ -432,14 +536,19 @@ audio{
                     <span id="progressPercent">
                         0%
                     </span>
+
                 </div>
 
+
                 <div class="progressBar">
+
                     <div
                         id="progressFill"
                         class="progressFill"
                     ></div>
+
                 </div>
+
 
                 <div
                     id="status"
@@ -450,7 +559,13 @@ audio{
 
             </div>
 
-            <div class="rowWrap" style="margin-top:18px">
+
+            <!-- BUTTONS -->
+
+            <div
+                class="rowWrap"
+                style="margin-top:18px"
+            >
 
                 <button
                     id="generateBtn"
@@ -459,6 +574,7 @@ audio{
                 >
                     Generate Narration
                 </button>
+
 
                 <button
                     id="previewBtn"
@@ -469,22 +585,36 @@ audio{
 
             </div>
 
-            <div class="output" id="outputBox">
+
+            <!-- OUTPUT -->
+
+            <div
+                class="output"
+                id="outputBox"
+            >
 
                 <div class="outputTitle">
-                    <div class="cardTitle" style="margin:0">
+
+                    <div
+                        class="cardTitle"
+                        style="margin:0"
+                    >
                         Generated Audio
                     </div>
+
 
                     <div class="badge">
                         MP3 READY
                     </div>
+
                 </div>
+
 
                 <audio
                     id="audioPlayer"
                     controls
                 ></audio>
+
 
                 <button
                     id="downloadBtn"
@@ -499,12 +629,18 @@ audio{
         </div>
 
 
-        <!-- RIGHT -->
+        <!-- =====================================================
+             RIGHT PANEL
+        ====================================================== -->
+
         <div class="card">
 
             <div class="cardTitle">
                 Voice
             </div>
+
+
+            <!-- VOICE -->
 
             <div class="control">
 
@@ -512,9 +648,11 @@ audio{
                     English Voice
                 </label>
 
+
                 <select id="voice">
 
                     <optgroup label="🇺🇸 American Female">
+
                         <option value="af_heart">
                             Heart — Natural Female
                         </option>
@@ -538,7 +676,9 @@ audio{
                         <option value="af_nova">
                             Nova — Female
                         </option>
+
                     </optgroup>
+
 
                     <optgroup label="🇺🇸 American Male">
 
@@ -568,6 +708,7 @@ audio{
 
                     </optgroup>
 
+
                     <optgroup label="🇬🇧 British Female">
 
                         <option value="bf_emma">
@@ -587,6 +728,7 @@ audio{
                         </option>
 
                     </optgroup>
+
 
                     <optgroup label="🇬🇧 British Male">
 
@@ -613,11 +755,14 @@ audio{
             </div>
 
 
+            <!-- PRESETS -->
+
             <div class="control">
 
                 <label>
                     Narration Preset
                 </label>
+
 
                 <div class="presetGrid">
 
@@ -628,12 +773,14 @@ audio{
                         Psychology
                     </button>
 
+
                     <button
                         class="preset"
                         data-preset="documentary"
                     >
                         Documentary
                     </button>
+
 
                     <button
                         class="preset"
@@ -642,6 +789,7 @@ audio{
                         Storytelling
                     </button>
 
+
                     <button
                         class="preset"
                         data-preset="review"
@@ -649,12 +797,14 @@ audio{
                         Review
                     </button>
 
+
                     <button
                         class="preset"
                         data-preset="youtube"
                     >
                         YouTube Essay
                     </button>
+
 
                     <button
                         class="preset active"
@@ -668,11 +818,14 @@ audio{
             </div>
 
 
+            <!-- SPEED -->
+
             <div class="control">
 
                 <label>
                     Speed
                 </label>
+
 
                 <div class="rangeRow">
 
@@ -684,6 +837,7 @@ audio{
                         step="0.05"
                         value="1"
                     >
+
 
                     <div
                         class="rangeValue"
@@ -697,11 +851,14 @@ audio{
             </div>
 
 
+            <!-- VOLUME -->
+
             <div class="control">
 
                 <label>
                     Volume
                 </label>
+
 
                 <div class="rangeRow">
 
@@ -713,6 +870,7 @@ audio{
                         step="0.05"
                         value="1"
                     >
+
 
                     <div
                         class="rangeValue"
@@ -726,11 +884,14 @@ audio{
             </div>
 
 
+            <!-- PREVIEW -->
+
             <div class="previewBox">
 
                 <div class="cardTitle">
                     Voice Preview
                 </div>
+
 
                 <div
                     style="
@@ -739,9 +900,11 @@ audio{
                     line-height:1.55;
                     "
                 >
-                    Generate a short sample first to hear the
-                    selected voice before processing the full script.
+                    Generate a short sample first to hear
+                    the selected voice before processing
+                    the full script.
                 </div>
+
 
                 <audio
                     id="previewPlayer"
@@ -751,19 +914,50 @@ audio{
             </div>
 
 
+            <!-- ENGINE -->
+
+            <div class="engine">
+
+                Engine:
+                <span>
+                    Kokoro WASM
+                </span>
+
+                ·
+
+                Quantization:
+                <span>
+                    Q8
+                </span>
+
+                ·
+
+                WebGPU:
+                <span>
+                    Disabled
+                </span>
+
+            </div>
+
+
             <div class="notice">
 
-                <b>10,000-word mode</b><br>
+                <b>
+                    10,000-word mode
+                </b>
 
-                Long scripts are processed progressively.
-                The MP3 encoder works on audio chunks instead of
-                keeping the entire raw audio in memory.
+                <br>
+
+                Long scripts are generated progressively
+                in smaller speech sections. The MP3 encoder
+                also processes audio incrementally.
 
             </div>
 
         </div>
 
     </div>
+
 
     <div class="footer">
         VoiceCraft · Kokoro browser TTS · GitHub Pages compatible
@@ -774,86 +968,147 @@ audio{
 
 <script type="module">
 
+/* ============================================================
+   KOKORO
+============================================================ */
+
 import {
     KokoroTTS,
     TextSplitterStream
 } from "https://cdn.jsdelivr.net/npm/kokoro-js@1.2.1/+esm";
 
 
-/* =========================================================
+/* ============================================================
    CONFIG
-========================================================= */
+============================================================ */
 
 const MODEL_ID =
     "onnx-community/Kokoro-82M-v1.0-ONNX";
 
 /*
-    IMPORTANT:
-    This is WORD limit, not character limit.
+    IMPORTANT
+
+    This is a WORD limit.
+
+    10,000 words
+    NOT
+    10,000 characters.
 */
+
 const MAX_WORDS = 10000;
 
 
-/* =========================================================
-   ELEMENTS
-========================================================= */
+/* ============================================================
+   DOM
+============================================================ */
 
-const $ = id => document.getElementById(id);
-
-const scriptEl = $("script");
-const voiceEl = $("voice");
-const speedEl = $("speed");
-const volumeEl = $("volume");
-
-const wordCountEl = $("wordCount");
-const charCountEl = $("charCount");
-const counterEl = $("counter");
-
-const generateBtn = $("generateBtn");
-const previewBtn = $("previewBtn");
-
-const progressFill = $("progressFill");
-const progressPercent = $("progressPercent");
-const progressLabel = $("progressLabel");
-const statusEl = $("status");
-
-const outputBox = $("outputBox");
-const audioPlayer = $("audioPlayer");
-const previewPlayer = $("previewPlayer");
-const downloadBtn = $("downloadBtn");
-
-const speedValue = $("speedValue");
-const volumeValue = $("volumeValue");
+const $ = id =>
+    document.getElementById(id);
 
 
-/* =========================================================
-   GLOBAL STATE
-========================================================= */
+const scriptEl =
+    $("script");
+
+const voiceEl =
+    $("voice");
+
+const speedEl =
+    $("speed");
+
+const volumeEl =
+    $("volume");
+
+
+const wordCountEl =
+    $("wordCount");
+
+const charCountEl =
+    $("charCount");
+
+const counterEl =
+    $("counter");
+
+
+const generateBtn =
+    $("generateBtn");
+
+const previewBtn =
+    $("previewBtn");
+
+
+const progressFill =
+    $("progressFill");
+
+const progressPercent =
+    $("progressPercent");
+
+const progressLabel =
+    $("progressLabel");
+
+const statusEl =
+    $("status");
+
+
+const outputBox =
+    $("outputBox");
+
+const audioPlayer =
+    $("audioPlayer");
+
+const previewPlayer =
+    $("previewPlayer");
+
+const downloadBtn =
+    $("downloadBtn");
+
+
+const speedValue =
+    $("speedValue");
+
+const volumeValue =
+    $("volumeValue");
+
+
+/* ============================================================
+   STATE
+============================================================ */
 
 let tts = null;
+
 let modelPromise = null;
 
 let lamePromise = null;
 
 let currentMp3Blob = null;
+
 let currentMp3Url = null;
+
 let currentPreviewUrl = null;
 
 let isGenerating = false;
 
 
-/* =========================================================
-   HELPERS
-========================================================= */
+/* ============================================================
+   UTILITY
+============================================================ */
 
 function sleep(ms = 0){
-    return new Promise(resolve => setTimeout(resolve, ms));
+
+    return new Promise(
+        resolve => setTimeout(resolve, ms)
+    );
+
 }
 
 
+/* ============================================================
+   WORD COUNT
+============================================================ */
+
 function countWords(text){
 
-    const clean = text.trim();
+    const clean =
+        text.trim();
 
     if(!clean){
         return 0;
@@ -863,158 +1118,424 @@ function countWords(text){
         .split(/\s+/)
         .filter(Boolean)
         .length;
+
 }
 
 
+/* ============================================================
+   COUNTER
+============================================================ */
+
 function updateCounters(){
 
-    const text = scriptEl.value;
+    const text =
+        scriptEl.value;
 
-    const words = countWords(text);
-    const chars = text.length;
+    const words =
+        countWords(text);
+
+    const chars =
+        text.length;
+
 
     wordCountEl.textContent =
         words.toLocaleString();
 
+
     charCountEl.textContent =
         chars.toLocaleString();
+
 
     counterEl.classList.remove(
         "warning",
         "danger"
     );
 
+
     if(words > MAX_WORDS){
-        counterEl.classList.add("danger");
+
+        counterEl.classList.add(
+            "danger"
+        );
+
     }
-    else if(words > MAX_WORDS * .9){
-        counterEl.classList.add("warning");
+    else if(
+        words > MAX_WORDS * 0.9
+    ){
+
+        counterEl.classList.add(
+            "warning"
+        );
+
     }
+
 }
 
 
-function setProgress(percent, label, status = ""){
+/* ============================================================
+   PROGRESS
+============================================================ */
 
-    const p = Math.max(
-        0,
-        Math.min(100, percent)
-    );
+function setProgress(
+    percent,
+    label,
+    status = ""
+){
 
-    progressFill.style.width = `${p}%`;
+    const p =
+        Math.max(
+            0,
+            Math.min(
+                100,
+                percent
+            )
+        );
+
+
+    progressFill.style.width =
+        `${p}%`;
+
 
     progressPercent.textContent =
         `${Math.round(p)}%`;
 
+
     progressLabel.textContent =
         label;
 
+
     if(status){
+
         statusEl.textContent =
             status;
+
     }
+
 }
 
 
+/* ============================================================
+   BUSY STATE
+============================================================ */
+
 function setBusy(value){
 
-    isGenerating = value;
+    isGenerating =
+        value;
 
-    generateBtn.disabled = value;
-    previewBtn.disabled = value;
+
+    generateBtn.disabled =
+        value;
+
+
+    previewBtn.disabled =
+        value;
+
 
     generateBtn.textContent =
         value
         ? "Generating..."
         : "Generate Narration";
+
 }
 
 
-/*
-    Normalize newlines before feeding the stream.
+/* ============================================================
+   NORMALIZE TEXT
+============================================================ */
 
-    This is intentional:
-    TextSplitterStream has had edge cases around
-    newline + URL/@mention patterns in older releases.
-*/
 function normalizeText(text){
 
     return text
-        .replace(/\r\n/g, " ")
-        .replace(/\r/g, " ")
-        .replace(/\n+/g, " ")
-        .replace(/\t+/g, " ")
-        .replace(/[ ]{2,}/g, " ")
+        .replace(/\r\n/g," ")
+        .replace(/\r/g," ")
+        .replace(/\n+/g," ")
+        .replace(/\t+/g," ")
+        .replace(/[ ]{2,}/g," ")
         .trim();
+
 }
 
 
-/* =========================================================
-   MODEL LOADING
-========================================================= */
+/* ============================================================
+   SPLIT TEXT INTO SAFE INPUT SECTIONS
+============================================================ */
+
+function splitIntoSections(text){
+
+    /*
+        First try normal sentence boundaries.
+    */
+
+    let sentences =
+        text.match(
+            /[^.!?]+[.!?]+|[^.!?]+$/g
+        ) || [];
+
+
+    const result = [];
+
+
+    /*
+        We don't want extremely long chunks.
+
+        1000 characters is deliberately conservative
+        for browser WASM inference.
+    */
+
+    const MAX_SECTION_CHARS =
+        1000;
+
+
+    for(
+        const sentenceRaw of sentences
+    ){
+
+        let sentence =
+            sentenceRaw.trim();
+
+
+        if(!sentence){
+            continue;
+        }
+
+
+        /*
+            Short sentence:
+            use directly.
+        */
+
+        if(
+            sentence.length <=
+            MAX_SECTION_CHARS
+        ){
+
+            result.push(
+                sentence
+            );
+
+            continue;
+
+        }
+
+
+        /*
+            Long sentence:
+            split by commas / semicolons.
+        */
+
+        const pieces =
+            sentence.split(
+                /(?<=[,;:])\s+/
+            );
+
+
+        let current = "";
+
+
+        for(
+            const pieceRaw of pieces
+        ){
+
+            const piece =
+                pieceRaw.trim();
+
+
+            if(!piece){
+                continue;
+            }
+
+
+            if(
+                (
+                    current +
+                    " " +
+                    piece
+                ).trim().length
+                <=
+                MAX_SECTION_CHARS
+            ){
+
+                current =
+                    (
+                        current
+                        ? current + " "
+                        : ""
+                    ) +
+                    piece;
+
+            }
+            else{
+
+                if(current){
+
+                    result.push(
+                        current.trim()
+                    );
+
+                }
+
+
+                /*
+                    If a single piece itself
+                    is too long, split by words.
+                */
+
+                if(
+                    piece.length >
+                    MAX_SECTION_CHARS
+                ){
+
+                    const words =
+                        piece.split(/\s+/);
+
+                    let wordBuffer = "";
+
+
+                    for(
+                        const word of words
+                    ){
+
+                        const candidate =
+                            (
+                                wordBuffer
+                                ? wordBuffer + " "
+                                : ""
+                            ) +
+                            word;
+
+
+                        if(
+                            candidate.length >
+                            MAX_SECTION_CHARS
+                        ){
+
+                            if(wordBuffer){
+
+                                result.push(
+                                    wordBuffer
+                                );
+
+                            }
+
+                            wordBuffer =
+                                word;
+
+                        }
+                        else{
+
+                            wordBuffer =
+                                candidate;
+
+                        }
+
+                    }
+
+
+                    if(wordBuffer){
+
+                        result.push(
+                            wordBuffer
+                        );
+
+                    }
+
+
+                    current = "";
+
+                }
+                else{
+
+                    current =
+                        piece;
+
+                }
+
+            }
+
+        }
+
+
+        if(current){
+
+            result.push(
+                current.trim()
+            );
+
+        }
+
+    }
+
+
+    return result;
+
+}
+
+
+/* ============================================================
+   LOAD MODEL
+   ============================================================
+
+   IMPORTANT:
+   WebGPU is completely removed.
+
+   No navigator.gpu
+   No requestAdapter()
+   No WebGPU fallback
+
+   Only:
+
+       device = wasm
+       dtype  = q8
+
+============================================================ */
 
 async function loadModel(){
 
     if(tts){
+
         return tts;
+
     }
+
 
     if(modelPromise){
+
         return modelPromise;
+
     }
 
-    modelPromise = (async () => {
 
-        setProgress(
-            1,
-            "Loading AI model",
-            "Preparing Kokoro..."
-        );
+    modelPromise =
+        (async () => {
 
-        const configs = [];
+            setProgress(
+                1,
+                "Loading AI model",
+                "Starting stable WASM engine..."
+            );
 
-        /*
-            Prefer WebGPU for supported browsers.
-            Fall back to WASM.
-        */
-
-        if(
-            "gpu" in navigator &&
-            navigator.gpu
-        ){
-
-            configs.push({
-                device:"webgpu",
-                dtype:"fp32"
-            });
-
-        }
-
-        configs.push({
-            device:"wasm",
-            dtype:"q8"
-        });
-
-
-        let lastError = null;
-
-
-        for(const config of configs){
 
             try{
-
-                setProgress(
-                    2,
-                    "Loading AI model",
-                    `Starting ${config.device.toUpperCase()} engine...`
-                );
-
 
                 const model =
                     await KokoroTTS.from_pretrained(
                         MODEL_ID,
                         {
-                            dtype:config.dtype,
-                            device:config.device,
+
+                            /*
+                                STABLE BROWSER BACKEND
+                            */
+
+                            device:"wasm",
+
+                            /*
+                                Smaller memory footprint
+                                than fp32.
+                            */
+
+                            dtype:"q8",
+
 
                             progress_callback:
                                 progress => {
@@ -1024,23 +1545,27 @@ async function loadModel(){
                                             progress?.progress
                                         );
 
+
                                     if(
-                                        Number.isFinite(raw)
+                                        Number.isFinite(
+                                            raw
+                                        )
                                     ){
 
                                         /*
-                                            Model loading occupies
-                                            0–7% of the total bar.
+                                            Model loading
+                                            occupies 0–8%.
                                         */
 
                                         const p =
                                             Math.max(
                                                 1,
                                                 Math.min(
-                                                    7,
-                                                    raw / 100 * 7
+                                                    8,
+                                                    raw / 100 * 8
                                                 )
                                             );
+
 
                                         setProgress(
                                             p,
@@ -1049,44 +1574,48 @@ async function loadModel(){
                                             ? `Downloading ${progress.file}...`
                                             : "Loading Kokoro model..."
                                         );
+
                                     }
+
                                 }
+
                         }
                     );
 
 
-                tts = model;
+                tts =
+                    model;
+
 
                 setProgress(
                     8,
                     "AI model ready",
-                    `${config.device.toUpperCase()} engine ready. Starting generation...`
+                    "WASM engine ready."
                 );
+
 
                 return tts;
 
             }
             catch(error){
 
-                lastError = error;
-
-                console.warn(
-                    "Kokoro engine failed:",
-                    config,
+                console.error(
+                    "Kokoro WASM error:",
                     error
+                );
+
+
+                throw new Error(
+                    "Kokoro WASM could not start.\n\n" +
+                    (
+                        error?.message ||
+                        "Unknown model error."
+                    )
                 );
 
             }
 
-        }
-
-
-        throw lastError ||
-            new Error(
-                "Unable to load Kokoro model."
-            );
-
-    })();
+        })();
 
 
     try{
@@ -1096,16 +1625,22 @@ async function loadModel(){
     }
     catch(error){
 
-        modelPromise = null;
+        modelPromise =
+            null;
+
+        tts =
+            null;
+
         throw error;
 
     }
+
 }
 
 
-/* =========================================================
-   LAMEJS
-========================================================= */
+/* ============================================================
+   LOAD LAMEJS
+============================================================ */
 
 async function loadLame(){
 
@@ -1113,62 +1648,87 @@ async function loadLame(){
         window.lamejs &&
         window.lamejs.Mp3Encoder
     ){
+
         return window.lamejs;
+
     }
+
 
     if(lamePromise){
+
         return lamePromise;
+
     }
 
-    lamePromise = new Promise(
-        (resolve,reject) => {
 
-            const script =
-                document.createElement("script");
+    lamePromise =
+        new Promise(
+            (resolve,reject) => {
 
-            script.src =
-                "https://cdn.jsdelivr.net/npm/lamejs@1.2.1/lame.min.js";
-
-            script.onload = () => {
-
-                if(
-                    window.lamejs &&
-                    window.lamejs.Mp3Encoder
-                ){
-                    resolve(window.lamejs);
-                }
-                else{
-                    reject(
-                        new Error(
-                            "lamejs loaded but Mp3Encoder is unavailable."
-                        )
+                const script =
+                    document.createElement(
+                        "script"
                     );
-                }
 
-            };
 
-            script.onerror = () => {
+                script.src =
+                    "https://cdn.jsdelivr.net/npm/lamejs@1.2.1/lame.min.js";
 
-                reject(
-                    new Error(
-                        "Could not load MP3 encoder."
-                    )
+
+                script.onload =
+                    () => {
+
+                        if(
+                            window.lamejs &&
+                            window.lamejs.Mp3Encoder
+                        ){
+
+                            resolve(
+                                window.lamejs
+                            );
+
+                        }
+                        else{
+
+                            reject(
+                                new Error(
+                                    "MP3 encoder loaded incorrectly."
+                                )
+                            );
+
+                        }
+
+                    };
+
+
+                script.onerror =
+                    () => {
+
+                        reject(
+                            new Error(
+                                "Could not load MP3 encoder."
+                            )
+                        );
+
+                    };
+
+
+                document.head.appendChild(
+                    script
                 );
 
-            };
+            }
+        );
 
-            document.head.appendChild(script);
-
-        }
-    );
 
     return lamePromise;
+
 }
 
 
-/* =========================================================
-   MP3 ENCODER
-========================================================= */
+/* ============================================================
+   FLOAT32 -> INT16
+============================================================ */
 
 function floatToInt16(
     floatArray,
@@ -1180,6 +1740,7 @@ function floatToInt16(
             floatArray.length
         );
 
+
     for(
         let i = 0;
         i < floatArray.length;
@@ -1187,13 +1748,19 @@ function floatToInt16(
     ){
 
         let sample =
-            floatArray[i] * volume;
+            floatArray[i] *
+            volume;
+
 
         sample =
             Math.max(
                 -1,
-                Math.min(1,sample)
+                Math.min(
+                    1,
+                    sample
+                )
             );
+
 
         output[i] =
             sample < 0
@@ -1202,74 +1769,94 @@ function floatToInt16(
 
     }
 
+
     return output;
+
 }
 
 
-function encodeChunk(
+/* ============================================================
+   ENCODE MP3 BLOCK
+============================================================ */
+
+function encodeMp3Block(
     encoder,
     samples
 ){
 
-    const encoded = [];
+    const parts = [];
 
-    /*
-        LAME works well with 1152-sample blocks.
-    */
+    const BLOCK_SIZE =
+        1152;
 
-    const BLOCK = 1152;
 
     for(
         let i = 0;
         i < samples.length;
-        i += BLOCK
+        i += BLOCK_SIZE
     ){
 
-        const part =
+        const block =
             samples.subarray(
                 i,
                 Math.min(
-                    i + BLOCK,
+                    i + BLOCK_SIZE,
                     samples.length
                 )
             );
 
+
         const mp3buf =
-            encoder.encodeBuffer(part);
+            encoder.encodeBuffer(
+                block
+            );
+
 
         if(
             mp3buf &&
             mp3buf.length
         ){
 
-            encoded.push(
-                new Int8Array(mp3buf)
+            parts.push(
+                new Int8Array(
+                    mp3buf
+                )
             );
 
         }
 
     }
 
-    return encoded;
+
+    return parts;
+
 }
 
 
-/* =========================================================
-   GENERATE FULL NARRATION
-========================================================= */
+/* ============================================================
+   GENERATE NARRATION
+============================================================ */
 
 async function generateNarration(){
 
     if(isGenerating){
+
         return;
+
     }
+
 
     const originalText =
         scriptEl.value.trim();
 
-    const words =
-        countWords(originalText);
 
+    const words =
+        countWords(
+            originalText
+        );
+
+
+    /* EMPTY */
 
     if(!originalText){
 
@@ -1278,47 +1865,65 @@ async function generateNarration(){
         );
 
         return;
+
     }
 
+
+    /* LIMIT */
 
     if(words > MAX_WORDS){
 
         alert(
-            `Your script has ${words.toLocaleString()} words.\n\n` +
-            `The maximum is ${MAX_WORDS.toLocaleString()} words.`
+            `Your script contains ${words.toLocaleString()} words.\n\n` +
+            `Maximum allowed: ${MAX_WORDS.toLocaleString()} words.`
         );
 
         return;
+
     }
 
 
     setBusy(true);
 
-    outputBox.classList.remove("ready");
+
+    outputBox.classList.remove(
+        "ready"
+    );
+
+
+    downloadBtn.disabled =
+        true;
+
 
     if(currentMp3Url){
+
         URL.revokeObjectURL(
             currentMp3Url
         );
 
-        currentMp3Url = null;
+        currentMp3Url =
+            null;
+
     }
 
-    currentMp3Blob = null;
+
+    currentMp3Blob =
+        null;
+
 
     try{
 
-        /* ---------------------------------------------
-           STEP 1 — LOAD MODEL
-        --------------------------------------------- */
+        /* =====================================================
+           1. LOAD MODEL
+        ====================================================== */
 
         const model =
             await loadModel();
 
 
-        /* ---------------------------------------------
-           STEP 2 — LOAD MP3 ENCODER
-        --------------------------------------------- */
+        /* =====================================================
+           2. LOAD MP3 ENCODER
+        ====================================================== */
 
         setProgress(
             9,
@@ -1326,60 +1931,107 @@ async function generateNarration(){
             "Loading MP3 encoder..."
         );
 
+
         const lame =
             await loadLame();
 
 
-        /* ---------------------------------------------
-           STEP 3 — NORMALIZE TEXT
-        --------------------------------------------- */
+        /* =====================================================
+           3. PREPARE TEXT
+        ====================================================== */
 
         const text =
-            normalizeText(originalText);
-
-        const totalChars =
-            Math.max(
-                1,
-                text.length
+            normalizeText(
+                originalText
             );
 
 
-        /* ---------------------------------------------
-           STEP 4 — SETTINGS
-        --------------------------------------------- */
+        const sections =
+            splitIntoSections(
+                text
+            );
+
+
+        if(!sections.length){
+
+            throw new Error(
+                "No usable text sections were found."
+            );
+
+        }
+
+
+        /* =====================================================
+           4. SETTINGS
+        ====================================================== */
 
         const voice =
             voiceEl.value;
 
+
         const speed =
-            Number(speedEl.value);
+            Number(
+                speedEl.value
+            );
+
 
         const volume =
-            Number(volumeEl.value);
+            Number(
+                volumeEl.value
+            );
 
 
-        /* ---------------------------------------------
-           STEP 5 — STREAM
-        --------------------------------------------- */
+        const totalWords =
+            words;
+
+
+        /* =====================================================
+           5. MP3 VARIABLES
+        ====================================================== */
+
+        let mp3Encoder =
+            null;
+
+
+        let mp3Parts =
+            [];
+
+
+        let sampleRate =
+            24000;
+
+
+        let completedWords =
+            0;
+
+
+        let completedSections =
+            0;
+
+
+        /* =====================================================
+           6. START PROGRESS
+        ====================================================== */
 
         setProgress(
             10,
             "Generating",
-            `Generating 0 / ${words.toLocaleString()} words...`
+            `Starting 0 / ${totalWords.toLocaleString()} words...`
         );
 
 
-        /*
-            Use TextSplitterStream rather than
-            model.generate() for the entire script.
-
-            This prevents a huge 10,000-word input from
-            becoming one blocking generation operation.
-        */
+        /* =====================================================
+           7. CREATE STREAM
+        ====================================================== */
 
         const splitter =
             new TextSplitterStream();
 
+
+        /*
+            Start consuming the stream BEFORE
+            pushing text into it.
+        */
 
         const stream =
             model.stream(
@@ -1391,122 +2043,103 @@ async function generateNarration(){
             );
 
 
-        /*
-            Start feeding the text while the stream
-            is being consumed.
-        */
+        /* =====================================================
+           8. PRODUCER
+        ====================================================== */
 
         const producer =
             (async () => {
 
-                const tokens =
-                    text.match(/\s*\S+/g) || [];
-
-                /*
-                    Push in small batches and yield
-                    back to the browser so the UI
-                    remains responsive.
-                */
-
                 for(
-                    let i = 0;
-                    i < tokens.length;
-                    i++
+                    const section
+                    of sections
                 ){
 
                     splitter.push(
-                        tokens[i]
+                        section + " "
                     );
 
-                    if(
-                        i % 40 === 0
-                    ){
-                        await sleep(0);
-                    }
+
+                    /*
+                        Let browser repaint.
+                    */
+
+                    await sleep(0);
 
                 }
+
 
                 splitter.close();
 
             })();
 
 
-        /* ---------------------------------------------
-           STEP 6 — INCREMENTAL MP3 ENCODING
-        --------------------------------------------- */
-
-        let mp3Encoder = null;
-
-        let mp3Parts = [];
-
-        let sampleRate = 24000;
-
-        let processedChars = 0;
-
-        let generatedChunks = 0;
-
-        let generatedWords = 0;
-
-
-        /*
-            Consume generated audio as it arrives.
-        */
+        /* =====================================================
+           9. CONSUMER
+        ====================================================== */
 
         for await(
             const item of stream
         ){
 
-            generatedChunks++;
+            /*
+                item.text:
+                text corresponding to this
+                generated audio section.
+            */
+
+            const generatedText =
+                item.text ||
+                "";
 
 
-            const chunkText =
-                item.text || "";
-
-
-            processedChars +=
-                chunkText.length;
-
-
-            generatedWords =
-                Math.min(
-                    words,
-                    countWords(
-                        text.slice(
-                            0,
-                            Math.min(
-                                text.length,
-                                processedChars
-                            )
-                        )
-                    )
+            const generatedWords =
+                countWords(
+                    generatedText
                 );
 
 
+            completedWords +=
+                generatedWords;
+
+
+            completedSections++;
+
+
             /*
-                Kokoro RawAudio:
-                  item.audio.audio
-                  item.audio.sampling_rate
+                Get audio.
             */
 
             const rawAudio =
-                item.audio?.audio ||
                 item.audio;
 
 
             if(!rawAudio){
+
                 continue;
+
             }
 
 
+            const samples =
+                rawAudio.audio;
+
+
             sampleRate =
-                item.audio?.sampling_rate ||
+                rawAudio.sampling_rate ||
                 sampleRate;
 
 
-            /*
-                Create MP3 encoder only after
-                receiving the first audio chunk.
-            */
+            if(!samples){
+
+                continue;
+
+            }
+
+
+            /* =================================================
+               CREATE ENCODER AFTER FIRST AUDIO
+            ================================================== */
 
             if(!mp3Encoder){
 
@@ -1520,15 +2153,23 @@ async function generateNarration(){
             }
 
 
+            /* =================================================
+               APPLY VOLUME
+            ================================================== */
+
             const int16 =
                 floatToInt16(
-                    rawAudio,
+                    samples,
                     volume
                 );
 
 
+            /* =================================================
+               ENCODE
+            ================================================== */
+
             const encoded =
-                encodeChunk(
+                encodeMp3Block(
                     mp3Encoder,
                     int16
                 );
@@ -1544,10 +2185,9 @@ async function generateNarration(){
 
 
             /*
-                Generation uses 10% → 94%.
+                Clamp word progress.
 
-                Therefore the progress DOES NOT remain
-                at the old 5% state.
+                10% → 94%
             */
 
             const ratio =
@@ -1555,8 +2195,8 @@ async function generateNarration(){
                     0,
                     Math.min(
                         1,
-                        processedChars /
-                        totalChars
+                        completedWords /
+                        totalWords
                     )
                 );
 
@@ -1569,13 +2209,15 @@ async function generateNarration(){
             setProgress(
                 progress,
                 "Generating",
-                `Generated ${generatedWords.toLocaleString()} / ${words.toLocaleString()} words · section ${generatedChunks}`
+                `Generated ${Math.min(
+                    completedWords,
+                    totalWords
+                ).toLocaleString()} / ${totalWords.toLocaleString()} words · section ${completedSections} / ${sections.length}`
             );
 
 
             /*
-                Give the browser a chance to update
-                the progress UI.
+                Keep UI responsive.
             */
 
             await sleep(0);
@@ -1583,12 +2225,16 @@ async function generateNarration(){
         }
 
 
+        /*
+            Make sure producer finished.
+        */
+
         await producer;
 
 
-        /* ---------------------------------------------
-           STEP 7 — FINISH MP3
-        --------------------------------------------- */
+        /* =====================================================
+           10. FINALIZE MP3
+        ====================================================== */
 
         setProgress(
             95,
@@ -1600,7 +2246,7 @@ async function generateNarration(){
         if(!mp3Encoder){
 
             throw new Error(
-                "No audio was generated. Try a shorter sample first."
+                "Kokoro did not return any audio."
             );
 
         }
@@ -1624,14 +2270,14 @@ async function generateNarration(){
         }
 
 
-        /* ---------------------------------------------
-           STEP 8 — CREATE BLOB
-        --------------------------------------------- */
+        /* =====================================================
+           11. CREATE BLOB
+        ====================================================== */
 
         setProgress(
             98,
-            "Creating audio file",
-            "Building final MP3..."
+            "Creating MP3",
+            "Building final audio file..."
         );
 
 
@@ -1644,7 +2290,9 @@ async function generateNarration(){
             );
 
 
-        if(currentMp3Url){
+        if(
+            currentMp3Url
+        ){
 
             URL.revokeObjectURL(
                 currentMp3Url
@@ -1663,6 +2311,9 @@ async function generateNarration(){
             currentMp3Url;
 
 
+        audioPlayer.load();
+
+
         outputBox.classList.add(
             "ready"
         );
@@ -1672,10 +2323,14 @@ async function generateNarration(){
             false;
 
 
+        /* =====================================================
+           12. COMPLETE
+        ====================================================== */
+
         setProgress(
             100,
             "Complete",
-            `Finished ${words.toLocaleString()} words. MP3 is ready to download.`
+            `Finished ${totalWords.toLocaleString()} words. MP3 is ready.`
         );
 
 
@@ -1683,7 +2338,7 @@ async function generateNarration(){
     catch(error){
 
         console.error(
-            "VoiceCraft generation error:",
+            "VOICECRAFT GENERATION ERROR:",
             error
         );
 
@@ -1692,7 +2347,7 @@ async function generateNarration(){
             0,
             "Generation failed",
             error?.message ||
-            "An unknown error occurred."
+            "Unknown error."
         );
 
 
@@ -1714,28 +2369,33 @@ async function generateNarration(){
 }
 
 
-/* =========================================================
-   PREVIEW VOICE
-========================================================= */
+/* ============================================================
+   PREVIEW
+============================================================ */
 
 async function previewVoice(){
 
     if(isGenerating){
+
         return;
+
     }
+
 
     try{
 
-        previewBtn.disabled = true;
+        previewBtn.disabled =
+            true;
+
 
         previewBtn.textContent =
-            "Preparing Preview...";
+            "Generating Preview...";
 
 
         setProgress(
-            3,
+            2,
             "Preparing preview",
-            "Loading voice model..."
+            "Loading Kokoro WASM..."
         );
 
 
@@ -1746,13 +2406,23 @@ async function previewVoice(){
         const voice =
             voiceEl.value;
 
+
         const speed =
-            Number(speedEl.value);
+            Number(
+                speedEl.value
+            );
+
+
+        const volume =
+            Number(
+                volumeEl.value
+            );
 
 
         const sampleText =
             "Welcome to VoiceCraft. " +
-            "This is a short preview of the selected English narrator voice.";
+            "This is a short preview of the selected English narrator voice. " +
+            "You can listen to this sample before generating the complete narration.";
 
 
         setProgress(
@@ -1772,19 +2442,13 @@ async function previewVoice(){
             );
 
 
-        /*
-            Create a WAV directly from RawAudio.
-            This avoids relying on autoplay or toBlob().
-        */
-
         const samples =
             result.audio;
 
-        const sampleRate =
-            result.sampling_rate || 24000;
 
-        const volume =
-            Number(volumeEl.value);
+        const sampleRate =
+            result.sampling_rate ||
+            24000;
 
 
         const wavBlob =
@@ -1813,31 +2477,35 @@ async function previewVoice(){
         previewPlayer.src =
             currentPreviewUrl;
 
+
         previewPlayer.load();
 
 
         setProgress(
             100,
             "Preview ready",
-            "Press Play on the preview player."
+            "Preview generated. Press Play to listen."
         );
 
 
         /*
-            Do NOT force autoplay.
+            Try autoplay.
 
-            Browsers may block autoplay.
+            If browser blocks it,
+            user can press Play normally.
         */
 
-        previewPlayer.play()
-            .catch(() => {});
-
+        previewPlayer
+            .play()
+            .catch(
+                () => {}
+            );
 
     }
     catch(error){
 
         console.error(
-            "Preview error:",
+            "PREVIEW ERROR:",
             error
         );
 
@@ -1861,18 +2529,21 @@ async function previewVoice(){
     }
     finally{
 
-        previewBtn.disabled = false;
+        previewBtn.disabled =
+            false;
+
 
         previewBtn.textContent =
             "Preview Voice";
 
     }
+
 }
 
 
-/* =========================================================
-   WAV CREATOR
-========================================================= */
+/* ============================================================
+   CREATE WAV
+============================================================ */
 
 function createWavBlob(
     floatSamples,
@@ -1889,12 +2560,15 @@ function createWavBlob(
 
     const buffer =
         new ArrayBuffer(
-            44 + samples.length * 2
+            44 +
+            samples.length * 2
         );
 
 
     const view =
-        new DataView(buffer);
+        new DataView(
+            buffer
+        );
 
 
     function writeString(
@@ -1918,23 +2592,38 @@ function createWavBlob(
     }
 
 
-    writeString(0,"RIFF");
+    writeString(
+        0,
+        "RIFF"
+    );
+
 
     view.setUint32(
         4,
-        36 + samples.length * 2,
+        36 +
+        samples.length * 2,
         true
     );
 
-    writeString(8,"WAVE");
 
-    writeString(12,"fmt ");
+    writeString(
+        8,
+        "WAVE"
+    );
+
+
+    writeString(
+        12,
+        "fmt "
+    );
+
 
     view.setUint32(
         16,
         16,
         true
     );
+
 
     view.setUint16(
         20,
@@ -1942,11 +2631,13 @@ function createWavBlob(
         true
     );
 
+
     view.setUint16(
         22,
         1,
         true
     );
+
 
     view.setUint32(
         24,
@@ -1954,11 +2645,13 @@ function createWavBlob(
         true
     );
 
+
     view.setUint32(
         28,
         sampleRate * 2,
         true
     );
+
 
     view.setUint16(
         32,
@@ -1966,16 +2659,19 @@ function createWavBlob(
         true
     );
 
+
     view.setUint16(
         34,
         16,
         true
     );
 
+
     writeString(
         36,
         "data"
     );
+
 
     view.setUint32(
         40,
@@ -1984,7 +2680,8 @@ function createWavBlob(
     );
 
 
-    let offset = 44;
+    let offset =
+        44;
 
 
     for(
@@ -1999,6 +2696,7 @@ function createWavBlob(
             true
         );
 
+
         offset += 2;
 
     }
@@ -2010,24 +2708,29 @@ function createWavBlob(
             type:"audio/wav"
         }
     );
+
 }
 
 
-/* =========================================================
-   DOWNLOAD
-========================================================= */
+/* ============================================================
+   DOWNLOAD MP3
+============================================================ */
 
 downloadBtn.addEventListener(
     "click",
     () => {
 
         if(!currentMp3Blob){
+
             return;
+
         }
 
 
         const link =
-            document.createElement("a");
+            document.createElement(
+                "a"
+            );
 
 
         link.href =
@@ -2052,9 +2755,9 @@ downloadBtn.addEventListener(
 );
 
 
-/* =========================================================
-   COUNTER
-========================================================= */
+/* ============================================================
+   TEXT COUNTER
+============================================================ */
 
 scriptEl.addEventListener(
     "input",
@@ -2062,20 +2765,26 @@ scriptEl.addEventListener(
 );
 
 
-/* =========================================================
-   SPEED / VOLUME
-========================================================= */
+/* ============================================================
+   SPEED
+============================================================ */
 
 speedEl.addEventListener(
     "input",
     () => {
 
         speedValue.textContent =
-            `${Number(speedEl.value).toFixed(2)}×`;
+            `${Number(
+                speedEl.value
+            ).toFixed(2)}×`;
 
     }
 );
 
+
+/* ============================================================
+   VOLUME
+============================================================ */
 
 volumeEl.addEventListener(
     "input",
@@ -2083,16 +2792,18 @@ volumeEl.addEventListener(
 
         volumeValue.textContent =
             `${Math.round(
-                Number(volumeEl.value) * 100
+                Number(
+                    volumeEl.value
+                ) * 100
             )}%`;
 
     }
 );
 
 
-/* =========================================================
-   GENERATE / PREVIEW
-========================================================= */
+/* ============================================================
+   GENERATE
+============================================================ */
 
 generateBtn.addEventListener(
     "click",
@@ -2100,23 +2811,43 @@ generateBtn.addEventListener(
 );
 
 
+/* ============================================================
+   PREVIEW
+============================================================ */
+
 previewBtn.addEventListener(
     "click",
     previewVoice
 );
 
 
-/* =========================================================
+/* ============================================================
    CLEAR
-========================================================= */
+============================================================ */
 
 $("clearBtn").addEventListener(
     "click",
     () => {
 
-        scriptEl.value = "";
+        scriptEl.value =
+            "";
+
 
         updateCounters();
+
+
+        outputBox.classList.remove(
+            "ready"
+        );
+
+
+        audioPlayer.removeAttribute(
+            "src"
+        );
+
+
+        audioPlayer.load();
+
 
         setProgress(
             0,
@@ -2124,23 +2855,13 @@ $("clearBtn").addEventListener(
             "Enter your script and generate the narration."
         );
 
-        outputBox.classList.remove(
-            "ready"
-        );
-
-        audioPlayer.removeAttribute(
-            "src"
-        );
-
-        audioPlayer.load();
-
     }
 );
 
 
-/* =========================================================
+/* ============================================================
    EXAMPLE
-========================================================= */
+============================================================ */
 
 $("exampleBtn").addEventListener(
     "click",
@@ -2149,19 +2870,29 @@ $("exampleBtn").addEventListener(
         scriptEl.value =
 `Human behavior is often shaped by forces we do not consciously notice.
 
-Every day, people make hundreds of decisions. Some are deliberate, while others happen almost automatically. We choose what to read, what to watch, who to trust, and what to ignore.
+Every day, people make hundreds of decisions. Some are deliberate, while others happen almost automatically.
+
+We choose what to read, what to watch, who to trust, and what to ignore.
 
 Psychology helps us understand why these decisions happen.
 
-One important idea is that the human brain constantly tries to save energy. Instead of carefully analyzing every situation from the beginning, we often rely on patterns, previous experiences, and simple mental shortcuts.
+One important idea is that the human brain constantly tries to save energy.
 
-These shortcuts can be useful. They allow us to make decisions quickly. However, they can also create mistakes.
+Instead of carefully analyzing every situation from the beginning, we often rely on patterns, previous experiences, and simple mental shortcuts.
 
-For example, when we hear a confident person speaking, we may automatically assume that the person is knowledgeable. Confidence can influence our judgment even when it has little connection to actual expertise.
+These shortcuts can be useful. They allow us to make decisions quickly.
 
-Understanding these patterns does not mean that we should distrust every decision we make. Instead, it gives us an opportunity to pause and think more carefully.
+However, they can also create mistakes.
 
-The more we understand our own thinking, the better we can recognize when our automatic reactions are helping us — and when they may be misleading us.`;
+For example, when we hear a confident person speaking, we may automatically assume that the person is knowledgeable.
+
+Confidence can influence our judgment even when it has little connection to actual expertise.
+
+Understanding these patterns does not mean that we should distrust every decision we make.
+
+Instead, it gives us an opportunity to pause and think more carefully.
+
+The more we understand our own thinking, the better we can recognize when our automatic reactions are helping us, and when they may be misleading us.`;
 
         updateCounters();
 
@@ -2169,9 +2900,9 @@ The more we understand our own thinking, the better we can recognize when our au
 );
 
 
-/* =========================================================
+/* ============================================================
    PRESETS
-========================================================= */
+============================================================ */
 
 const presets = {
 
@@ -2210,65 +2941,74 @@ const presets = {
 
 document
 .querySelectorAll(".preset")
-.forEach(button => {
+.forEach(
+    button => {
 
-    button.addEventListener(
-        "click",
-        () => {
+        button.addEventListener(
+            "click",
+            () => {
 
-            document
-            .querySelectorAll(".preset")
-            .forEach(
-                b =>
-                b.classList.remove(
+                document
+                .querySelectorAll(".preset")
+                .forEach(
+                    b => {
+
+                        b.classList.remove(
+                            "active"
+                        );
+
+                    }
+                );
+
+
+                button.classList.add(
                     "active"
-                )
-            );
+                );
 
 
-            button.classList.add(
-                "active"
-            );
+                const preset =
+                    presets[
+                        button.dataset.preset
+                    ];
 
 
-            const preset =
-                presets[
-                    button.dataset.preset
-                ];
+                if(!preset){
+
+                    return;
+
+                }
 
 
-            if(!preset){
-                return;
+                speedEl.value =
+                    preset.speed;
+
+
+                volumeEl.value =
+                    preset.volume;
+
+
+                speedValue.textContent =
+                    `${preset.speed.toFixed(2)}×`;
+
+
+                volumeValue.textContent =
+                    `${Math.round(
+                        preset.volume * 100
+                    )}%`;
+
             }
+        );
+
+    }
+);
 
 
-            speedEl.value =
-                preset.speed;
-
-            volumeEl.value =
-                preset.volume;
-
-
-            speedValue.textContent =
-                `${preset.speed.toFixed(2)}×`;
-
-
-            volumeValue.textContent =
-                `${Math.round(
-                    preset.volume * 100
-                )}%`;
-
-        }
-    );
-
-});
-
-
-/* =========================================================
-   INITIAL STATE
-========================================================= */
+/* ============================================================
+   INITIAL
+============================================================ */
 
 updateCounters();
+
 
 setProgress(
     0,
