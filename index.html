@@ -1,3020 +1,1261 @@
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>VoiceCraft — English Narrator Studio</title>
+<title>Watermark Remover</title>
 
 <style>
-:root{
-    --bg:#070912;
-    --panel:#101421;
-    --panel2:#0c101b;
-    --border:#20283a;
-    --text:#f4f7ff;
-    --muted:#8993a8;
-    --accent:#7c5cff;
-    --accent2:#00d4ff;
-    --green:#2ee59d;
-    --danger:#ff5577;
-    --warning:#ffbd5c;
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
-*{
-    box-sizing:border-box;
+body {
+  font-family: Arial, sans-serif;
+  background: #f4f6fb;
+  color: #202333;
+  padding: 25px 15px;
 }
 
-html{
-    scroll-behavior:smooth;
+.container {
+  max-width: 1100px;
+  margin: auto;
 }
 
-body{
-    margin:0;
-    min-height:100vh;
-    background:
-        radial-gradient(
-            circle at 15% 0%,
-            rgba(124,92,255,.16),
-            transparent 30%
-        ),
-        radial-gradient(
-            circle at 90% 5%,
-            rgba(0,212,255,.11),
-            transparent 28%
-        ),
-        var(--bg);
-    color:var(--text);
-    font-family:
-        Inter,
-        system-ui,
-        -apple-system,
-        BlinkMacSystemFont,
-        "Segoe UI",
-        sans-serif;
+header {
+  text-align: center;
+  margin-bottom: 28px;
 }
 
-.container{
-    width:min(1200px,94%);
-    margin:34px auto 60px;
+header h1 {
+  font-size: 32px;
+  margin-bottom: 10px;
 }
 
-.header{
-    margin-bottom:25px;
+header p {
+  color: #777;
+  line-height: 1.6;
 }
 
-.logo{
-    display:flex;
-    align-items:center;
-    gap:12px;
-    font-size:28px;
-    font-weight:850;
-    letter-spacing:-.7px;
+.panel {
+  background: white;
+  padding: 24px;
+  border-radius: 16px;
+  box-shadow: 0 5px 25px rgba(0,0,0,.05);
+  margin-bottom: 22px;
 }
 
-.logoIcon{
-    width:44px;
-    height:44px;
-    display:grid;
-    place-items:center;
-    border-radius:14px;
-    background:
-        linear-gradient(
-            135deg,
-            var(--accent),
-            var(--accent2)
-        );
-    box-shadow:
-        0 12px 40px rgba(124,92,255,.30);
+.upload-box {
+  display: block;
+  border: 2px dashed #aab2c5;
+  border-radius: 14px;
+  padding: 40px 20px;
+  text-align: center;
+  cursor: pointer;
+  transition: .2s;
 }
 
-.subtitle{
-    color:var(--muted);
-    margin-top:7px;
-    font-size:14px;
+.upload-box:hover,
+.upload-box.dragging {
+  border-color: #5b65e8;
+  background: #f8f8ff;
 }
 
-.grid{
-    display:grid;
-    grid-template-columns:minmax(0,1.35fr) minmax(300px,.65fr);
-    gap:20px;
+.upload-box h3 {
+  margin-bottom: 10px;
 }
 
-.card{
-    background:rgba(16,20,33,.94);
-    border:1px solid var(--border);
-    border-radius:21px;
-    padding:20px;
-    box-shadow:
-        0 20px 60px rgba(0,0,0,.18);
+.upload-box p {
+  color: #888;
+  font-size: 14px;
+  margin-top: 5px;
 }
 
-.cardTitle{
-    font-size:15px;
-    font-weight:800;
-    margin-bottom:14px;
+input[type=file] {
+  display: none;
 }
 
-textarea{
-    width:100%;
-    min-height:460px;
-    resize:vertical;
-    border:1px solid var(--border);
-    border-radius:15px;
-    background:#080c15;
-    color:var(--text);
-    outline:none;
-    padding:17px;
-    font-size:15px;
-    line-height:1.7;
-    font-family:inherit;
+button {
+  border: none;
+  padding: 12px 18px;
+  border-radius: 9px;
+  background: #5b65e8;
+  color: white;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: .2s;
 }
 
-textarea:focus{
-    border-color:rgba(124,92,255,.75);
-    box-shadow:
-        0 0 0 3px rgba(124,92,255,.10);
+button:hover {
+  background: #424bc7;
 }
 
-.counter{
-    display:flex;
-    justify-content:space-between;
-    gap:10px;
-    flex-wrap:wrap;
-    color:var(--muted);
-    font-size:12px;
-    margin-top:9px;
+button:disabled {
+  background: #aaa;
+  cursor: not-allowed;
 }
 
-.counter .limit{
-    color:#aeb7c9;
+.secondary {
+  background: #e9ebf8;
+  color: #333;
 }
 
-.counter.warning{
-    color:var(--warning);
+.secondary:hover {
+  background: #d9dcf2;
 }
 
-.counter.danger{
-    color:var(--danger);
+.danger {
+  background: #e74c3c;
 }
 
-.row{
-    display:flex;
-    gap:10px;
-    align-items:center;
+.danger:hover {
+  background: #c0392b;
 }
 
-.rowWrap{
-    display:flex;
-    gap:10px;
-    flex-wrap:wrap;
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 18px;
 }
 
-button,
-select,
-input{
-    font:inherit;
+.toolbar button {
+  flex: 1;
+  min-width: 150px;
 }
 
-button{
-    border:0;
-    cursor:pointer;
+.status {
+  margin-top: 15px;
+  color: #666;
+  font-size: 14px;
+  line-height: 1.6;
 }
 
-.btn{
-    min-height:44px;
-    padding:0 17px;
-    border-radius:12px;
-    font-weight:750;
-    transition:
-        transform .18s ease,
-        opacity .18s ease,
-        border-color .18s ease;
+.progress {
+  height: 9px;
+  background: #e6e6e6;
+  border-radius: 20px;
+  overflow: hidden;
+  margin-top: 15px;
 }
 
-.btn:hover{
-    transform:translateY(-1px);
+.progress-bar {
+  height: 100%;
+  width: 0%;
+  background: #5b65e8;
+  transition: width .2s;
 }
 
-.btn:disabled{
-    opacity:.45;
-    cursor:not-allowed;
-    transform:none;
+.hint {
+  color: #777;
+  font-size: 13px;
+  line-height: 1.7;
+  margin-top: 15px;
 }
 
-.primary{
-    color:white;
-    background:
-        linear-gradient(
-            135deg,
-            var(--accent),
-            #5c7cff
-        );
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+  gap: 18px;
 }
 
-.secondary{
-    color:#dfe5f4;
-    background:#171d2c;
-    border:1px solid var(--border);
+.image-card {
+  background: white;
+  border-radius: 14px;
+  padding: 14px;
+  box-shadow: 0 4px 15px rgba(0,0,0,.05);
+  min-width: 0;
 }
 
-.green{
-    color:#03120d;
-    background:var(--green);
+.image-card h3 {
+  font-size: 14px;
+  margin-bottom: 10px;
+  overflow-wrap: anywhere;
 }
 
-.full{
-    width:100%;
+.canvas-wrap {
+  width: 100%;
+  background: #eee;
+  border-radius: 8px;
+  overflow: hidden;
 }
 
-label{
-    display:block;
-    font-size:12px;
-    color:var(--muted);
-    margin-bottom:7px;
+canvas {
+  display: block;
+  width: 100%;
+  height: auto;
+  cursor: crosshair;
+  touch-action: none;
 }
 
-.control{
-    margin-bottom:18px;
+.image-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
 }
 
-select{
-    width:100%;
-    height:43px;
-    padding:0 12px;
-    color:var(--text);
-    background:#0a0f19;
-    border:1px solid var(--border);
-    border-radius:11px;
-    outline:none;
+.image-actions button {
+  flex: 1;
+  padding: 9px 7px;
+  font-size: 12px;
 }
 
-.rangeRow{
-    display:flex;
-    align-items:center;
-    gap:12px;
+.small-status {
+  margin-top: 8px;
+  font-size: 12px;
+  color: #777;
 }
 
-input[type="range"]{
-    width:100%;
-    accent-color:var(--accent);
+.empty {
+  text-align: center;
+  padding: 35px;
+  color: #999;
+  background: white;
+  border-radius: 12px;
 }
 
-.rangeValue{
-    min-width:50px;
-    text-align:right;
-    font-size:12px;
-    color:#cbd3e4;
-}
+@media(max-width: 600px) {
+  body {
+    padding: 15px 10px;
+  }
 
-.presetGrid{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:8px;
-}
+  header h1 {
+    font-size: 25px;
+  }
 
-.preset{
-    padding:11px 9px;
-    border-radius:10px;
-    background:#0b101a;
-    border:1px solid var(--border);
-    color:#bdc6d8;
-    cursor:pointer;
-    font-size:12px;
-    text-align:center;
-}
-
-.preset:hover,
-.preset.active{
-    border-color:var(--accent);
-    background:rgba(124,92,255,.10);
-    color:white;
-}
-
-.previewBox{
-    margin-top:18px;
-    padding:15px;
-    border:1px solid var(--border);
-    border-radius:14px;
-    background:#0a0f18;
-}
-
-audio{
-    width:100%;
-    margin-top:10px;
-}
-
-.progressWrap{
-    margin-top:18px;
-}
-
-.progressTop{
-    display:flex;
-    justify-content:space-between;
-    font-size:12px;
-    color:var(--muted);
-    margin-bottom:8px;
-}
-
-.progressBar{
-    height:10px;
-    background:#080c14;
-    border:1px solid var(--border);
-    border-radius:999px;
-    overflow:hidden;
-}
-
-.progressFill{
-    width:0%;
-    height:100%;
-    background:
-        linear-gradient(
-            90deg,
-            var(--accent),
-            var(--accent2)
-        );
-    border-radius:999px;
-    transition:width .25s ease;
-}
-
-.status{
-    margin-top:9px;
-    color:#9ca7bb;
-    font-size:12px;
-    line-height:1.5;
-    min-height:18px;
-}
-
-.output{
-    margin-top:20px;
-    display:none;
-}
-
-.output.ready{
-    display:block;
-}
-
-.outputTitle{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    gap:10px;
-    margin-bottom:10px;
-}
-
-.badge{
-    font-size:11px;
-    padding:5px 8px;
-    border-radius:999px;
-    background:rgba(46,229,157,.10);
-    color:var(--green);
-    border:1px solid rgba(46,229,157,.25);
-}
-
-.notice{
-    margin-top:15px;
-    padding:12px 13px;
-    border-radius:11px;
-    background:rgba(0,212,255,.05);
-    border:1px solid rgba(0,212,255,.12);
-    color:#9eabc0;
-    font-size:12px;
-    line-height:1.6;
-}
-
-.engine{
-    margin-top:10px;
-    padding:9px 11px;
-    border-radius:10px;
-    background:#080d16;
-    border:1px solid var(--border);
-    color:#8995aa;
-    font-size:11px;
-}
-
-.engine span{
-    color:var(--green);
-    font-weight:700;
-}
-
-.footer{
-    margin-top:25px;
-    text-align:center;
-    color:#5f697d;
-    font-size:11px;
-}
-
-@media(max-width:850px){
-
-    .grid{
-        grid-template-columns:1fr;
-    }
-
-    textarea{
-        min-height:350px;
-    }
-
+  .panel {
+    padding: 16px;
+  }
 }
 </style>
 </head>
-
 
 <body>
 
 <div class="container">
 
-    <!-- HEADER -->
-    <div class="header">
-
-        <div class="logo">
-
-            <div class="logoIcon">
-                🎙️
-            </div>
-
-            <div>
-                VoiceCraft
-            </div>
-
-        </div>
-
-        <div class="subtitle">
-            English Narrator Studio — browser-based AI voice generation
-        </div>
-
-    </div>
-
-
-    <div class="grid">
-
-        <!-- =====================================================
-             LEFT PANEL
-        ====================================================== -->
-
-        <div class="card">
-
-            <div class="cardTitle">
-                Script
-            </div>
-
-
-            <textarea
-                id="script"
-                placeholder="Paste your English narration here..."
-            ></textarea>
-
-
-            <div
-                id="counter"
-                class="counter"
-            >
-
-                <span>
-
-                    <b id="wordCount">
-                        0
-                    </b>
-
-                    words
-
-                    ·
-
-                    <b id="charCount">
-                        0
-                    </b>
-
-                    characters
-
-                </span>
-
-
-                <span class="limit">
-
-                    Maximum:
-                    <b>
-                        10,000 words
-                    </b>
-
-                </span>
-
-            </div>
-
-
-            <div
-                class="rowWrap"
-                style="margin-top:14px"
-            >
-
-                <button
-                    class="btn secondary"
-                    id="exampleBtn"
-                >
-                    Load Example
-                </button>
-
-
-                <button
-                    class="btn secondary"
-                    id="clearBtn"
-                >
-                    Clear
-                </button>
-
-            </div>
-
-
-            <!-- PROGRESS -->
-
-            <div class="progressWrap">
-
-                <div class="progressTop">
-
-                    <span id="progressLabel">
-                        Ready
-                    </span>
-
-                    <span id="progressPercent">
-                        0%
-                    </span>
-
-                </div>
-
-
-                <div class="progressBar">
-
-                    <div
-                        id="progressFill"
-                        class="progressFill"
-                    ></div>
-
-                </div>
-
-
-                <div
-                    id="status"
-                    class="status"
-                >
-                    Enter your script and generate the narration.
-                </div>
-
-            </div>
-
-
-            <!-- BUTTONS -->
-
-            <div
-                class="rowWrap"
-                style="margin-top:18px"
-            >
-
-                <button
-                    id="generateBtn"
-                    class="btn primary"
-                    style="flex:1"
-                >
-                    Generate Narration
-                </button>
-
-
-                <button
-                    id="previewBtn"
-                    class="btn secondary"
-                >
-                    Preview Voice
-                </button>
-
-            </div>
-
-
-            <!-- OUTPUT -->
-
-            <div
-                class="output"
-                id="outputBox"
-            >
-
-                <div class="outputTitle">
-
-                    <div
-                        class="cardTitle"
-                        style="margin:0"
-                    >
-                        Generated Audio
-                    </div>
-
-
-                    <div class="badge">
-                        MP3 READY
-                    </div>
-
-                </div>
-
-
-                <audio
-                    id="audioPlayer"
-                    controls
-                ></audio>
-
-
-                <button
-                    id="downloadBtn"
-                    class="btn green full"
-                    style="margin-top:12px"
-                >
-                    Download MP3
-                </button>
-
-            </div>
-
-        </div>
-
-
-        <!-- =====================================================
-             RIGHT PANEL
-        ====================================================== -->
-
-        <div class="card">
-
-            <div class="cardTitle">
-                Voice
-            </div>
-
-
-            <!-- VOICE -->
-
-            <div class="control">
-
-                <label>
-                    English Voice
-                </label>
-
-
-                <select id="voice">
-
-                    <optgroup label="🇺🇸 American Female">
-
-                        <option value="af_heart">
-                            Heart — Natural Female
-                        </option>
-
-                        <option value="af_bella">
-                            Bella — Female
-                        </option>
-
-                        <option value="af_nicole">
-                            Nicole — Female
-                        </option>
-
-                        <option value="af_sarah">
-                            Sarah — Female
-                        </option>
-
-                        <option value="af_sky">
-                            Sky — Female
-                        </option>
-
-                        <option value="af_nova">
-                            Nova — Female
-                        </option>
-
-                    </optgroup>
-
-
-                    <optgroup label="🇺🇸 American Male">
-
-                        <option value="am_michael">
-                            Michael — Male
-                        </option>
-
-                        <option value="am_adam">
-                            Adam — Male
-                        </option>
-
-                        <option value="am_echo">
-                            Echo — Male
-                        </option>
-
-                        <option value="am_fenrir">
-                            Fenrir — Male
-                        </option>
-
-                        <option value="am_onyx">
-                            Onyx — Male
-                        </option>
-
-                        <option value="am_puck">
-                            Puck — Male
-                        </option>
-
-                    </optgroup>
-
-
-                    <optgroup label="🇬🇧 British Female">
-
-                        <option value="bf_emma">
-                            Emma — Female
-                        </option>
-
-                        <option value="bf_isabella">
-                            Isabella — Female
-                        </option>
-
-                        <option value="bf_alice">
-                            Alice — Female
-                        </option>
-
-                        <option value="bf_lily">
-                            Lily — Female
-                        </option>
-
-                    </optgroup>
-
-
-                    <optgroup label="🇬🇧 British Male">
-
-                        <option value="bm_george">
-                            George — Male
-                        </option>
-
-                        <option value="bm_lewis">
-                            Lewis — Male
-                        </option>
-
-                        <option value="bm_fable">
-                            Fable — Male
-                        </option>
-
-                        <option value="bm_daniel">
-                            Daniel — Male
-                        </option>
-
-                    </optgroup>
-
-                </select>
-
-            </div>
-
-
-            <!-- PRESETS -->
-
-            <div class="control">
-
-                <label>
-                    Narration Preset
-                </label>
-
-
-                <div class="presetGrid">
-
-                    <button
-                        class="preset"
-                        data-preset="psychology"
-                    >
-                        Psychology
-                    </button>
-
-
-                    <button
-                        class="preset"
-                        data-preset="documentary"
-                    >
-                        Documentary
-                    </button>
-
-
-                    <button
-                        class="preset"
-                        data-preset="storytelling"
-                    >
-                        Storytelling
-                    </button>
-
-
-                    <button
-                        class="preset"
-                        data-preset="review"
-                    >
-                        Review
-                    </button>
-
-
-                    <button
-                        class="preset"
-                        data-preset="youtube"
-                    >
-                        YouTube Essay
-                    </button>
-
-
-                    <button
-                        class="preset active"
-                        data-preset="natural"
-                    >
-                        Natural
-                    </button>
-
-                </div>
-
-            </div>
-
-
-            <!-- SPEED -->
-
-            <div class="control">
-
-                <label>
-                    Speed
-                </label>
-
-
-                <div class="rangeRow">
-
-                    <input
-                        id="speed"
-                        type="range"
-                        min="0.6"
-                        max="1.4"
-                        step="0.05"
-                        value="1"
-                    >
-
-
-                    <div
-                        class="rangeValue"
-                        id="speedValue"
-                    >
-                        1.00×
-                    </div>
-
-                </div>
-
-            </div>
-
-
-            <!-- VOLUME -->
-
-            <div class="control">
-
-                <label>
-                    Volume
-                </label>
-
-
-                <div class="rangeRow">
-
-                    <input
-                        id="volume"
-                        type="range"
-                        min="0"
-                        max="1.5"
-                        step="0.05"
-                        value="1"
-                    >
-
-
-                    <div
-                        class="rangeValue"
-                        id="volumeValue"
-                    >
-                        100%
-                    </div>
-
-                </div>
-
-            </div>
-
-
-            <!-- PREVIEW -->
-
-            <div class="previewBox">
-
-                <div class="cardTitle">
-                    Voice Preview
-                </div>
-
-
-                <div
-                    style="
-                    color:#8e99ad;
-                    font-size:12px;
-                    line-height:1.55;
-                    "
-                >
-                    Generate a short sample first to hear
-                    the selected voice before processing
-                    the full script.
-                </div>
-
-
-                <audio
-                    id="previewPlayer"
-                    controls
-                ></audio>
-
-            </div>
-
-
-            <!-- ENGINE -->
-
-            <div class="engine">
-
-                Engine:
-                <span>
-                    Kokoro WASM
-                </span>
-
-                ·
-
-                Quantization:
-                <span>
-                    Q8
-                </span>
-
-                ·
-
-                WebGPU:
-                <span>
-                    Disabled
-                </span>
-
-            </div>
-
-
-            <div class="notice">
-
-                <b>
-                    10,000-word mode
-                </b>
-
-                <br>
-
-                Long scripts are generated progressively
-                in smaller speech sections. The MP3 encoder
-                also processes audio incrementally.
-
-            </div>
-
-        </div>
-
-    </div>
-
-
-    <div class="footer">
-        VoiceCraft · Kokoro browser TTS · GitHub Pages compatible
-    </div>
+<header>
+  <h1>Watermark Remover</h1>
+  <p>Công cụ khoanh vùng và xử lý watermark trên ảnh</p>
+</header>
+
+<section class="panel">
+
+  <label class="upload-box" id="uploadBox" for="fileInput">
+    <h3>📁 Chọn hoặc kéo thả ảnh vào đây</h3>
+    <p>Hỗ trợ JPG, JPEG, PNG, WEBP</p>
+    <p>Có thể chọn nhiều ảnh cùng lúc</p>
+  </label>
+
+  <input
+    id="fileInput"
+    type="file"
+    accept="image/jpeg,image/png,image/webp"
+    multiple
+  >
+
+  <div class="toolbar">
+    <button id="autoBtn" class="secondary">
+      Dò vùng sáng thử nghiệm
+    </button>
+
+    <button id="processBtn">
+      Xử lý tất cả ảnh
+    </button>
+
+    <button id="downloadBtn" disabled>
+      Tải ZIP kết quả
+    </button>
+  </div>
+
+  <p class="hint">
+    Hướng dẫn: Tải ảnh lên, sau đó dùng chuột kéo một hình chữ nhật
+    quanh vùng watermark. Vùng màu đỏ là vùng sẽ được xử lý.
+    Bạn có thể khoanh nhiều vùng trên một ảnh.
+  </p>
+
+  <div id="status" class="status">
+    Đang chờ tải ảnh...
+  </div>
+
+  <div class="progress">
+    <div id="progressBar" class="progress-bar"></div>
+  </div>
+
+</section>
+
+<section id="gallery" class="gallery">
+  <div class="empty">Chưa có ảnh nào được tải lên.</div>
+</section>
 
 </div>
 
+<script>
+/* ======================================
+   1. BIẾN VÀ THÀNH PHẦN GIAO DIỆN
+====================================== */
 
-<script type="module">
+const fileInput = document.getElementById("fileInput");
+const gallery = document.getElementById("gallery");
+const statusBox = document.getElementById("status");
+const progressBar = document.getElementById("progressBar");
 
-/* ============================================================
-   KOKORO
-============================================================ */
+const processBtn = document.getElementById("processBtn");
+const downloadBtn = document.getElementById("downloadBtn");
+const autoBtn = document.getElementById("autoBtn");
+const uploadBox = document.getElementById("uploadBox");
 
-import {
-    KokoroTTS,
-    TextSplitterStream
-} from "https://cdn.jsdelivr.net/npm/kokoro-js@1.2.1/+esm";
+let images = [];
+let zipBlob = null;
+let cvPromise = null;
+let zipPromise = null;
 
+function setStatus(message) {
+  statusBox.textContent = message;
+}
 
-/* ============================================================
-   CONFIG
-============================================================ */
-
-const MODEL_ID =
-    "onnx-community/Kokoro-82M-v1.0-ONNX";
-
-/*
-    IMPORTANT
-
-    This is a WORD limit.
-
-    10,000 words
-    NOT
-    10,000 characters.
-*/
-
-const MAX_WORDS = 10000;
-
-
-/* ============================================================
-   DOM
-============================================================ */
-
-const $ = id =>
-    document.getElementById(id);
-
-
-const scriptEl =
-    $("script");
-
-const voiceEl =
-    $("voice");
-
-const speedEl =
-    $("speed");
-
-const volumeEl =
-    $("volume");
-
-
-const wordCountEl =
-    $("wordCount");
-
-const charCountEl =
-    $("charCount");
-
-const counterEl =
-    $("counter");
-
-
-const generateBtn =
-    $("generateBtn");
-
-const previewBtn =
-    $("previewBtn");
-
-
-const progressFill =
-    $("progressFill");
-
-const progressPercent =
-    $("progressPercent");
-
-const progressLabel =
-    $("progressLabel");
-
-const statusEl =
-    $("status");
-
-
-const outputBox =
-    $("outputBox");
-
-const audioPlayer =
-    $("audioPlayer");
-
-const previewPlayer =
-    $("previewPlayer");
-
-const downloadBtn =
-    $("downloadBtn");
-
-
-const speedValue =
-    $("speedValue");
-
-const volumeValue =
-    $("volumeValue");
-
-
-/* ============================================================
-   STATE
-============================================================ */
-
-let tts = null;
-
-let modelPromise = null;
-
-let lamePromise = null;
-
-let currentMp3Blob = null;
-
-let currentMp3Url = null;
-
-let currentPreviewUrl = null;
-
-let isGenerating = false;
-
-
-/* ============================================================
-   UTILITY
-============================================================ */
-
-function sleep(ms = 0){
-
-    return new Promise(
-        resolve => setTimeout(resolve, ms)
-    );
-
+function setProgress(value) {
+  progressBar.style.width = value + "%";
 }
 
 
-/* ============================================================
-   WORD COUNT
-============================================================ */
+/* ======================================
+   2. TẢI OPENCV.JS VỚI NHIỀU ĐƯỜNG DẪN
+====================================== */
 
-function countWords(text){
-
-    const clean =
-        text.trim();
-
-    if(!clean){
-        return 0;
-    }
-
-    return clean
-        .split(/\s+/)
-        .filter(Boolean)
-        .length;
-
+function checkOpenCV() {
+  return !!(
+    window.cv &&
+    window.cv.Mat &&
+    window.cv.imread &&
+    window.cv.inpaint
+  );
 }
 
-
-/* ============================================================
-   COUNTER
-============================================================ */
-
-function updateCounters(){
-
-    const text =
-        scriptEl.value;
-
-    const words =
-        countWords(text);
-
-    const chars =
-        text.length;
-
-
-    wordCountEl.textContent =
-        words.toLocaleString();
-
-
-    charCountEl.textContent =
-        chars.toLocaleString();
-
-
-    counterEl.classList.remove(
-        "warning",
-        "danger"
-    );
-
-
-    if(words > MAX_WORDS){
-
-        counterEl.classList.add(
-            "danger"
-        );
-
-    }
-    else if(
-        words > MAX_WORDS * 0.9
-    ){
-
-        counterEl.classList.add(
-            "warning"
-        );
-
-    }
-
-}
-
-
-/* ============================================================
-   PROGRESS
-============================================================ */
-
-function setProgress(
-    percent,
-    label,
-    status = ""
-){
-
-    const p =
-        Math.max(
-            0,
-            Math.min(
-                100,
-                percent
-            )
-        );
-
-
-    progressFill.style.width =
-        `${p}%`;
-
-
-    progressPercent.textContent =
-        `${Math.round(p)}%`;
-
-
-    progressLabel.textContent =
-        label;
-
-
-    if(status){
-
-        statusEl.textContent =
-            status;
-
-    }
-
-}
-
-
-/* ============================================================
-   BUSY STATE
-============================================================ */
-
-function setBusy(value){
-
-    isGenerating =
-        value;
-
-
-    generateBtn.disabled =
-        value;
-
-
-    previewBtn.disabled =
-        value;
-
-
-    generateBtn.textContent =
-        value
-        ? "Generating..."
-        : "Generate Narration";
-
-}
-
-
-/* ============================================================
-   NORMALIZE TEXT
-============================================================ */
-
-function normalizeText(text){
-
-    return text
-        .replace(/\r\n/g," ")
-        .replace(/\r/g," ")
-        .replace(/\n+/g," ")
-        .replace(/\t+/g," ")
-        .replace(/[ ]{2,}/g," ")
-        .trim();
-
-}
-
-
-/* ============================================================
-   SPLIT TEXT INTO SAFE INPUT SECTIONS
-============================================================ */
-
-function splitIntoSections(text){
-
-    /*
-        First try normal sentence boundaries.
-    */
-
-    let sentences =
-        text.match(
-            /[^.!?]+[.!?]+|[^.!?]+$/g
-        ) || [];
-
-
-    const result = [];
-
-
-    /*
-        We don't want extremely long chunks.
-
-        1000 characters is deliberately conservative
-        for browser WASM inference.
-    */
-
-    const MAX_SECTION_CHARS =
-        1000;
-
-
-    for(
-        const sentenceRaw of sentences
-    ){
-
-        let sentence =
-            sentenceRaw.trim();
-
-
-        if(!sentence){
-            continue;
-        }
-
-
-        /*
-            Short sentence:
-            use directly.
-        */
-
-        if(
-            sentence.length <=
-            MAX_SECTION_CHARS
-        ){
-
-            result.push(
-                sentence
-            );
-
-            continue;
-
-        }
-
-
-        /*
-            Long sentence:
-            split by commas / semicolons.
-        */
-
-        const pieces =
-            sentence.split(
-                /(?<=[,;:])\s+/
-            );
-
-
-        let current = "";
-
-
-        for(
-            const pieceRaw of pieces
-        ){
-
-            const piece =
-                pieceRaw.trim();
-
-
-            if(!piece){
-                continue;
-            }
-
-
-            if(
-                (
-                    current +
-                    " " +
-                    piece
-                ).trim().length
-                <=
-                MAX_SECTION_CHARS
-            ){
-
-                current =
-                    (
-                        current
-                        ? current + " "
-                        : ""
-                    ) +
-                    piece;
-
-            }
-            else{
-
-                if(current){
-
-                    result.push(
-                        current.trim()
-                    );
-
-                }
-
-
-                /*
-                    If a single piece itself
-                    is too long, split by words.
-                */
-
-                if(
-                    piece.length >
-                    MAX_SECTION_CHARS
-                ){
-
-                    const words =
-                        piece.split(/\s+/);
-
-                    let wordBuffer = "";
-
-
-                    for(
-                        const word of words
-                    ){
-
-                        const candidate =
-                            (
-                                wordBuffer
-                                ? wordBuffer + " "
-                                : ""
-                            ) +
-                            word;
-
-
-                        if(
-                            candidate.length >
-                            MAX_SECTION_CHARS
-                        ){
-
-                            if(wordBuffer){
-
-                                result.push(
-                                    wordBuffer
-                                );
-
-                            }
-
-                            wordBuffer =
-                                word;
-
-                        }
-                        else{
-
-                            wordBuffer =
-                                candidate;
-
-                        }
-
-                    }
-
-
-                    if(wordBuffer){
-
-                        result.push(
-                            wordBuffer
-                        );
-
-                    }
-
-
-                    current = "";
-
-                }
-                else{
-
-                    current =
-                        piece;
-
-                }
-
-            }
-
-        }
-
-
-        if(current){
-
-            result.push(
-                current.trim()
-            );
-
-        }
-
-    }
-
-
-    return result;
-
-}
-
-
-/* ============================================================
-   LOAD MODEL
-   ============================================================
-
-   IMPORTANT:
-   WebGPU is completely removed.
-
-   No navigator.gpu
-   No requestAdapter()
-   No WebGPU fallback
-
-   Only:
-
-       device = wasm
-       dtype  = q8
-
-============================================================ */
-
-async function loadModel(){
-
-    if(tts){
-
-        return tts;
-
-    }
-
-
-    if(modelPromise){
-
-        return modelPromise;
-
-    }
-
-
-    modelPromise =
-        (async () => {
-
-            setProgress(
-                1,
-                "Loading AI model",
-                "Starting stable WASM engine..."
-            );
-
-
-            try{
-
-                const model =
-                    await KokoroTTS.from_pretrained(
-                        MODEL_ID,
-                        {
-
-                            /*
-                                STABLE BROWSER BACKEND
-                            */
-
-                            device:"wasm",
-
-                            /*
-                                Smaller memory footprint
-                                than fp32.
-                            */
-
-                            dtype:"q8",
-
-
-                            progress_callback:
-                                progress => {
-
-                                    const raw =
-                                        Number(
-                                            progress?.progress
-                                        );
-
-
-                                    if(
-                                        Number.isFinite(
-                                            raw
-                                        )
-                                    ){
-
-                                        /*
-                                            Model loading
-                                            occupies 0–8%.
-                                        */
-
-                                        const p =
-                                            Math.max(
-                                                1,
-                                                Math.min(
-                                                    8,
-                                                    raw / 100 * 8
-                                                )
-                                            );
-
-
-                                        setProgress(
-                                            p,
-                                            "Loading AI model",
-                                            progress?.file
-                                            ? `Downloading ${progress.file}...`
-                                            : "Loading Kokoro model..."
-                                        );
-
-                                    }
-
-                                }
-
-                        }
-                    );
-
-
-                tts =
-                    model;
-
-
-                setProgress(
-                    8,
-                    "AI model ready",
-                    "WASM engine ready."
-                );
-
-
-                return tts;
-
-            }
-            catch(error){
-
-                console.error(
-                    "Kokoro WASM error:",
-                    error
-                );
-
-
-                throw new Error(
-                    "Kokoro WASM could not start.\n\n" +
-                    (
-                        error?.message ||
-                        "Unknown model error."
-                    )
-                );
-
-            }
-
-        })();
-
-
-    try{
-
-        return await modelPromise;
-
-    }
-    catch(error){
-
-        modelPromise =
-            null;
-
-        tts =
-            null;
-
-        throw error;
-
-    }
-
-}
-
-
-/* ============================================================
-   LOAD LAMEJS
-============================================================ */
-
-async function loadLame(){
-
-    if(
-        window.lamejs &&
-        window.lamejs.Mp3Encoder
-    ){
-
-        return window.lamejs;
-
-    }
-
-
-    if(lamePromise){
-
-        return lamePromise;
-
-    }
-
-
-    lamePromise =
-        new Promise(
-            (resolve,reject) => {
-
-                const script =
-                    document.createElement(
-                        "script"
-                    );
-
-
-                script.src =
-                    "https://cdn.jsdelivr.net/npm/lamejs@1.2.1/lame.min.js";
-
-
-                script.onload =
-                    () => {
-
-                        if(
-                            window.lamejs &&
-                            window.lamejs.Mp3Encoder
-                        ){
-
-                            resolve(
-                                window.lamejs
-                            );
-
-                        }
-                        else{
-
-                            reject(
-                                new Error(
-                                    "MP3 encoder loaded incorrectly."
-                                )
-                            );
-
-                        }
-
-                    };
-
-
-                script.onerror =
-                    () => {
-
-                        reject(
-                            new Error(
-                                "Could not load MP3 encoder."
-                            )
-                        );
-
-                    };
-
-
-                document.head.appendChild(
-                    script
-                );
-
-            }
-        );
-
-
-    return lamePromise;
-
-}
-
-
-/* ============================================================
-   FLOAT32 -> INT16
-============================================================ */
-
-function floatToInt16(
-    floatArray,
-    volume
-){
-
-    const output =
-        new Int16Array(
-            floatArray.length
-        );
-
-
-    for(
-        let i = 0;
-        i < floatArray.length;
-        i++
-    ){
-
-        let sample =
-            floatArray[i] *
-            volume;
-
-
-        sample =
-            Math.max(
-                -1,
-                Math.min(
-                    1,
-                    sample
-                )
-            );
-
-
-        output[i] =
-            sample < 0
-            ? sample * 32768
-            : sample * 32767;
-
-    }
-
-
-    return output;
-
-}
-
-
-/* ============================================================
-   ENCODE MP3 BLOCK
-============================================================ */
-
-function encodeMp3Block(
-    encoder,
-    samples
-){
-
-    const parts = [];
-
-    const BLOCK_SIZE =
-        1152;
-
-
-    for(
-        let i = 0;
-        i < samples.length;
-        i += BLOCK_SIZE
-    ){
-
-        const block =
-            samples.subarray(
-                i,
-                Math.min(
-                    i + BLOCK_SIZE,
-                    samples.length
-                )
-            );
-
-
-        const mp3buf =
-            encoder.encodeBuffer(
-                block
-            );
-
-
-        if(
-            mp3buf &&
-            mp3buf.length
-        ){
-
-            parts.push(
-                new Int8Array(
-                    mp3buf
-                )
-            );
-
-        }
-
-    }
-
-
-    return parts;
-
-}
-
-
-/* ============================================================
-   GENERATE NARRATION
-============================================================ */
-
-async function generateNarration(){
-
-    if(isGenerating){
-
+function waitForOpenCV(timeout = 60000) {
+  return new Promise((resolve, reject) => {
+    const start = Date.now();
+
+    const timer = setInterval(() => {
+      if (checkOpenCV()) {
+        clearInterval(timer);
+        resolve(window.cv);
         return;
+      }
 
+      if (Date.now() - start > timeout) {
+        clearInterval(timer);
+        reject(new Error("OpenCV chưa khởi tạo xong."));
+      }
+    }, 250);
+  });
+}
+
+async function loadOpenCV() {
+  if (checkOpenCV()) return window.cv;
+
+  if (cvPromise) return cvPromise;
+
+  cvPromise = (async () => {
+
+    const urls = [
+      "https://docs.opencv.org/4.10.0/opencv.js",
+      "https://docs.opencv.org/4.x/opencv.js"
+    ];
+
+    let lastError = null;
+
+    for (const url of urls) {
+      try {
+        setStatus("Đang tải thư viện xử lý ảnh...");
+
+        await new Promise((resolve, reject) => {
+
+          const script = document.createElement("script");
+
+          script.src = url;
+          script.async = true;
+
+          script.onload = resolve;
+
+          script.onerror = () => {
+            script.remove();
+            reject(new Error("Không tải được: " + url));
+          };
+
+          document.head.appendChild(script);
+
+        });
+
+        const cvInstance = await waitForOpenCV(60000);
+
+        setStatus("Đã tải thư viện xử lý ảnh thành công.");
+
+        return cvInstance;
+
+      } catch (error) {
+        lastError = error;
+        console.error(error);
+      }
     }
 
-
-    const originalText =
-        scriptEl.value.trim();
-
-
-    const words =
-        countWords(
-            originalText
-        );
-
-
-    /* EMPTY */
-
-    if(!originalText){
-
-        alert(
-            "Please enter some English text first."
-        );
-
-        return;
-
-    }
-
-
-    /* LIMIT */
-
-    if(words > MAX_WORDS){
-
-        alert(
-            `Your script contains ${words.toLocaleString()} words.\n\n` +
-            `Maximum allowed: ${MAX_WORDS.toLocaleString()} words.`
-        );
-
-        return;
-
-    }
-
-
-    setBusy(true);
-
-
-    outputBox.classList.remove(
-        "ready"
+    throw new Error(
+      "Không thể tải OpenCV.js. Hãy kiểm tra kết nối Internet hoặc thử lại sau."
     );
 
+  })();
 
-    downloadBtn.disabled =
-        true;
+  try {
+    return await cvPromise;
+  } catch (error) {
+    cvPromise = null;
+    throw error;
+  }
+}
 
 
-    if(currentMp3Url){
+/* ======================================
+   3. TẢI THƯ VIỆN ZIP
+====================================== */
 
-        URL.revokeObjectURL(
-            currentMp3Url
-        );
+async function loadJSZip() {
+  if (window.JSZip) return window.JSZip;
 
-        currentMp3Url =
-            null;
+  if (zipPromise) return zipPromise;
 
+  zipPromise = new Promise((resolve, reject) => {
+
+    const script = document.createElement("script");
+
+    script.src =
+      "https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js";
+
+    script.onload = () => {
+      if (window.JSZip) {
+        resolve(window.JSZip);
+      } else {
+        reject(new Error("Không thể khởi tạo JSZip."));
+      }
+    };
+
+    script.onerror = () => {
+      script.remove();
+      reject(new Error("Không tải được thư viện ZIP."));
+    };
+
+    document.head.appendChild(script);
+
+  });
+
+  try {
+    return await zipPromise;
+  } catch (error) {
+    zipPromise = null;
+    throw error;
+  }
+}
+
+
+/* ======================================
+   4. ĐỌC ẢNH
+====================================== */
+
+function loadImage(file) {
+  return new Promise((resolve, reject) => {
+
+    const url = URL.createObjectURL(file);
+    const img = new Image();
+
+    img.onload = () => {
+      resolve({ img, url });
+    };
+
+    img.onerror = () => {
+      URL.revokeObjectURL(url);
+      reject(new Error("Không thể đọc ảnh."));
+    };
+
+    img.src = url;
+
+  });
+}
+
+async function addFiles(fileList) {
+
+  const validFiles = [...fileList].filter(file =>
+    ["image/jpeg", "image/png", "image/webp"].includes(file.type)
+  );
+
+  if (!validFiles.length) {
+    setStatus("Vui lòng chọn ảnh JPG, PNG hoặc WEBP.");
+    return;
+  }
+
+  setStatus("Đang tải ảnh...");
+
+  for (const file of validFiles) {
+
+    try {
+      const { img, url } = await loadImage(file);
+
+      const canvas = document.createElement("canvas");
+
+      canvas.width = img.naturalWidth;
+      canvas.height = img.naturalHeight;
+
+      images.push({
+        file,
+        img,
+        url,
+        canvas,
+        regions: [],
+        resultBlob: null
+      });
+
+    } catch (error) {
+      console.error(error);
     }
+  }
 
+  renderGallery();
 
-    currentMp3Blob =
-        null;
+  zipBlob = null;
+  downloadBtn.disabled = true;
 
-
-    try{
-
-        /* =====================================================
-           1. LOAD MODEL
-        ====================================================== */
-
-        const model =
-            await loadModel();
-
-
-        /* =====================================================
-           2. LOAD MP3 ENCODER
-        ====================================================== */
-
-        setProgress(
-            9,
-            "Preparing generator",
-            "Loading MP3 encoder..."
-        );
-
-
-        const lame =
-            await loadLame();
-
-
-        /* =====================================================
-           3. PREPARE TEXT
-        ====================================================== */
-
-        const text =
-            normalizeText(
-                originalText
-            );
-
-
-        const sections =
-            splitIntoSections(
-                text
-            );
-
-
-        if(!sections.length){
-
-            throw new Error(
-                "No usable text sections were found."
-            );
-
-        }
-
-
-        /* =====================================================
-           4. SETTINGS
-        ====================================================== */
-
-        const voice =
-            voiceEl.value;
-
-
-        const speed =
-            Number(
-                speedEl.value
-            );
-
-
-        const volume =
-            Number(
-                volumeEl.value
-            );
-
-
-        const totalWords =
-            words;
-
-
-        /* =====================================================
-           5. MP3 VARIABLES
-        ====================================================== */
-
-        let mp3Encoder =
-            null;
-
-
-        let mp3Parts =
-            [];
-
-
-        let sampleRate =
-            24000;
-
-
-        let completedWords =
-            0;
-
-
-        let completedSections =
-            0;
-
-
-        /* =====================================================
-           6. START PROGRESS
-        ====================================================== */
-
-        setProgress(
-            10,
-            "Generating",
-            `Starting 0 / ${totalWords.toLocaleString()} words...`
-        );
-
-
-        /* =====================================================
-           7. CREATE STREAM
-        ====================================================== */
-
-        const splitter =
-            new TextSplitterStream();
-
-
-        /*
-            Start consuming the stream BEFORE
-            pushing text into it.
-        */
-
-        const stream =
-            model.stream(
-                splitter,
-                {
-                    voice,
-                    speed
-                }
-            );
-
-
-        /* =====================================================
-           8. PRODUCER
-        ====================================================== */
-
-        const producer =
-            (async () => {
-
-                for(
-                    const section
-                    of sections
-                ){
-
-                    splitter.push(
-                        section + " "
-                    );
-
-
-                    /*
-                        Let browser repaint.
-                    */
-
-                    await sleep(0);
-
-                }
-
-
-                splitter.close();
-
-            })();
-
-
-        /* =====================================================
-           9. CONSUMER
-        ====================================================== */
-
-        for await(
-            const item of stream
-        ){
-
-            /*
-                item.text:
-                text corresponding to this
-                generated audio section.
-            */
-
-            const generatedText =
-                item.text ||
-                "";
-
-
-            const generatedWords =
-                countWords(
-                    generatedText
-                );
-
-
-            completedWords +=
-                generatedWords;
-
-
-            completedSections++;
-
-
-            /*
-                Get audio.
-            */
-
-            const rawAudio =
-                item.audio;
-
-
-            if(!rawAudio){
-
-                continue;
-
-            }
-
-
-            const samples =
-                rawAudio.audio;
-
-
-            sampleRate =
-                rawAudio.sampling_rate ||
-                sampleRate;
-
-
-            if(!samples){
-
-                continue;
-
-            }
-
-
-            /* =================================================
-               CREATE ENCODER AFTER FIRST AUDIO
-            ================================================== */
-
-            if(!mp3Encoder){
-
-                mp3Encoder =
-                    new lame.Mp3Encoder(
-                        1,
-                        sampleRate,
-                        128
-                    );
-
-            }
-
-
-            /* =================================================
-               APPLY VOLUME
-            ================================================== */
-
-            const int16 =
-                floatToInt16(
-                    samples,
-                    volume
-                );
-
-
-            /* =================================================
-               ENCODE
-            ================================================== */
-
-            const encoded =
-                encodeMp3Block(
-                    mp3Encoder,
-                    int16
-                );
-
-
-            if(encoded.length){
-
-                mp3Parts.push(
-                    ...encoded
-                );
-
-            }
-
-
-            /*
-                Clamp word progress.
-
-                10% → 94%
-            */
-
-            const ratio =
-                Math.max(
-                    0,
-                    Math.min(
-                        1,
-                        completedWords /
-                        totalWords
-                    )
-                );
-
-
-            const progress =
-                10 +
-                ratio * 84;
-
-
-            setProgress(
-                progress,
-                "Generating",
-                `Generated ${Math.min(
-                    completedWords,
-                    totalWords
-                ).toLocaleString()} / ${totalWords.toLocaleString()} words · section ${completedSections} / ${sections.length}`
-            );
-
-
-            /*
-                Keep UI responsive.
-            */
-
-            await sleep(0);
-
-        }
-
-
-        /*
-            Make sure producer finished.
-        */
-
-        await producer;
-
-
-        /* =====================================================
-           10. FINALIZE MP3
-        ====================================================== */
-
-        setProgress(
-            95,
-            "Finalizing MP3",
-            "Finishing MP3 encoding..."
-        );
-
-
-        if(!mp3Encoder){
-
-            throw new Error(
-                "Kokoro did not return any audio."
-            );
-
-        }
-
-
-        const finalBuffer =
-            mp3Encoder.flush();
-
-
-        if(
-            finalBuffer &&
-            finalBuffer.length
-        ){
-
-            mp3Parts.push(
-                new Int8Array(
-                    finalBuffer
-                )
-            );
-
-        }
-
-
-        /* =====================================================
-           11. CREATE BLOB
-        ====================================================== */
-
-        setProgress(
-            98,
-            "Creating MP3",
-            "Building final audio file..."
-        );
-
-
-        currentMp3Blob =
-            new Blob(
-                mp3Parts,
-                {
-                    type:"audio/mpeg"
-                }
-            );
-
-
-        if(
-            currentMp3Url
-        ){
-
-            URL.revokeObjectURL(
-                currentMp3Url
-            );
-
-        }
-
-
-        currentMp3Url =
-            URL.createObjectURL(
-                currentMp3Blob
-            );
-
-
-        audioPlayer.src =
-            currentMp3Url;
-
-
-        audioPlayer.load();
-
-
-        outputBox.classList.add(
-            "ready"
-        );
-
-
-        downloadBtn.disabled =
-            false;
-
-
-        /* =====================================================
-           12. COMPLETE
-        ====================================================== */
-
-        setProgress(
-            100,
-            "Complete",
-            `Finished ${totalWords.toLocaleString()} words. MP3 is ready.`
-        );
-
-
-    }
-    catch(error){
-
-        console.error(
-            "VOICECRAFT GENERATION ERROR:",
-            error
-        );
-
-
-        setProgress(
-            0,
-            "Generation failed",
-            error?.message ||
-            "Unknown error."
-        );
-
-
-        alert(
-            "Generation failed.\n\n" +
-            (
-                error?.message ||
-                "Unknown error."
-            )
-        );
-
-    }
-    finally{
-
-        setBusy(false);
-
-    }
+  setStatus("Đã tải " + images.length + " ảnh.");
 
 }
 
 
-/* ============================================================
-   PREVIEW
-============================================================ */
+/* ======================================
+   5. HIỂN THỊ ẢNH VÀ VÙNG ĐÁNH DẤU
+====================================== */
 
-async function previewVoice(){
+function drawImage(item) {
 
-    if(isGenerating){
+  const canvas = item.canvas;
+  const ctx = canvas.getContext("2d");
 
-        return;
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  ctx.drawImage(
+    item.img,
+    0,
+    0,
+    canvas.width,
+    canvas.height
+  );
+
+  item.regions.forEach(region => {
+
+    ctx.fillStyle = "rgba(255,0,0,0.35)";
+    ctx.strokeStyle = "#ff0000";
+    ctx.lineWidth = Math.max(2, canvas.width / 300);
+
+    ctx.fillRect(
+      region.x,
+      region.y,
+      region.w,
+      region.h
+    );
+
+    ctx.strokeRect(
+      region.x,
+      region.y,
+      region.w,
+      region.h
+    );
+
+  });
+}
+
+function renderGallery() {
+
+  gallery.innerHTML = "";
+
+  if (!images.length) {
+    gallery.innerHTML =
+      '<div class="empty">Chưa có ảnh nào được tải lên.</div>';
+    return;
+  }
+
+  images.forEach((item, index) => {
+
+    const card = document.createElement("div");
+    card.className = "image-card";
+
+    const title = document.createElement("h3");
+    title.textContent = (index + 1) + ". " + item.file.name;
+
+    const wrap = document.createElement("div");
+    wrap.className = "canvas-wrap";
+
+    wrap.appendChild(item.canvas);
+
+    const actions = document.createElement("div");
+    actions.className = "image-actions";
+
+    const undoBtn = document.createElement("button");
+    undoBtn.className = "secondary";
+    undoBtn.textContent = "Hoàn tác";
+
+    undoBtn.onclick = () => {
+
+      item.regions.pop();
+      item.resultBlob = null;
+
+      drawImage(item);
+      invalidateZip();
+
+    };
+
+    const clearBtn = document.createElement("button");
+    clearBtn.className = "danger";
+    clearBtn.textContent = "Xóa vùng";
+
+    clearBtn.onclick = () => {
+
+      item.regions = [];
+      item.resultBlob = null;
+
+      drawImage(item);
+      invalidateZip();
+
+    };
+
+    actions.append(undoBtn, clearBtn);
+
+    const info = document.createElement("div");
+    info.className = "small-status";
+
+    info.textContent =
+      "Kích thước: " +
+      item.canvas.width + " × " +
+      item.canvas.height +
+      " | Vùng đã khoanh: " + item.regions.length;
+
+    card.append(title, wrap, actions, info);
+
+    gallery.appendChild(card);
+
+    setupSelection(item);
+
+    drawImage(item);
+
+  });
+
+}
+
+function invalidateZip() {
+  zipBlob = null;
+  downloadBtn.disabled = true;
+}
+
+
+/* ======================================
+   6. KHOANH VÙNG WATERMARK
+====================================== */
+
+function setupSelection(item) {
+
+  const canvas = item.canvas;
+
+  let drawing = false;
+  let startX = 0;
+  let startY = 0;
+
+  function getPosition(event) {
+
+    const rect = canvas.getBoundingClientRect();
+
+    return {
+      x: (event.clientX - rect.left) *
+         canvas.width / rect.width,
+
+      y: (event.clientY - rect.top) *
+         canvas.height / rect.height
+    };
+
+  }
+
+  canvas.addEventListener("pointerdown", event => {
+
+    event.preventDefault();
+
+    drawing = true;
+
+    const pos = getPosition(event);
+
+    startX = pos.x;
+    startY = pos.y;
+
+    canvas.setPointerCapture(event.pointerId);
+
+  });
+
+  canvas.addEventListener("pointermove", event => {
+
+    if (!drawing) return;
+
+    event.preventDefault();
+
+    const pos = getPosition(event);
+
+    drawImage(item);
+
+    const ctx = canvas.getContext("2d");
+
+    ctx.fillStyle = "rgba(255,0,0,0.35)";
+    ctx.strokeStyle = "red";
+    ctx.lineWidth = Math.max(2, canvas.width / 300);
+
+    ctx.fillRect(
+      startX,
+      startY,
+      pos.x - startX,
+      pos.y - startY
+    );
+
+    ctx.strokeRect(
+      startX,
+      startY,
+      pos.x - startX,
+      pos.y - startY
+    );
+
+  });
+
+  function finish(event) {
+
+    if (!drawing) return;
+
+    drawing = false;
+
+    const pos = getPosition(event);
+
+    const x = Math.max(0, Math.min(startX, pos.x));
+    const y = Math.max(0, Math.min(startY, pos.y));
+
+    const w = Math.min(
+      canvas.width - x,
+      Math.abs(pos.x - startX)
+    );
+
+    const h = Math.min(
+      canvas.height - y,
+      Math.abs(pos.y - startY)
+    );
+
+    if (w > 2 && h > 2) {
+
+      item.regions.push({
+        x,
+        y,
+        w,
+        h
+      });
+
+      item.resultBlob = null;
+
+      invalidateZip();
 
     }
 
+    drawImage(item);
 
-    try{
+    updateCardInfo(item);
 
-        previewBtn.disabled =
-            true;
+  }
 
+  canvas.addEventListener("pointerup", finish);
 
-        previewBtn.textContent =
-            "Generating Preview...";
+  canvas.addEventListener("pointercancel", () => {
+    drawing = false;
+    drawImage(item);
+  });
 
+}
 
-        setProgress(
-            2,
-            "Preparing preview",
-            "Loading Kokoro WASM..."
-        );
+function updateCardInfo(item) {
 
+  const cards = [...document.querySelectorAll(".image-card")];
 
-        const model =
-            await loadModel();
+  const index = images.indexOf(item);
 
+  if (cards[index]) {
 
-        const voice =
-            voiceEl.value;
+    const info = cards[index].querySelector(".small-status");
 
-
-        const speed =
-            Number(
-                speedEl.value
-            );
-
-
-        const volume =
-            Number(
-                volumeEl.value
-            );
-
-
-        const sampleText =
-            "Welcome to VoiceCraft. " +
-            "This is a short preview of the selected English narrator voice. " +
-            "You can listen to this sample before generating the complete narration.";
-
-
-        setProgress(
-            10,
-            "Generating preview",
-            "Creating voice sample..."
-        );
-
-
-        const result =
-            await model.generate(
-                sampleText,
-                {
-                    voice,
-                    speed
-                }
-            );
-
-
-        const samples =
-            result.audio;
-
-
-        const sampleRate =
-            result.sampling_rate ||
-            24000;
-
-
-        const wavBlob =
-            createWavBlob(
-                samples,
-                sampleRate,
-                volume
-            );
-
-
-        if(currentPreviewUrl){
-
-            URL.revokeObjectURL(
-                currentPreviewUrl
-            );
-
-        }
-
-
-        currentPreviewUrl =
-            URL.createObjectURL(
-                wavBlob
-            );
-
-
-        previewPlayer.src =
-            currentPreviewUrl;
-
-
-        previewPlayer.load();
-
-
-        setProgress(
-            100,
-            "Preview ready",
-            "Preview generated. Press Play to listen."
-        );
-
-
-        /*
-            Try autoplay.
-
-            If browser blocks it,
-            user can press Play normally.
-        */
-
-        previewPlayer
-            .play()
-            .catch(
-                () => {}
-            );
-
+    if (info) {
+      info.textContent =
+        "Kích thước: " +
+        item.canvas.width + " × " +
+        item.canvas.height +
+        " | Vùng đã khoanh: " + item.regions.length;
     }
-    catch(error){
 
-        console.error(
-            "PREVIEW ERROR:",
-            error
-        );
-
-
-        setProgress(
-            0,
-            "Preview failed",
-            error?.message ||
-            "Could not generate preview."
-        );
-
-
-        alert(
-            "Preview failed.\n\n" +
-            (
-                error?.message ||
-                "Unknown error."
-            )
-        );
-
-    }
-    finally{
-
-        previewBtn.disabled =
-            false;
-
-
-        previewBtn.textContent =
-            "Preview Voice";
-
-    }
+  }
 
 }
 
 
-/* ============================================================
-   CREATE WAV
-============================================================ */
+/* ======================================
+   7. TẠO MASK
+====================================== */
 
-function createWavBlob(
-    floatSamples,
-    sampleRate,
-    volume
-){
+function createMask(item) {
 
-    const samples =
-        floatToInt16(
-            floatSamples,
-            volume
-        );
+  const cv = window.cv;
 
+  const mask = new cv.Mat.zeros(
+    item.canvas.height,
+    item.canvas.width,
+    cv.CV_8UC1
+  );
 
-    const buffer =
-        new ArrayBuffer(
-            44 +
-            samples.length * 2
-        );
+  item.regions.forEach(region => {
 
+    const x = Math.max(0, Math.floor(region.x));
+    const y = Math.max(0, Math.floor(region.y));
 
-    const view =
-        new DataView(
-            buffer
-        );
-
-
-    function writeString(
-        offset,
-        string
-    ){
-
-        for(
-            let i = 0;
-            i < string.length;
-            i++
-        ){
-
-            view.setUint8(
-                offset + i,
-                string.charCodeAt(i)
-            );
-
-        }
-
-    }
-
-
-    writeString(
-        0,
-        "RIFF"
+    const w = Math.min(
+      item.canvas.width - x,
+      Math.ceil(region.w)
     );
 
-
-    view.setUint32(
-        4,
-        36 +
-        samples.length * 2,
-        true
+    const h = Math.min(
+      item.canvas.height - y,
+      Math.ceil(region.h)
     );
 
+    if (w <= 0 || h <= 0) return;
 
-    writeString(
-        8,
-        "WAVE"
+    cv.rectangle(
+      mask,
+      new cv.Point(x, y),
+      new cv.Point(x + w, y + h),
+      new cv.Scalar(255),
+      -1
     );
 
+  });
 
-    writeString(
-        12,
-        "fmt "
-    );
-
-
-    view.setUint32(
-        16,
-        16,
-        true
-    );
-
-
-    view.setUint16(
-        20,
-        1,
-        true
-    );
-
-
-    view.setUint16(
-        22,
-        1,
-        true
-    );
-
-
-    view.setUint32(
-        24,
-        sampleRate,
-        true
-    );
-
-
-    view.setUint32(
-        28,
-        sampleRate * 2,
-        true
-    );
-
-
-    view.setUint16(
-        32,
-        2,
-        true
-    );
-
-
-    view.setUint16(
-        34,
-        16,
-        true
-    );
-
-
-    writeString(
-        36,
-        "data"
-    );
-
-
-    view.setUint32(
-        40,
-        samples.length * 2,
-        true
-    );
-
-
-    let offset =
-        44;
-
-
-    for(
-        let i = 0;
-        i < samples.length;
-        i++
-    ){
-
-        view.setInt16(
-            offset,
-            samples[i],
-            true
-        );
-
-
-        offset += 2;
-
-    }
-
-
-    return new Blob(
-        [buffer],
-        {
-            type:"audio/wav"
-        }
-    );
+  return mask;
 
 }
 
 
-/* ============================================================
-   DOWNLOAD MP3
-============================================================ */
+/* ======================================
+   8. XỬ LÝ MỘT ẢNH
+====================================== */
 
-downloadBtn.addEventListener(
-    "click",
-    () => {
+async function processImage(item) {
 
-        if(!currentMp3Blob){
+  if (!item.regions.length) return null;
 
-            return;
+  const cv = window.cv;
 
+  // Đọc ảnh gốc, không đọc canvas có vùng đỏ đánh dấu.
+  const sourceRGBA = cv.imread(item.img);
+
+  const sourceRGB = new cv.Mat();
+  const outputRGB = new cv.Mat();
+  const outputRGBA = new cv.Mat();
+
+  let mask = null;
+
+  try {
+
+    // Chuyển RGBA thành RGB để tương thích với inpaint.
+    cv.cvtColor(
+      sourceRGBA,
+      sourceRGB,
+      cv.COLOR_RGBA2RGB
+    );
+
+    mask = createMask(item);
+
+    // Thuật toán tái tạo vùng ảnh.
+    cv.inpaint(
+      sourceRGB,
+      mask,
+      outputRGB,
+      5,
+      cv.INPAINT_TELEA
+    );
+
+    // Chuyển kết quả về RGBA để hiển thị.
+    cv.cvtColor(
+      outputRGB,
+      outputRGBA,
+      cv.COLOR_RGB2RGBA
+    );
+
+    const resultCanvas = document.createElement("canvas");
+
+    resultCanvas.width = item.canvas.width;
+    resultCanvas.height = item.canvas.height;
+
+    cv.imshow(resultCanvas, outputRGBA);
+
+    return await new Promise((resolve, reject) => {
+
+      resultCanvas.toBlob(blob => {
+
+        if (!blob) {
+          reject(new Error("Không thể xuất ảnh."));
+          return;
         }
 
+        resolve(blob);
 
-        const link =
-            document.createElement(
-                "a"
-            );
+      }, "image/png");
 
+    });
 
-        link.href =
-            currentMp3Url;
+  } finally {
 
+    sourceRGBA.delete();
+    sourceRGB.delete();
+    outputRGB.delete();
+    outputRGBA.delete();
 
-        link.download =
-            "voicecraft-narration.mp3";
+    if (mask) mask.delete();
 
+  }
 
-        document.body.appendChild(
-            link
-        );
-
-
-        link.click();
+}
 
 
-        link.remove();
+/* ======================================
+   9. XỬ LÝ HÀNG LOẠT
+====================================== */
 
-    }
-);
+processBtn.onclick = async () => {
 
+  if (!images.length) {
+    setStatus("Bạn chưa tải ảnh lên.");
+    return;
+  }
 
-/* ============================================================
-   TEXT COUNTER
-============================================================ */
+  const selectedImages = images.filter(
+    item => item.regions.length > 0
+  );
 
-scriptEl.addEventListener(
-    "input",
-    updateCounters
-);
+  if (!selectedImages.length) {
+    setStatus("Bạn cần khoanh vùng watermark trước.");
+    return;
+  }
 
+  processBtn.disabled = true;
+  autoBtn.disabled = true;
+  downloadBtn.disabled = true;
 
-/* ============================================================
-   SPEED
-============================================================ */
+  zipBlob = null;
+  setProgress(0);
 
-speedEl.addEventListener(
-    "input",
-    () => {
+  try {
 
-        speedValue.textContent =
-            `${Number(
-                speedEl.value
-            ).toFixed(2)}×`;
+    setStatus("Đang tải thư viện xử lý ảnh...");
 
-    }
-);
+    await loadOpenCV();
 
+    setStatus("Đang xử lý ảnh...");
 
-/* ============================================================
-   VOLUME
-============================================================ */
+    let completed = 0;
+    let failed = 0;
 
-volumeEl.addEventListener(
-    "input",
-    () => {
+    for (const item of selectedImages) {
 
-        volumeValue.textContent =
-            `${Math.round(
-                Number(
-                    volumeEl.value
-                ) * 100
-            )}%`;
+      setStatus(
+        "Đang xử lý " +
+        (completed + failed + 1) +
+        "/" +
+        selectedImages.length +
+        ": " +
+        item.file.name
+      );
 
-    }
-);
+      try {
 
+        const blob = await processImage(item);
 
-/* ============================================================
-   GENERATE
-============================================================ */
+        if (blob) {
+          item.resultBlob = blob;
+          completed++;
+        }
 
-generateBtn.addEventListener(
-    "click",
-    generateNarration
-);
+      } catch (error) {
 
+        console.error(error);
+        failed++;
 
-/* ============================================================
-   PREVIEW
-============================================================ */
+      }
 
-previewBtn.addEventListener(
-    "click",
-    previewVoice
-);
-
-
-/* ============================================================
-   CLEAR
-============================================================ */
-
-$("clearBtn").addEventListener(
-    "click",
-    () => {
-
-        scriptEl.value =
-            "";
-
-
-        updateCounters();
-
-
-        outputBox.classList.remove(
-            "ready"
-        );
-
-
-        audioPlayer.removeAttribute(
-            "src"
-        );
-
-
-        audioPlayer.load();
-
-
-        setProgress(
-            0,
-            "Ready",
-            "Enter your script and generate the narration."
-        );
+      setProgress(
+        ((completed + failed) / selectedImages.length) * 100
+      );
 
     }
-);
 
-
-/* ============================================================
-   EXAMPLE
-============================================================ */
-
-$("exampleBtn").addEventListener(
-    "click",
-    () => {
-
-        scriptEl.value =
-`Human behavior is often shaped by forces we do not consciously notice.
-
-Every day, people make hundreds of decisions. Some are deliberate, while others happen almost automatically.
-
-We choose what to read, what to watch, who to trust, and what to ignore.
-
-Psychology helps us understand why these decisions happen.
-
-One important idea is that the human brain constantly tries to save energy.
-
-Instead of carefully analyzing every situation from the beginning, we often rely on patterns, previous experiences, and simple mental shortcuts.
-
-These shortcuts can be useful. They allow us to make decisions quickly.
-
-However, they can also create mistakes.
-
-For example, when we hear a confident person speaking, we may automatically assume that the person is knowledgeable.
-
-Confidence can influence our judgment even when it has little connection to actual expertise.
-
-Understanding these patterns does not mean that we should distrust every decision we make.
-
-Instead, it gives us an opportunity to pause and think more carefully.
-
-The more we understand our own thinking, the better we can recognize when our automatic reactions are helping us, and when they may be misleading us.`;
-
-        updateCounters();
-
+    if (!completed) {
+      throw new Error("Không có ảnh nào xử lý thành công.");
     }
-);
 
+    setStatus("Đang tạo file ZIP...");
 
-/* ============================================================
-   PRESETS
-============================================================ */
+    const JSZip = await loadJSZip();
 
-const presets = {
+    const zip = new JSZip();
 
-    psychology:{
-        speed:0.94,
-        volume:1
-    },
+    images.forEach((item, index) => {
 
-    documentary:{
-        speed:0.92,
-        volume:1
-    },
+      if (!item.resultBlob) return;
 
-    storytelling:{
-        speed:0.88,
-        volume:1
-    },
+      const filename = item.file.name
+        .replace(/\.[^.]+$/, "")
+        .replace(/[\\/:*?"<>|]/g, "_");
 
-    review:{
-        speed:1.02,
-        volume:1
-    },
+      zip.file(
+        (index + 1) + "_" + filename + "_clean.png",
+        item.resultBlob
+      );
 
-    youtube:{
-        speed:1.04,
-        volume:1
-    },
+    });
 
-    natural:{
-        speed:1,
-        volume:1
-    }
+    zipBlob = await zip.generateAsync({
+      type: "blob"
+    });
+
+    downloadBtn.disabled = false;
+
+    setStatus(
+      "Hoàn tất! Thành công: " +
+      completed +
+      " ảnh. Thất bại: " +
+      failed +
+      " ảnh. Nhấn Tải ZIP kết quả để tải xuống."
+    );
+
+  } catch (error) {
+
+    console.error(error);
+
+    setStatus("Lỗi: " + error.message);
+
+  } finally {
+
+    processBtn.disabled = false;
+    autoBtn.disabled = false;
+
+  }
 
 };
 
 
-document
-.querySelectorAll(".preset")
-.forEach(
-    button => {
+/* ======================================
+   10. DÒ VÙNG SÁNG THỬ NGHIỆM
+====================================== */
 
-        button.addEventListener(
-            "click",
-            () => {
+autoBtn.onclick = async () => {
 
-                document
-                .querySelectorAll(".preset")
-                .forEach(
-                    b => {
+  if (!images.length) {
+    setStatus("Bạn chưa tải ảnh lên.");
+    return;
+  }
 
-                        b.classList.remove(
-                            "active"
-                        );
+  autoBtn.disabled = true;
+  processBtn.disabled = true;
 
-                    }
-                );
+  try {
 
+    await loadOpenCV();
 
-                button.classList.add(
-                    "active"
-                );
+    const cv = window.cv;
 
+    let detected = 0;
 
-                const preset =
-                    presets[
-                        button.dataset.preset
-                    ];
+    for (const item of images) {
 
+      const source = cv.imread(item.img);
 
-                if(!preset){
+      const gray = new cv.Mat();
+      const mask = new cv.Mat();
 
-                    return;
+      const contours = new cv.MatVector();
+      const hierarchy = new cv.Mat();
 
-                }
+      try {
 
-
-                speedEl.value =
-                    preset.speed;
-
-
-                volumeEl.value =
-                    preset.volume;
-
-
-                speedValue.textContent =
-                    `${preset.speed.toFixed(2)}×`;
-
-
-                volumeValue.textContent =
-                    `${Math.round(
-                        preset.volume * 100
-                    )}%`;
-
-            }
+        cv.cvtColor(
+          source,
+          gray,
+          cv.COLOR_RGBA2GRAY
         );
 
+        cv.threshold(
+          gray,
+          mask,
+          235,
+          255,
+          cv.THRESH_BINARY
+        );
+
+        cv.findContours(
+          mask,
+          contours,
+          hierarchy,
+          cv.RETR_EXTERNAL,
+          cv.CHAIN_APPROX_SIMPLE
+        );
+
+        item.regions = [];
+
+        for (let i = 0; i < contours.size(); i++) {
+
+          const contour = contours.get(i);
+
+          try {
+
+            const rect = cv.boundingRect(contour);
+
+            const area = rect.width * rect.height;
+
+            if (
+              area > 80 &&
+              rect.width < item.canvas.width * 0.25 &&
+              rect.height < item.canvas.height * 0.25
+            ) {
+
+              item.regions.push({
+                x: rect.x,
+                y: rect.y,
+                w: rect.width,
+                h: rect.height
+              });
+
+            }
+
+          } finally {
+            contour.delete();
+          }
+
+        }
+
+        if (item.regions.length) detected++;
+
+        item.resultBlob = null;
+
+      } finally {
+
+        source.delete();
+        gray.delete();
+        mask.delete();
+        contours.delete();
+        hierarchy.delete();
+
+      }
+
     }
-);
+
+    renderGallery();
+
+    invalidateZip();
+
+    setStatus(
+      "Dò thử nghiệm xong. Có vùng sáng trong " +
+      detected +
+      "/" +
+      images.length +
+      " ảnh. Hãy kiểm tra và chỉnh lại vùng khoanh."
+    );
+
+  } catch (error) {
+
+    console.error(error);
+
+    setStatus("Lỗi dò tự động: " + error.message);
+
+  } finally {
+
+    autoBtn.disabled = false;
+    processBtn.disabled = false;
+
+  }
+
+};
 
 
-/* ============================================================
-   INITIAL
-============================================================ */
+/* ======================================
+   11. TẢI FILE ZIP
+====================================== */
 
-updateCounters();
+downloadBtn.onclick = () => {
+
+  if (!zipBlob) return;
+
+  const url = URL.createObjectURL(zipBlob);
+
+  const a = document.createElement("a");
+
+  a.href = url;
+  a.download = "watermark-removed-images.zip";
+
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+
+  setTimeout(() => {
+    URL.revokeObjectURL(url);
+  }, 2000);
+
+};
 
 
-setProgress(
-    0,
-    "Ready",
-    "Enter your script and generate the narration."
-);
+/* ======================================
+   12. CHỌN ẢNH
+====================================== */
+
+fileInput.addEventListener("change", event => {
+
+  addFiles(event.target.files);
+
+  fileInput.value = "";
+
+});
+
+
+/* ======================================
+   13. KÉO THẢ ẢNH
+====================================== */
+
+uploadBox.addEventListener("dragover", event => {
+
+  event.preventDefault();
+
+  uploadBox.classList.add("dragging");
+
+});
+
+uploadBox.addEventListener("dragleave", () => {
+
+  uploadBox.classList.remove("dragging");
+
+});
+
+uploadBox.addEventListener("drop", event => {
+
+  event.preventDefault();
+
+  uploadBox.classList.remove("dragging");
+
+  addFiles(event.dataTransfer.files);
+
+});
 
 </script>
 
