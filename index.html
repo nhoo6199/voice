@@ -4,446 +4,261 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Watermark Remover</title>
+<title>Image Retouch Studio</title>
 
 <style>
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-body {
-  font-family: Arial, sans-serif;
-  background: #f4f6fb;
-  color: #202333;
-  padding: 25px 15px;
-}
-
-.container {
-  max-width: 1100px;
-  margin: auto;
-}
-
-header {
-  text-align: center;
-  margin-bottom: 28px;
-}
-
-header h1 {
-  font-size: 32px;
-  margin-bottom: 10px;
-}
-
-header p {
-  color: #777;
-  line-height: 1.6;
-}
-
-.panel {
-  background: white;
-  padding: 24px;
-  border-radius: 16px;
-  box-shadow: 0 5px 25px rgba(0,0,0,.05);
-  margin-bottom: 22px;
-}
-
-.upload-box {
-  display: block;
-  border: 2px dashed #aab2c5;
-  border-radius: 14px;
-  padding: 40px 20px;
-  text-align: center;
-  cursor: pointer;
-  transition: .2s;
-}
-
-.upload-box:hover,
-.upload-box.dragging {
-  border-color: #5b65e8;
-  background: #f8f8ff;
-}
-
-.upload-box h3 {
-  margin-bottom: 10px;
-}
-
-.upload-box p {
-  color: #888;
-  font-size: 14px;
-  margin-top: 5px;
-}
-
-input[type=file] {
-  display: none;
-}
-
-button {
-  border: none;
-  padding: 12px 18px;
-  border-radius: 9px;
-  background: #5b65e8;
-  color: white;
-  font-size: 14px;
-  font-weight: bold;
-  cursor: pointer;
-  transition: .2s;
-}
-
-button:hover {
-  background: #424bc7;
-}
-
-button:disabled {
-  background: #aaa;
-  cursor: not-allowed;
-}
-
-.secondary {
-  background: #e9ebf8;
-  color: #333;
-}
-
-.secondary:hover {
-  background: #d9dcf2;
-}
-
-.danger {
-  background: #e74c3c;
-}
-
-.danger:hover {
-  background: #c0392b;
-}
-
-.toolbar {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin-top: 18px;
-}
-
-.toolbar button {
-  flex: 1;
-  min-width: 150px;
-}
-
-.status {
-  margin-top: 15px;
-  color: #666;
-  font-size: 14px;
-  line-height: 1.6;
-}
-
-.progress {
-  height: 9px;
-  background: #e6e6e6;
-  border-radius: 20px;
-  overflow: hidden;
-  margin-top: 15px;
-}
-
-.progress-bar {
-  height: 100%;
-  width: 0%;
-  background: #5b65e8;
-  transition: width .2s;
-}
-
-.hint {
-  color: #777;
-  font-size: 13px;
-  line-height: 1.7;
-  margin-top: 15px;
-}
-
-.gallery {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
-  gap: 18px;
-}
-
-.image-card {
-  background: white;
-  border-radius: 14px;
-  padding: 14px;
-  box-shadow: 0 4px 15px rgba(0,0,0,.05);
-  min-width: 0;
-}
-
-.image-card h3 {
-  font-size: 14px;
-  margin-bottom: 10px;
-  overflow-wrap: anywhere;
-}
-
-.canvas-wrap {
-  width: 100%;
-  background: #eee;
-  border-radius: 8px;
-  overflow: hidden;
-}
-
-canvas {
-  display: block;
-  width: 100%;
-  height: auto;
-  cursor: crosshair;
-  touch-action: none;
-}
-
-.image-actions {
-  display: flex;
-  gap: 8px;
-  margin-top: 12px;
-}
-
-.image-actions button {
-  flex: 1;
-  padding: 9px 7px;
-  font-size: 12px;
-}
-
-.small-status {
-  margin-top: 8px;
-  font-size: 12px;
-  color: #777;
-}
-
-.empty {
-  text-align: center;
-  padding: 35px;
-  color: #999;
-  background: white;
-  border-radius: 12px;
-}
-
-@media(max-width: 600px) {
-  body {
-    padding: 15px 10px;
-  }
-
-  header h1 {
-    font-size: 25px;
-  }
-
-  .panel {
-    padding: 16px;
-  }
-}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Arial,sans-serif;background:#f4f6fb;color:#202333;padding:25px 15px}
+.container{max-width:1100px;margin:auto}
+header{text-align:center;margin-bottom:28px}
+header h1{font-size:32px;margin-bottom:10px}
+header p{color:#777;line-height:1.6}
+.panel{background:white;padding:24px;border-radius:16px;box-shadow:0 5px 25px #0000000d;margin-bottom:22px}
+.upload-box{display:block;border:2px dashed #aab2c5;border-radius:14px;padding:40px 20px;text-align:center;cursor:pointer}
+.upload-box:hover,.upload-box.dragging{border-color:#5b65e8;background:#f8f8ff}
+.upload-box h3{margin-bottom:10px}
+.upload-box p{color:#888;font-size:14px;margin-top:5px}
+input[type=file]{display:none}
+button{border:0;padding:12px 18px;border-radius:9px;background:#5b65e8;color:white;font-size:14px;font-weight:bold;cursor:pointer}
+button:hover{background:#424bc7}
+button:disabled{background:#aaa;cursor:not-allowed}
+.secondary{background:#e9ebf8;color:#333}
+.secondary:hover{background:#d9dcf2}
+.danger{background:#e74c3c}
+.toolbar{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
+.toolbar button{flex:1;min-width:150px}
+.status{margin-top:15px;color:#666;font-size:14px;line-height:1.6;overflow-wrap:anywhere}
+.progress{height:9px;background:#e6e6e6;border-radius:20px;overflow:hidden;margin-top:15px}
+.progress-bar{height:100%;width:0;background:#5b65e8;transition:width .2s}
+.hint{color:#777;font-size:13px;line-height:1.7;margin-top:15px}
+.gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:18px}
+.image-card{background:white;border-radius:14px;padding:14px;box-shadow:0 4px 15px #0000000d;min-width:0}
+.image-card h3{font-size:14px;margin-bottom:10px;overflow-wrap:anywhere}
+.canvas-wrap{width:100%;background:#eee;border-radius:8px;overflow:hidden}
+canvas{display:block;width:100%;height:auto;cursor:crosshair;touch-action:none}
+.image-actions{display:flex;gap:8px;margin-top:12px}
+.image-actions button{flex:1;padding:9px 7px;font-size:12px}
+.small-status{margin-top:8px;font-size:12px;color:#777}
+.empty{text-align:center;padding:35px;color:#999;background:white;border-radius:12px}
+@media(max-width:600px){body{padding:15px 10px}header h1{font-size:25px}.panel{padding:16px}}
 </style>
 </head>
 
 <body>
-
 <div class="container">
 
 <header>
-  <h1>Watermark Remover</h1>
-  <p>Công cụ khoanh vùng và xử lý watermark trên ảnh</p>
+<h1>Image Retouch Studio</h1>
+<p>Công cụ khoanh vùng và chỉnh sửa ảnh trực tiếp trên trình duyệt</p>
 </header>
 
 <section class="panel">
 
-  <label class="upload-box" id="uploadBox" for="fileInput">
-    <h3>📁 Chọn hoặc kéo thả ảnh vào đây</h3>
-    <p>Hỗ trợ JPG, JPEG, PNG, WEBP</p>
-    <p>Có thể chọn nhiều ảnh cùng lúc</p>
-  </label>
+<label class="upload-box" id="uploadBox" for="fileInput">
+<h3>📁 Chọn hoặc kéo thả ảnh vào đây</h3>
+<p>Hỗ trợ JPG, JPEG, PNG, WEBP</p>
+<p>Có thể chọn nhiều ảnh cùng lúc</p>
+</label>
 
-  <input
-    id="fileInput"
-    type="file"
-    accept="image/jpeg,image/png,image/webp"
-    multiple
-  >
+<input id="fileInput" type="file" accept="image/jpeg,image/png,image/webp" multiple>
 
-  <div class="toolbar">
-    <button id="autoBtn" class="secondary">
-      Dò vùng sáng thử nghiệm
-    </button>
+<div class="toolbar">
+<button id="autoBtn" class="secondary">Dò vùng sáng thử nghiệm</button>
+<button id="processBtn">Xử lý tất cả ảnh</button>
+<button id="downloadBtn" disabled>Tải ZIP kết quả</button>
+</div>
 
-    <button id="processBtn">
-      Xử lý tất cả ảnh
-    </button>
+<p class="hint">
+Tải ảnh lên, sau đó kéo chuột để khoanh vùng cần chỉnh sửa.
+Vùng màu đỏ là vùng được xử lý. Bạn có thể khoanh nhiều vùng trên một ảnh.
+</p>
 
-    <button id="downloadBtn" disabled>
-      Tải ZIP kết quả
-    </button>
-  </div>
-
-  <p class="hint">
-    Hướng dẫn: Tải ảnh lên, sau đó dùng chuột kéo một hình chữ nhật
-    quanh vùng watermark. Vùng màu đỏ là vùng sẽ được xử lý.
-    Bạn có thể khoanh nhiều vùng trên một ảnh.
-  </p>
-
-  <div id="status" class="status">
-    Đang chờ tải ảnh...
-  </div>
-
-  <div class="progress">
-    <div id="progressBar" class="progress-bar"></div>
-  </div>
+<div id="status" class="status">Đang chờ tải ảnh...</div>
+<div class="progress"><div id="progressBar" class="progress-bar"></div></div>
 
 </section>
 
 <section id="gallery" class="gallery">
-  <div class="empty">Chưa có ảnh nào được tải lên.</div>
+<div class="empty">Chưa có ảnh nào được tải lên.</div>
 </section>
 
 </div>
 
-<script>
-/* ======================================
-   1. BIẾN VÀ THÀNH PHẦN GIAO DIỆN
-====================================== */
+<script type="module">
 
-const fileInput = document.getElementById("fileInput");
-const gallery = document.getElementById("gallery");
-const statusBox = document.getElementById("status");
-const progressBar = document.getElementById("progressBar");
+/* =====================================
+   1. CẤU HÌNH VÀ BIẾN
+===================================== */
 
-const processBtn = document.getElementById("processBtn");
-const downloadBtn = document.getElementById("downloadBtn");
-const autoBtn = document.getElementById("autoBtn");
-const uploadBox = document.getElementById("uploadBox");
+const $ = id => document.getElementById(id);
+
+const fileInput = $("fileInput");
+const gallery = $("gallery");
+const statusBox = $("status");
+const progressBar = $("progressBar");
+const processBtn = $("processBtn");
+const downloadBtn = $("downloadBtn");
+const autoBtn = $("autoBtn");
+const uploadBox = $("uploadBox");
 
 let images = [];
-let zipBlob = null;
+let cvInstance = null;
 let cvPromise = null;
+let zipBlob = null;
 let zipPromise = null;
 
-function setStatus(message) {
+function setStatus(message){
   statusBox.textContent = message;
 }
 
-function setProgress(value) {
+function setProgress(value){
   progressBar.style.width = value + "%";
 }
 
-
-/* ======================================
-   2. TẢI OPENCV.JS VỚI NHIỀU ĐƯỜNG DẪN
-====================================== */
-
-function checkOpenCV() {
-  return !!(
-    window.cv &&
-    window.cv.Mat &&
-    window.cv.imread &&
-    window.cv.inpaint
-  );
+function invalidateZip(){
+  zipBlob = null;
+  downloadBtn.disabled = true;
 }
 
-function waitForOpenCV(timeout = 60000) {
-  return new Promise((resolve, reject) => {
-    const start = Date.now();
 
-    const timer = setInterval(() => {
-      if (checkOpenCV()) {
-        clearInterval(timer);
-        resolve(window.cv);
-        return;
-      }
+/* =====================================
+   2. TẢI OPENCV BẰNG ES MODULE
+===================================== */
 
-      if (Date.now() - start > timeout) {
-        clearInterval(timer);
-        reject(new Error("OpenCV chưa khởi tạo xong."));
-      }
-    }, 250);
-  });
-}
+async function loadOpenCV(){
 
-async function loadOpenCV() {
-  if (checkOpenCV()) return window.cv;
+  if(cvInstance && cvInstance.Mat){
+    return cvInstance;
+  }
 
-  if (cvPromise) return cvPromise;
+  if(cvPromise){
+    return cvPromise;
+  }
 
-  cvPromise = (async () => {
+  cvPromise = (async()=>{
 
-    const urls = [
-      "https://docs.opencv.org/4.10.0/opencv.js",
-      "https://docs.opencv.org/4.x/opencv.js"
+    setStatus("Đang tải thư viện OpenCV...");
+
+    const sources = [
+      "https://esm.sh/@techstark/opencv-js@4.12.0-release.1",
+      "https://cdn.jsdelivr.net/npm/@techstark/opencv-js@4.12.0-release.1/+esm"
     ];
 
     let lastError = null;
 
-    for (const url of urls) {
-      try {
-        setStatus("Đang tải thư viện xử lý ảnh...");
+    for(const source of sources){
 
-        await new Promise((resolve, reject) => {
+      try{
 
-          const script = document.createElement("script");
+        setStatus("Đang kết nối thư viện xử lý ảnh...");
 
-          script.src = url;
-          script.async = true;
+        const module = await import(source);
 
-          script.onload = resolve;
+        let cv = module.default || module.cv || module;
 
-          script.onerror = () => {
-            script.remove();
-            reject(new Error("Không tải được: " + url));
-          };
+        // Thư viện có thể trả về Promise.
+        if(cv && typeof cv.then === "function"){
+          cv = await cv;
+        }
 
-          document.head.appendChild(script);
+        // Chờ WebAssembly khởi tạo nếu cần.
+        if(!cv || !cv.Mat){
 
-        });
+          await new Promise((resolve,reject)=>{
 
-        const cvInstance = await waitForOpenCV(60000);
+            if(!cv){
+              reject(new Error("Không tìm thấy module OpenCV."));
+              return;
+            }
 
-        setStatus("Đã tải thư viện xử lý ảnh thành công.");
+            const timeout = setTimeout(()=>{
+              reject(new Error("OpenCV khởi tạo quá thời gian."));
+            },60000);
+
+            const oldCallback = cv.onRuntimeInitialized;
+
+            cv.onRuntimeInitialized = ()=>{
+
+              clearTimeout(timeout);
+
+              if(typeof oldCallback === "function"){
+                oldCallback();
+              }
+
+              resolve();
+            };
+
+          });
+
+        }
+
+        if(!cv || !cv.Mat || !cv.inpaint){
+          throw new Error("OpenCV chưa có đủ chức năng xử lý ảnh.");
+        }
+
+        cvInstance = cv;
+
+        setStatus("OpenCV đã sẵn sàng.");
 
         return cvInstance;
 
-      } catch (error) {
+      }catch(error){
+
+        console.error("OpenCV source error:",source,error);
         lastError = error;
-        console.error(error);
+
       }
+
     }
 
     throw new Error(
-      "Không thể tải OpenCV.js. Hãy kiểm tra kết nối Internet hoặc thử lại sau."
+      "Không tải được OpenCV từ các máy chủ CDN. " +
+      "Hãy kiểm tra Internet hoặc thử lại sau. " +
+      (lastError ? lastError.message : "")
     );
 
   })();
 
-  try {
+  try{
     return await cvPromise;
-  } catch (error) {
+  }catch(error){
     cvPromise = null;
     throw error;
   }
+
 }
 
 
-/* ======================================
-   3. TẢI THƯ VIỆN ZIP
-====================================== */
+/* =====================================
+   3. TẢI JSZIP
+===================================== */
 
-async function loadJSZip() {
-  if (window.JSZip) return window.JSZip;
+async function loadJSZip(){
 
-  if (zipPromise) return zipPromise;
+  if(window.JSZip){
+    return window.JSZip;
+  }
 
-  zipPromise = new Promise((resolve, reject) => {
+  if(zipPromise){
+    return zipPromise;
+  }
+
+  zipPromise = new Promise((resolve,reject)=>{
 
     const script = document.createElement("script");
 
     script.src =
       "https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js";
 
-    script.onload = () => {
-      if (window.JSZip) {
+    script.onload = ()=>{
+      if(window.JSZip){
         resolve(window.JSZip);
-      } else {
-        reject(new Error("Không thể khởi tạo JSZip."));
+      }else{
+        reject(new Error("Không khởi tạo được JSZip."));
       }
     };
 
-    script.onerror = () => {
-      script.remove();
+    script.onerror = ()=>{
       reject(new Error("Không tải được thư viện ZIP."));
     };
 
@@ -451,30 +266,32 @@ async function loadJSZip() {
 
   });
 
-  try {
+  try{
     return await zipPromise;
-  } catch (error) {
+  }catch(error){
     zipPromise = null;
     throw error;
   }
+
 }
 
 
-/* ======================================
-   4. ĐỌC ẢNH
-====================================== */
+/* =====================================
+   4. ĐỌC FILE ẢNH
+===================================== */
 
-function loadImage(file) {
-  return new Promise((resolve, reject) => {
+function loadImage(file){
+
+  return new Promise((resolve,reject)=>{
 
     const url = URL.createObjectURL(file);
     const img = new Image();
 
-    img.onload = () => {
-      resolve({ img, url });
+    img.onload = ()=>{
+      resolve({img,url});
     };
 
-    img.onerror = () => {
+    img.onerror = ()=>{
       URL.revokeObjectURL(url);
       reject(new Error("Không thể đọc ảnh."));
     };
@@ -482,25 +299,27 @@ function loadImage(file) {
     img.src = url;
 
   });
+
 }
 
-async function addFiles(fileList) {
+async function addFiles(fileList){
 
-  const validFiles = [...fileList].filter(file =>
-    ["image/jpeg", "image/png", "image/webp"].includes(file.type)
+  const files = [...fileList].filter(file=>
+    ["image/jpeg","image/png","image/webp"].includes(file.type)
   );
 
-  if (!validFiles.length) {
+  if(!files.length){
     setStatus("Vui lòng chọn ảnh JPG, PNG hoặc WEBP.");
     return;
   }
 
   setStatus("Đang tải ảnh...");
 
-  for (const file of validFiles) {
+  for(const file of files){
 
-    try {
-      const { img, url } = await loadImage(file);
+    try{
+
+      const {img,url} = await loadImage(file);
 
       const canvas = document.createElement("canvas");
 
@@ -512,35 +331,34 @@ async function addFiles(fileList) {
         img,
         url,
         canvas,
-        regions: [],
-        resultBlob: null
+        regions:[],
+        resultBlob:null
       });
 
-    } catch (error) {
+    }catch(error){
       console.error(error);
     }
+
   }
 
   renderGallery();
-
-  zipBlob = null;
-  downloadBtn.disabled = true;
+  invalidateZip();
 
   setStatus("Đã tải " + images.length + " ảnh.");
 
 }
 
 
-/* ======================================
-   5. HIỂN THỊ ẢNH VÀ VÙNG ĐÁNH DẤU
-====================================== */
+/* =====================================
+   5. VẼ ẢNH VÀ VÙNG KHOANH
+===================================== */
 
-function drawImage(item) {
+function drawImage(item){
 
   const canvas = item.canvas;
   const ctx = canvas.getContext("2d");
 
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.clearRect(0,0,canvas.width,canvas.height);
 
   ctx.drawImage(
     item.img,
@@ -550,117 +368,45 @@ function drawImage(item) {
     canvas.height
   );
 
-  item.regions.forEach(region => {
+  item.regions.forEach(region=>{
 
     ctx.fillStyle = "rgba(255,0,0,0.35)";
     ctx.strokeStyle = "#ff0000";
-    ctx.lineWidth = Math.max(2, canvas.width / 300);
+    ctx.lineWidth = Math.max(2,canvas.width/300);
 
-    ctx.fillRect(
-      region.x,
-      region.y,
-      region.w,
-      region.h
-    );
-
-    ctx.strokeRect(
-      region.x,
-      region.y,
-      region.w,
-      region.h
-    );
+    ctx.fillRect(region.x,region.y,region.w,region.h);
+    ctx.strokeRect(region.x,region.y,region.w,region.h);
 
   });
+
 }
 
-function renderGallery() {
+function updateCardInfo(item){
 
-  gallery.innerHTML = "";
+  const index = images.indexOf(item);
+  const card = gallery.children[index];
 
-  if (!images.length) {
-    gallery.innerHTML =
-      '<div class="empty">Chưa có ảnh nào được tải lên.</div>';
-    return;
-  }
+  if(!card) return;
 
-  images.forEach((item, index) => {
+  const info = card.querySelector(".small-status");
 
-    const card = document.createElement("div");
-    card.className = "image-card";
-
-    const title = document.createElement("h3");
-    title.textContent = (index + 1) + ". " + item.file.name;
-
-    const wrap = document.createElement("div");
-    wrap.className = "canvas-wrap";
-
-    wrap.appendChild(item.canvas);
-
-    const actions = document.createElement("div");
-    actions.className = "image-actions";
-
-    const undoBtn = document.createElement("button");
-    undoBtn.className = "secondary";
-    undoBtn.textContent = "Hoàn tác";
-
-    undoBtn.onclick = () => {
-
-      item.regions.pop();
-      item.resultBlob = null;
-
-      drawImage(item);
-      invalidateZip();
-
-    };
-
-    const clearBtn = document.createElement("button");
-    clearBtn.className = "danger";
-    clearBtn.textContent = "Xóa vùng";
-
-    clearBtn.onclick = () => {
-
-      item.regions = [];
-      item.resultBlob = null;
-
-      drawImage(item);
-      invalidateZip();
-
-    };
-
-    actions.append(undoBtn, clearBtn);
-
-    const info = document.createElement("div");
-    info.className = "small-status";
-
+  if(info){
     info.textContent =
       "Kích thước: " +
       item.canvas.width + " × " +
       item.canvas.height +
-      " | Vùng đã khoanh: " + item.regions.length;
-
-    card.append(title, wrap, actions, info);
-
-    gallery.appendChild(card);
-
-    setupSelection(item);
-
-    drawImage(item);
-
-  });
+      " | Vùng đã khoanh: " +
+      item.regions.length;
+  }
 
 }
 
-function invalidateZip() {
-  zipBlob = null;
-  downloadBtn.disabled = true;
-}
 
+/* =====================================
+   6. KHOANH VÙNG BẰNG CHUỘT
+===================================== */
 
-/* ======================================
-   6. KHOANH VÙNG WATERMARK
-====================================== */
-
-function setupSelection(item) {
+function setupSelection(item){
 
   const canvas = item.canvas;
 
@@ -668,21 +414,18 @@ function setupSelection(item) {
   let startX = 0;
   let startY = 0;
 
-  function getPosition(event) {
+  function getPosition(event){
 
     const rect = canvas.getBoundingClientRect();
 
     return {
-      x: (event.clientX - rect.left) *
-         canvas.width / rect.width,
-
-      y: (event.clientY - rect.top) *
-         canvas.height / rect.height
+      x:(event.clientX-rect.left)*canvas.width/rect.width,
+      y:(event.clientY-rect.top)*canvas.height/rect.height
     };
 
   }
 
-  canvas.addEventListener("pointerdown", event => {
+  canvas.addEventListener("pointerdown",event=>{
 
     event.preventDefault();
 
@@ -697,9 +440,9 @@ function setupSelection(item) {
 
   });
 
-  canvas.addEventListener("pointermove", event => {
+  canvas.addEventListener("pointermove",event=>{
 
-    if (!drawing) return;
+    if(!drawing) return;
 
     event.preventDefault();
 
@@ -711,53 +454,48 @@ function setupSelection(item) {
 
     ctx.fillStyle = "rgba(255,0,0,0.35)";
     ctx.strokeStyle = "red";
-    ctx.lineWidth = Math.max(2, canvas.width / 300);
+    ctx.lineWidth = Math.max(2,canvas.width/300);
 
     ctx.fillRect(
       startX,
       startY,
-      pos.x - startX,
-      pos.y - startY
+      pos.x-startX,
+      pos.y-startY
     );
 
     ctx.strokeRect(
       startX,
       startY,
-      pos.x - startX,
-      pos.y - startY
+      pos.x-startX,
+      pos.y-startY
     );
 
   });
 
-  function finish(event) {
+  function finish(event){
 
-    if (!drawing) return;
+    if(!drawing) return;
 
     drawing = false;
 
     const pos = getPosition(event);
 
-    const x = Math.max(0, Math.min(startX, pos.x));
-    const y = Math.max(0, Math.min(startY, pos.y));
+    const x = Math.max(0,Math.min(startX,pos.x));
+    const y = Math.max(0,Math.min(startY,pos.y));
 
     const w = Math.min(
-      canvas.width - x,
-      Math.abs(pos.x - startX)
+      canvas.width-x,
+      Math.abs(pos.x-startX)
     );
 
     const h = Math.min(
-      canvas.height - y,
-      Math.abs(pos.y - startY)
+      canvas.height-y,
+      Math.abs(pos.y-startY)
     );
 
-    if (w > 2 && h > 2) {
+    if(w>2 && h>2){
 
-      item.regions.push({
-        x,
-        y,
-        w,
-        h
-      });
+      item.regions.push({x,y,w,h});
 
       item.resultBlob = null;
 
@@ -766,50 +504,110 @@ function setupSelection(item) {
     }
 
     drawImage(item);
-
     updateCardInfo(item);
 
   }
 
-  canvas.addEventListener("pointerup", finish);
+  canvas.addEventListener("pointerup",finish);
 
-  canvas.addEventListener("pointercancel", () => {
+  canvas.addEventListener("pointercancel",()=>{
     drawing = false;
     drawImage(item);
   });
 
 }
 
-function updateCardInfo(item) {
 
-  const cards = [...document.querySelectorAll(".image-card")];
+/* =====================================
+   7. HIỂN THỊ DANH SÁCH ẢNH
+===================================== */
 
-  const index = images.indexOf(item);
+function renderGallery(){
 
-  if (cards[index]) {
+  gallery.innerHTML = "";
 
-    const info = cards[index].querySelector(".small-status");
+  if(!images.length){
 
-    if (info) {
-      info.textContent =
-        "Kích thước: " +
-        item.canvas.width + " × " +
-        item.canvas.height +
-        " | Vùng đã khoanh: " + item.regions.length;
-    }
+    gallery.innerHTML =
+      '<div class="empty">Chưa có ảnh nào được tải lên.</div>';
+
+    return;
 
   }
+
+  images.forEach((item,index)=>{
+
+    const card = document.createElement("div");
+    card.className = "image-card";
+
+    const title = document.createElement("h3");
+    title.textContent = (index+1)+". "+item.file.name;
+
+    const wrap = document.createElement("div");
+    wrap.className = "canvas-wrap";
+    wrap.appendChild(item.canvas);
+
+    const actions = document.createElement("div");
+    actions.className = "image-actions";
+
+    const undo = document.createElement("button");
+    undo.className = "secondary";
+    undo.textContent = "Hoàn tác";
+
+    undo.onclick = ()=>{
+
+      item.regions.pop();
+      item.resultBlob = null;
+
+      drawImage(item);
+      updateCardInfo(item);
+      invalidateZip();
+
+    };
+
+    const clear = document.createElement("button");
+    clear.className = "danger";
+    clear.textContent = "Xóa vùng";
+
+    clear.onclick = ()=>{
+
+      item.regions = [];
+      item.resultBlob = null;
+
+      drawImage(item);
+      updateCardInfo(item);
+      invalidateZip();
+
+    };
+
+    actions.append(undo,clear);
+
+    const info = document.createElement("div");
+    info.className = "small-status";
+
+    info.textContent =
+      "Kích thước: "+
+      item.canvas.width+" × "+
+      item.canvas.height+
+      " | Vùng đã khoanh: "+item.regions.length;
+
+    card.append(title,wrap,actions,info);
+
+    gallery.appendChild(card);
+
+    setupSelection(item);
+    drawImage(item);
+
+  });
 
 }
 
 
-/* ======================================
-   7. TẠO MASK
-====================================== */
+/* =====================================
+   8. TẠO MASK
+===================================== */
 
-function createMask(item) {
-
-  const cv = window.cv;
+function createMask(cv,item){
 
   const mask = new cv.Mat.zeros(
     item.canvas.height,
@@ -817,27 +615,27 @@ function createMask(item) {
     cv.CV_8UC1
   );
 
-  item.regions.forEach(region => {
+  item.regions.forEach(region=>{
 
-    const x = Math.max(0, Math.floor(region.x));
-    const y = Math.max(0, Math.floor(region.y));
+    const x = Math.max(0,Math.floor(region.x));
+    const y = Math.max(0,Math.floor(region.y));
 
     const w = Math.min(
-      item.canvas.width - x,
+      item.canvas.width-x,
       Math.ceil(region.w)
     );
 
     const h = Math.min(
-      item.canvas.height - y,
+      item.canvas.height-y,
       Math.ceil(region.h)
     );
 
-    if (w <= 0 || h <= 0) return;
+    if(w<=0 || h<=0) return;
 
     cv.rectangle(
       mask,
-      new cv.Point(x, y),
-      new cv.Point(x + w, y + h),
+      new cv.Point(x,y),
+      new cv.Point(x+w,y+h),
       new cv.Scalar(255),
       -1
     );
@@ -849,37 +647,35 @@ function createMask(item) {
 }
 
 
-/* ======================================
-   8. XỬ LÝ MỘT ẢNH
-====================================== */
+/* =====================================
+   9. XỬ LÝ ẢNH BẰNG INPAINT
+===================================== */
 
-async function processImage(item) {
+async function processImage(item){
 
-  if (!item.regions.length) return null;
+  if(!item.regions.length){
+    return null;
+  }
 
-  const cv = window.cv;
+  const cv = cvInstance;
 
-  // Đọc ảnh gốc, không đọc canvas có vùng đỏ đánh dấu.
   const sourceRGBA = cv.imread(item.img);
-
   const sourceRGB = new cv.Mat();
   const outputRGB = new cv.Mat();
   const outputRGBA = new cv.Mat();
 
   let mask = null;
 
-  try {
+  try{
 
-    // Chuyển RGBA thành RGB để tương thích với inpaint.
     cv.cvtColor(
       sourceRGBA,
       sourceRGB,
       cv.COLOR_RGBA2RGB
     );
 
-    mask = createMask(item);
+    mask = createMask(cv,item);
 
-    // Thuật toán tái tạo vùng ảnh.
     cv.inpaint(
       sourceRGB,
       mask,
@@ -888,7 +684,6 @@ async function processImage(item) {
       cv.INPAINT_TELEA
     );
 
-    // Chuyển kết quả về RGBA để hiển thị.
     cv.cvtColor(
       outputRGB,
       outputRGBA,
@@ -900,54 +695,56 @@ async function processImage(item) {
     resultCanvas.width = item.canvas.width;
     resultCanvas.height = item.canvas.height;
 
-    cv.imshow(resultCanvas, outputRGBA);
+    cv.imshow(resultCanvas,outputRGBA);
 
-    return await new Promise((resolve, reject) => {
+    const blob = await new Promise((resolve,reject)=>{
 
-      resultCanvas.toBlob(blob => {
+      resultCanvas.toBlob(result=>{
 
-        if (!blob) {
+        if(!result){
           reject(new Error("Không thể xuất ảnh."));
           return;
         }
 
-        resolve(blob);
+        resolve(result);
 
-      }, "image/png");
+      },"image/png");
 
     });
 
-  } finally {
+    return blob;
+
+  }finally{
 
     sourceRGBA.delete();
     sourceRGB.delete();
     outputRGB.delete();
     outputRGBA.delete();
 
-    if (mask) mask.delete();
+    if(mask){
+      mask.delete();
+    }
 
   }
 
 }
 
 
-/* ======================================
-   9. XỬ LÝ HÀNG LOẠT
-====================================== */
+/* =====================================
+   10. XỬ LÝ HÀNG LOẠT
+===================================== */
 
-processBtn.onclick = async () => {
+processBtn.addEventListener("click",async()=>{
 
-  if (!images.length) {
+  if(!images.length){
     setStatus("Bạn chưa tải ảnh lên.");
     return;
   }
 
-  const selectedImages = images.filter(
-    item => item.regions.length > 0
-  );
+  const selected = images.filter(item=>item.regions.length>0);
 
-  if (!selectedImages.length) {
-    setStatus("Bạn cần khoanh vùng watermark trước.");
+  if(!selected.length){
+    setStatus("Bạn cần khoanh vùng trước khi xử lý.");
     return;
   }
 
@@ -958,112 +755,98 @@ processBtn.onclick = async () => {
   zipBlob = null;
   setProgress(0);
 
-  try {
+  let completed = 0;
+  let failed = 0;
 
-    setStatus("Đang tải thư viện xử lý ảnh...");
+  try{
 
     await loadOpenCV();
 
-    setStatus("Đang xử lý ảnh...");
+    for(let i=0;i<selected.length;i++){
 
-    let completed = 0;
-    let failed = 0;
-
-    for (const item of selectedImages) {
+      const item = selected[i];
 
       setStatus(
-        "Đang xử lý " +
-        (completed + failed + 1) +
-        "/" +
-        selectedImages.length +
-        ": " +
-        item.file.name
+        "Đang xử lý ảnh "+(i+1)+"/"+selected.length+
+        ": "+item.file.name
       );
 
-      try {
+      try{
 
-        const blob = await processImage(item);
+        item.resultBlob = await processImage(item);
+        completed++;
 
-        if (blob) {
-          item.resultBlob = blob;
-          completed++;
-        }
-
-      } catch (error) {
+      }catch(error){
 
         console.error(error);
+        item.resultBlob = null;
         failed++;
 
       }
 
-      setProgress(
-        ((completed + failed) / selectedImages.length) * 100
-      );
+      setProgress((i+1)/selected.length*100);
 
     }
 
-    if (!completed) {
+    if(!completed){
       throw new Error("Không có ảnh nào xử lý thành công.");
     }
 
     setStatus("Đang tạo file ZIP...");
 
     const JSZip = await loadJSZip();
-
     const zip = new JSZip();
 
-    images.forEach((item, index) => {
+    images.forEach((item,index)=>{
 
-      if (!item.resultBlob) return;
+      if(!item.resultBlob) return;
 
       const filename = item.file.name
-        .replace(/\.[^.]+$/, "")
-        .replace(/[\\/:*?"<>|]/g, "_");
+        .replace(/\.[^.]+$/,"")
+        .replace(/[\\/:*?"<>|]/g,"_");
 
       zip.file(
-        (index + 1) + "_" + filename + "_clean.png",
+        (index+1)+"_"+filename+"_clean.png",
         item.resultBlob
       );
 
     });
 
     zipBlob = await zip.generateAsync({
-      type: "blob"
+      type:"blob"
     });
 
     downloadBtn.disabled = false;
 
     setStatus(
-      "Hoàn tất! Thành công: " +
-      completed +
-      " ảnh. Thất bại: " +
-      failed +
-      " ảnh. Nhấn Tải ZIP kết quả để tải xuống."
+      "Hoàn tất! Thành công: "+completed+
+      " ảnh. Thất bại: "+failed+
+      " ảnh. Nhấn Tải ZIP kết quả."
     );
 
-  } catch (error) {
+  }catch(error){
 
     console.error(error);
 
-    setStatus("Lỗi: " + error.message);
+    setStatus("Lỗi: "+error.message);
 
-  } finally {
+  }finally{
 
     processBtn.disabled = false;
     autoBtn.disabled = false;
 
   }
 
-};
+});
 
 
-/* ======================================
-   10. DÒ VÙNG SÁNG THỬ NGHIỆM
-====================================== */
+/* =====================================
+   11. DÒ VÙNG SÁNG THỬ NGHIỆM
+===================================== */
 
-autoBtn.onclick = async () => {
+autoBtn.addEventListener("click",async()=>{
 
-  if (!images.length) {
+  if(!images.length){
     setStatus("Bạn chưa tải ảnh lên.");
     return;
   }
@@ -1071,25 +854,23 @@ autoBtn.onclick = async () => {
   autoBtn.disabled = true;
   processBtn.disabled = true;
 
-  try {
+  try{
 
     await loadOpenCV();
 
-    const cv = window.cv;
+    const cv = cvInstance;
 
     let detected = 0;
 
-    for (const item of images) {
+    for(const item of images){
 
       const source = cv.imread(item.img);
-
       const gray = new cv.Mat();
       const mask = new cv.Mat();
-
       const contours = new cv.MatVector();
       const hierarchy = new cv.Mat();
 
-      try {
+      try{
 
         cv.cvtColor(
           source,
@@ -1115,42 +896,43 @@ autoBtn.onclick = async () => {
 
         item.regions = [];
 
-        for (let i = 0; i < contours.size(); i++) {
+        for(let i=0;i<contours.size();i++){
 
           const contour = contours.get(i);
 
-          try {
+          try{
 
             const rect = cv.boundingRect(contour);
+            const area = rect.width*rect.height;
 
-            const area = rect.width * rect.height;
-
-            if (
-              area > 80 &&
-              rect.width < item.canvas.width * 0.25 &&
-              rect.height < item.canvas.height * 0.25
-            ) {
+            if(
+              area>80 &&
+              rect.width<item.canvas.width*0.25 &&
+              rect.height<item.canvas.height*0.25
+            ){
 
               item.regions.push({
-                x: rect.x,
-                y: rect.y,
-                w: rect.width,
-                h: rect.height
+                x:rect.x,
+                y:rect.y,
+                w:rect.width,
+                h:rect.height
               });
 
             }
 
-          } finally {
+          }finally{
             contour.delete();
           }
 
         }
 
-        if (item.regions.length) detected++;
+        if(item.regions.length){
+          detected++;
+        }
 
         item.resultBlob = null;
 
-      } finally {
+      }finally{
 
         source.delete();
         gray.delete();
@@ -1163,94 +945,82 @@ autoBtn.onclick = async () => {
     }
 
     renderGallery();
-
     invalidateZip();
 
     setStatus(
-      "Dò thử nghiệm xong. Có vùng sáng trong " +
-      detected +
-      "/" +
-      images.length +
+      "Dò thử nghiệm xong. Tìm thấy vùng sáng trong "+
+      detected+"/"+images.length+
       " ảnh. Hãy kiểm tra và chỉnh lại vùng khoanh."
     );
 
-  } catch (error) {
+  }catch(error){
 
     console.error(error);
+    setStatus("Lỗi dò tự động: "+error.message);
 
-    setStatus("Lỗi dò tự động: " + error.message);
-
-  } finally {
+  }finally{
 
     autoBtn.disabled = false;
     processBtn.disabled = false;
 
   }
 
-};
+});
 
 
-/* ======================================
-   11. TẢI FILE ZIP
-====================================== */
+/* =====================================
+   12. TẢI ZIP
+===================================== */
 
-downloadBtn.onclick = () => {
+downloadBtn.addEventListener("click",()=>{
 
-  if (!zipBlob) return;
+  if(!zipBlob) return;
 
   const url = URL.createObjectURL(zipBlob);
 
   const a = document.createElement("a");
 
   a.href = url;
-  a.download = "watermark-removed-images.zip";
+  a.download = "edited-images.zip";
 
   document.body.appendChild(a);
   a.click();
   a.remove();
 
-  setTimeout(() => {
+  setTimeout(()=>{
     URL.revokeObjectURL(url);
-  }, 2000);
+  },3000);
 
-};
+});
 
 
-/* ======================================
-   12. CHỌN ẢNH
-====================================== */
+/* =====================================
+   13. CHỌN FILE VÀ KÉO THẢ
+===================================== */
 
-fileInput.addEventListener("change", event => {
+fileInput.addEventListener("change",event=>{
 
   addFiles(event.target.files);
-
   fileInput.value = "";
 
 });
 
-
-/* ======================================
-   13. KÉO THẢ ẢNH
-====================================== */
-
-uploadBox.addEventListener("dragover", event => {
+uploadBox.addEventListener("dragover",event=>{
 
   event.preventDefault();
-
   uploadBox.classList.add("dragging");
 
 });
 
-uploadBox.addEventListener("dragleave", () => {
+uploadBox.addEventListener("dragleave",()=>{
 
   uploadBox.classList.remove("dragging");
 
 });
 
-uploadBox.addEventListener("drop", event => {
+uploadBox.addEventListener("drop",event=>{
 
   event.preventDefault();
-
   uploadBox.classList.remove("dragging");
 
   addFiles(event.dataTransfer.files);
